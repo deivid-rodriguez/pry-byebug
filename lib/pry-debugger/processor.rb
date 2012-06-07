@@ -18,6 +18,8 @@ module PryDebugger
       times = (command[:times] || 1).to_i   # Command argument
       times = 1 if times <= 0
 
+      remote = @pry_start_options[:pry_remote] && PryDebugger.current_remote_server
+
       if [:step, :next].include? command[:action]
         Debugger.start
         if Debugger.current_context.frame_self.is_a? Debugger::Context
@@ -26,7 +28,7 @@ module PryDebugger
           # out to the above frame.
           #
           # TODO: times isn't respected
-          Debugger.current_context.stop_frame = 1
+          Debugger.current_context.stop_frame = 1 # (remote ? 2 : 1)
         else
           if :next == command[:action]
             Debugger.current_context.step_over(times, 0)
@@ -34,6 +36,8 @@ module PryDebugger
             Debugger.current_context.step(times)
           end
         end
+      elsif remote  # Continuing execution... cleanup DRb remote if running
+        PryDebugger.current_remote_server.teardown
       end
 
       return_value
@@ -43,6 +47,7 @@ module PryDebugger
     # --- Callbacks from debugger C extension ---
 
     def at_line(context, file, line)
+      return if file && TRACE_IGNORE_FILES.include?(File.expand_path(file))
       start_pry context
     end
 

@@ -21,4 +21,5 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 1.9.2'
   gem.add_runtime_dependency 'pry', '~> 0.9.9'
   gem.add_runtime_dependency 'debugger', '~> 1.1.3'
+  gem.add_development_dependency 'pry-remote', '~> 0.1.4'
 end

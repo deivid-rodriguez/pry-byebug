@@ -22,6 +22,15 @@ Only supports MRI 1.9.2 and 1.9.3. For a pure-ruby approach not reliant on
 [debugger][debugger], check out [pry-nav][pry-nav]. Note: *pry-nav* and
 *pry-debugger* cannot be loaded together.
 
+Support for [pry-remote][pry-remote] (>= 0.1.4) is also included. Requires
+explicity requiring pry-nav, not just relying on pry's plugin loader. For
+example, in a Gemfile:
+
+```ruby
+gem 'pry'
+gem 'pry-nav'
+```
+
 Stepping through code often? Add the following shortcuts to `~/.pryrc`:
 
 ```ruby
@@ -39,6 +48,7 @@ file an [issue][issues]. [Project changelog][changelog].
 [pry]:            http://pry.github.com
 [debugger]:       https://github.com/cldwalker/debugger
 [pry-nav]:        https://github.com/nixme/pry-nav
+[pry-remote]:     https://github.com/Mon-Ouie/pry-remote
 [pullrequests]:   https://github.com/nixme/pry-debugger/pulls
 [issues]:         https://github.com/nixme/pry-debugger/issues
 [changelog]:      https://github.com/nixme/pry-debugger/blob/master/CHANGELOG.md
