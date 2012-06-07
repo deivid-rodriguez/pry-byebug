@@ -23,12 +23,12 @@ Only supports MRI 1.9.2 and 1.9.3. For a pure-ruby approach not reliant on
 *pry-debugger* cannot be loaded together.
 
 Support for [pry-remote][pry-remote] (>= 0.1.4) is also included. Requires
-explicity requiring pry-nav, not just relying on pry's plugin loader. For
+explicity requiring pry-debugger, not just relying on pry's plugin loader. For
 example, in a Gemfile:
 
 ```ruby
 gem 'pry'
-gem 'pry-nav'
+gem 'pry-debugger'
 ```
 
 Stepping through code often? Add the following shortcuts to `~/.pryrc`:
