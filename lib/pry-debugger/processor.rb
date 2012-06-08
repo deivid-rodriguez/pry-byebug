@@ -5,7 +5,7 @@ module PryDebugger
   class Processor
     def initialize
       Debugger.handler = self
-      @pry = nil
+      @pry, @always_enabled = nil, nil
       @delayed = Hash.new(0)
     end
 
@@ -39,7 +39,7 @@ module PryDebugger
         end
 
       else   # Continuing execution... cleanup DRb remote if running
-        Debugger.stop if Debugger.started?
+        Debugger.stop if !@always_enabled && Debugger.started?
         if PryDebugger.current_remote_server
           PryDebugger.current_remote_server.teardown
         end
@@ -48,6 +48,12 @@ module PryDebugger
       return_value
     end
 
+    def add_breakpoint(pry, file, line, expression = nil)
+      @pry = pry
+      @always_enabled = true
+      Debugger.start
+      Debugger.add_breakpoint(File.expand_path(file), line)
+    end
 
     # --- Callbacks from debugger C extension ---
 
@@ -68,7 +74,7 @@ module PryDebugger
     end
 
     def at_breakpoint(context, breakpoint)
-      # TODO
+      resume_pry context
     end
 
     def at_catchpoint(context, exception)
@@ -80,7 +86,7 @@ module PryDebugger
 
     def resume_pry(context)
       new_binding = context.frame_binding(0)
-      Debugger.stop
+      Debugger.stop unless @always_enabled
 
       @pry.binding_stack.clear
       run do

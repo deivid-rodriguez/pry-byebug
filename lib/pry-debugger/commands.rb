@@ -17,6 +17,11 @@ module PryDebugger
       run 'exit-all'
     end
 
+    block_command 'break', 'Set a breakpoint where to stop execution' do |method|
+      file, line = Pry::Method.from_str(method).source_location
+      Pry.processor.add_breakpoint(_pry_, file, line)
+    end
+
     helpers do
       def breakout_navigation(action, times)
         _pry_.binding_stack.clear     # Clear the binding stack.

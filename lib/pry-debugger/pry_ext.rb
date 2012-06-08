@@ -3,6 +3,7 @@ require 'pry-debugger/processor'
 
 class << Pry
   alias_method :start_existing, :start
+  attr_reader :processor
 
   def start(target = TOPLEVEL_BINDING, options = {})
     @processor ||= PryDebugger::Processor.new
