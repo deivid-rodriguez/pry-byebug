@@ -2,9 +2,8 @@ require 'pry-remote'
 
 module PryRemote
   class Server
-    # Override the call to Pry.start to save off current Server, pass a
-    # pry_remote flag so pry-debugger knows this is a remote session, and not
-    # kill the server right away.
+    # Override the call to Pry.start to save off current Server, and not
+    # teardown the server right after Pry.start finishes.
     def run
       if PryDebugger.current_remote_server
         raise 'Already running a pry-remote session!'
@@ -15,8 +14,7 @@ module PryRemote
       setup
       Pry.start @object, {
         :input  => client.input_proxy,
-        :output => client.output,
-        :pry_remote => true
+        :output => client.output
       }
     end
 
