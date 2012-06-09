@@ -9,7 +9,8 @@ module PryDebugger
       @delayed = Hash.new(0)
     end
 
-    def run(&block)
+    # Wrap a Pry REPL to catch navigational commands and act on them.
+    def run(initial = true, &block)
       return_value = nil
       command = catch(:breakout_nav) do  # Throws from PryDebugger::Commands
         return_value = yield
@@ -23,11 +24,11 @@ module PryDebugger
         @pry = command[:pry]   # Pry instance to resume after stepping
         Debugger.start
 
-        if Debugger.current_context.frame_self.is_a? Debugger::Context
-          # Movement when on the binding.pry line will have a frame inside
-          # Debugger. If we step normally, it'll stop inside this Processor. So
-          # jump out and stop at the above frame, then step/next from our
-          # callback.
+        if initial
+          # Movement when on the initial binding.pry line will have a frame
+          # inside Debugger. If we step normally, it'll stop inside this
+          # Processor. So jump out and stop at the above frame, then step/next
+          # from our callback.
           Debugger.current_context.stop_frame = 1
           @delayed[command[:action]] = times
 
@@ -89,7 +90,7 @@ module PryDebugger
       Debugger.stop unless @always_enabled
 
       @pry.binding_stack.clear
-      run do
+      run(false) do
         @pry.repl new_binding
       end
     end

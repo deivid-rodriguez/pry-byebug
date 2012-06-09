@@ -11,7 +11,7 @@ class << Pry
     if target.is_a?(Binding) && PryDebugger.check_file_context(target)
       # Wrap the processer around the usual Pry.start to catch navigation
       # commands.
-      @processor.run do
+      @processor.run(true) do
         start_existing(target, options)
       end
     else
