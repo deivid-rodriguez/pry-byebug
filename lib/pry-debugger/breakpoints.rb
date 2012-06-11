@@ -65,14 +65,14 @@ module PryDebugger
       to_a.each(&block)
     end
 
-
-   private
-
     def find_by_id(id)
       breakpoint = find { |b| b.id == id }
       raise ArgumentError, "No breakpoint ##{id}!" unless breakpoint
       breakpoint
     end
+
+
+   private
 
     def change_status(id, enabled = true)
       breakpoint = find_by_id(id)

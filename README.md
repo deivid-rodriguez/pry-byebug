@@ -49,6 +49,9 @@ break --condition 3            Remove the condition on breakpoint #3.
 
 break --delete 5               Delete breakpoint #5.
 break --disable-all            Disable all breakpoints.
+
+break                          List all breakpoints. (Same as `breakpoints`)
+break --show 2                 Show details about breakpoint #2.
 ```
 
 Type `break --help` from a Pry session to see all available options.

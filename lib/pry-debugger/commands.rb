@@ -62,7 +62,7 @@ module PryDebugger
       banner <<-BANNER
         Usage:   break <METHOD | FILE:LINE | LINE> [if CONDITION]
                  break --condition N [CONDITION]
-                 break [--delete | --enable | --disable] N
+                 break [--show | --delete | --enable | --disable] N
                  break [--delete-all | --disable-all]
         Aliases: breakpoint
 
@@ -83,15 +83,19 @@ module PryDebugger
 
           break --delete 5               Delete breakpoint #5.
           break --disable-all            Disable all breakpoints.
+
+          break                          List all breakpoints. (Same as `breakpoints`)
+          break --show 2                 Show details about breakpoint #2.
       BANNER
 
       def options(opt)
-        opt.on :c, :condition, 'Change the condition of a breakpoint', :argument => true, :as => Integer
-        opt.on :D, :delete,  'Delete a breakpoint.', :argument => true, :as => Integer
-        opt.on :d, :disable, 'Disable a breakpoint.', :argument => true, :as => Integer
-        opt.on :e, :enable,  'Enable a disabled breakpoint.', :argument => true, :as => Integer
-        opt.on :'disable-all', 'Disable all breakpoints.'
-        opt.on :'delete-all',  'Delete all breakpoints.'
+        opt.on :c, :condition,     'Change the condition of a breakpoint.', :argument => true, :as => Integer
+        opt.on :s, :show,          'Show breakpoint details and source.',   :argument => true, :as => Integer
+        opt.on :D, :delete,        'Delete a breakpoint.',                  :argument => true, :as => Integer
+        opt.on :d, :disable,       'Disable a breakpoint.',                 :argument => true, :as => Integer
+        opt.on :e, :enable,        'Enable a disabled breakpoint.',         :argument => true, :as => Integer
+        opt.on     :'disable-all', 'Disable all breakpoints.'
+        opt.on     :'delete-all',  'Delete all breakpoints.'
         method_options(opt)
       end
 
@@ -106,13 +110,17 @@ module PryDebugger
         }.each do |action, method|
           if opts.present?(action)
             Breakpoints.__send__ method, *(method == action ? [opts[action]] : [])
-            return run 'breaks'
+            return run 'breakpoints'
           end
         end
 
         if opts.present?(:condition)
           Breakpoints.change(opts[:condition], args.empty? ? nil : args.join(' '))
-          run 'breaks'
+          run 'breakpoints'
+        elsif opts.present?(:show)
+          print_full_breakpoint Breakpoints.find_by_id(opts[:show])
+        elsif args.empty?
+          run 'breakpoints'
         else
           new_breakpoint
         end
