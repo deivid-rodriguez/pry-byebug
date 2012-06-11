@@ -107,6 +107,8 @@ Load a page that triggers the code. Connect to the session:
 $ bundle exec pry-remote
 ```
 
+Using Pry with Rails? Check out [Jazz Hands][jazz_hands].
+
 
 ## Tips
 
@@ -132,6 +134,7 @@ file an [issue][issues]. [Project changelog][changelog].
 [pry-nav]:            https://github.com/nixme/pry-nav
 [pry-remote]:         https://github.com/Mon-Ouie/pry-remote
 [foreman]:            https://github.com/ddollar/foreman
+[jazz_hands]:         https://github.com/nixme/jazz_hands
 [pullrequests]:       https://github.com/nixme/pry-debugger/pulls
 [issues]:             https://github.com/nixme/pry-debugger/issues
 [changelog]:          https://github.com/nixme/pry-debugger/blob/master/CHANGELOG.md
