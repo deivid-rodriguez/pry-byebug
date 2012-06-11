@@ -15,8 +15,12 @@ def some_method
 end
 ```
 
+To create a fully flexible debugging environment,
+[pry-stack_explorer][pry-stack_explorer] is recommended as a companion Pry
+plugin to add call-stack frame navigation.
 
-## Basic commands
+
+## Execution Commands
 
 **step:** Step execution into the next line or method. Takes an optional numeric
 argument to step multiple times.
@@ -44,7 +48,7 @@ break Foo#bar if baz?          Break at `Foo#bar` only if `baz?`.
 break app/models/user.rb:15    Break at line 15 in user.rb.
 break 14                       Break at line 14 in the current file.
 
-break --condition 4 x > 2      Add/change condition on breakpoint #4.
+break --condition 4 x > 2      Change condition on breakpoint #4 to 'x > 2'.
 break --condition 3            Remove the condition on breakpoint #3.
 
 break --delete 5               Delete breakpoint #5.
@@ -82,6 +86,7 @@ Gemfile:
 ```ruby
 gem 'pry'
 gem 'pry-remote'
+gem 'pry-stack_explorer'
 gem 'pry-debugger'
 ```
 
@@ -120,11 +125,13 @@ Patches and bug reports are welcome. Just send a [pull request][pullrequests] or
 file an [issue][issues]. [Project changelog][changelog].
 
 
-[pry]:            http://pry.github.com
-[debugger]:       https://github.com/cldwalker/debugger
-[pry-nav]:        https://github.com/nixme/pry-nav
-[pry-remote]:     https://github.com/Mon-Ouie/pry-remote
-[foreman]:        https://github.com/ddollar/foreman
-[pullrequests]:   https://github.com/nixme/pry-debugger/pulls
-[issues]:         https://github.com/nixme/pry-debugger/issues
-[changelog]:      https://github.com/nixme/pry-debugger/blob/master/CHANGELOG.md
+
+[pry]:                http://pry.github.com
+[debugger]:           https://github.com/cldwalker/debugger
+[pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
+[pry-nav]:            https://github.com/nixme/pry-nav
+[pry-remote]:         https://github.com/Mon-Ouie/pry-remote
+[foreman]:            https://github.com/ddollar/foreman
+[pullrequests]:       https://github.com/nixme/pry-debugger/pulls
+[issues]:             https://github.com/nixme/pry-debugger/issues
+[changelog]:          https://github.com/nixme/pry-debugger/blob/master/CHANGELOG.md
