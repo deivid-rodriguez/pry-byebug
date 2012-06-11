@@ -84,11 +84,17 @@ module PryDebugger
       end
     end
 
+    # Called when a breakpoint is triggered. Note: `at_line`` is called
+    # immediately after with the context's `stop_reason == :breakpoint`.
     def at_breakpoint(context, breakpoint)
       @pry.output.print Pry::Helpers::Text.bold("\nBreakpoint #{breakpoint.id}. ")
-      @pry.output.print (breakpoint.hit_count == 1 ?
+      @pry.output.puts  (breakpoint.hit_count == 1 ?
                            'First hit.' :
                            "Hit #{breakpoint.hit_count} times." )
+      if (expr = breakpoint.expr)
+        @pry.output.print Pry::Helpers::Text.bold("Condition: ")
+        @pry.output.puts  expr
+      end
     end
 
     def at_catchpoint(context, exception)

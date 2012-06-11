@@ -12,7 +12,14 @@ module PryDebugger
     def add(file, line, expression = nil)
       raise ArgumentError, 'Invalid file!' unless File.exist?(file)
       Pry.processor.debugging = true
-      Debugger.add_breakpoint(File.expand_path(file), line)
+      Debugger.add_breakpoint(File.expand_path(file), line, expression)
+    end
+
+    # Change the conditional expression for a breakpoint.
+    def change(id, expression = nil)
+      breakpoint = find_by_id(id)
+      breakpoint.expr = expression
+      breakpoint
     end
 
     # Delete an existing breakpoint with the given ID.
@@ -61,14 +68,16 @@ module PryDebugger
 
    private
 
-    def change_status(id, enabled = true)
+    def find_by_id(id)
       breakpoint = find { |b| b.id == id }
-      if breakpoint
-        breakpoint.enabled = enabled
-        breakpoint
-      else
-        raise ArgumentError, "No breakpoint ##{id}!"
-      end
+      raise ArgumentError, "No breakpoint ##{id}!" unless breakpoint
+      breakpoint
+    end
+
+    def change_status(id, enabled = true)
+      breakpoint = find_by_id(id)
+      breakpoint.enabled = enabled
+      breakpoint
     end
   end
 end

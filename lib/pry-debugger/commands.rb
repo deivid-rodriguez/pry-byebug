@@ -60,26 +60,33 @@ module PryDebugger
       description 'Set or edit a breakpoint.'
 
       banner <<-BANNER
-        Usage:   break [METHOD | FILE:LINE | LINE]
+        Usage:   break <METHOD | FILE:LINE | LINE> [if CONDITION]
+                 break --condition N [CONDITION]
                  break [--delete | --enable | --disable] N
                  break [--delete-all | --disable-all]
         Aliases: breakpoint
 
         Set a breakpoint. Accepts a line number in the current file, a file and
-        line number, or a method.
+        line number, or a method, and an optional condition.
 
         Pass appropriate flags to manipulate existing breakpoints.
 
         Examples:
 
-          break SomeClass#run            Break at the start of `SomeClass#run`
-          break app/models/user.rb:15    Break at line 15 in user.rb
+          break SomeClass#run            Break at the start of `SomeClass#run`.
+          break Foo#bar if baz?          Break at `Foo#bar` only if `baz?`.
+          break app/models/user.rb:15    Break at line 15 in user.rb.
           break 14                       Break at line 14 in the current file.
+
+          break --condition 4 x > 2      Add/change condition on breakpoint #4.
+          break --condition 3            Remove the condition on breakpoint #3.
+
           break --delete 5               Delete breakpoint #5.
           break --disable-all            Disable all breakpoints.
       BANNER
 
       def options(opt)
+        opt.on :c, :condition, 'Change the condition of a breakpoint', :argument => true, :as => Integer
         opt.on :D, :delete,  'Delete a breakpoint.', :argument => true, :as => Integer
         opt.on :d, :disable, 'Disable a breakpoint.', :argument => true, :as => Integer
         opt.on :e, :enable,  'Enable a disabled breakpoint.', :argument => true, :as => Integer
@@ -103,12 +110,20 @@ module PryDebugger
           end
         end
 
-        new_breakpoint
+        if opts.present?(:condition)
+          Breakpoints.change(opts[:condition], args.empty? ? nil : args.join(' '))
+          run 'breaks'
+        else
+          new_breakpoint
+        end
       end
 
       def new_breakpoint
+        place = args.shift
+        condition = args.join(' ') if 'if' == args.shift
+
         file, line =
-          case args.join
+          case place
           when /(\d+)/       # Line number only
             line = $1
             unless PryDebugger.check_file_context(target)
@@ -118,10 +133,11 @@ module PryDebugger
           when /(.+):(\d+)/  # File and line number
             [$1, $2]
           else               # Method or class name
+            self.args = [place]
             method_object.source_location
           end
 
-        print_full_breakpoint Breakpoints.add(file, line.to_i)
+        print_full_breakpoint Breakpoints.add(file, line.to_i, condition)
       end
     end
     alias_command 'breakpoint', 'break'
@@ -155,7 +171,9 @@ module PryDebugger
             Breakpoints.each do |breakpoint|
               output.printf "%#{max_width}d  ", breakpoint.id
               output.print  breakpoint.enabled? ? 'Yes      ' : 'No       '
-              output.puts   "#{breakpoint.source}:#{breakpoint.pos}"
+              output.print  "#{breakpoint.source}:#{breakpoint.pos}"
+              output.print  " (if #{breakpoint.expr})" if breakpoint.expr
+              output.puts
             end
             output.puts
           end
@@ -192,6 +210,9 @@ module PryDebugger
         output.print "#{breakpoint.source} @ line #{line} "
         output.print breakpoint.enabled? ? '(Enabled)' : '(Disabled)'
         output.puts  ' :'
+        if (expr = breakpoint.expr)
+          output.puts "#{text.bold('Condition:')} #{expr}"
+        end
         output.puts
         output.puts  Pry::Code.from_file(breakpoint.source).
                        around(line, 3).
