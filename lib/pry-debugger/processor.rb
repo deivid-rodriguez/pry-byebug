@@ -22,7 +22,7 @@ module PryDebugger
       times = (command[:times] || 1).to_i   # Command argument
       times = 1 if times <= 0
 
-      if [:step, :next].include? command[:action]
+      if [:step, :next, :finish].include? command[:action]
         @pry = command[:pry]   # Pry instance to resume after stepping
         Debugger.start unless Debugger.started?
 
@@ -37,8 +37,11 @@ module PryDebugger
         elsif :next == command[:action]
           step_over times
 
-        else  # :step == command[:action]
+        elsif :step == command[:action]
           step times
+
+        elsif :finish == command[:action]
+          finish
         end
       else
         stop
@@ -77,6 +80,10 @@ module PryDebugger
 
       elsif @delayed[:step] > 1
         step @delayed[:step] - 1
+        @delayed = Hash.new(0)
+
+      elsif @delayed[:finish] > 0
+        finish
         @delayed = Hash.new(0)
 
       else  # Otherwise, resume the pry session at the stopped line.
@@ -124,6 +131,11 @@ module PryDebugger
     # Move execution forward a number of lines in the same frame.
     def step_over(lines)
       Debugger.current_context.step_over(lines, 0)
+    end
+
+    # Execute until current frame returns.
+    def finish
+      Debugger.current_context.stop_frame = 0
     end
 
     # Cleanup when debugging is stopped and execution continues.

@@ -25,7 +25,7 @@ module PryDebugger
 
 
     create_command 'next' do
-      description 'Execute the next line within the same stack frame.'
+      description 'Execute the next line within the current stack frame.'
 
       banner <<-BANNER
         Usage: next [LINES]
@@ -42,6 +42,16 @@ module PryDebugger
       def process
         check_file_context
         breakout_navigation :next, args.first
+      end
+    end
+
+
+    create_command 'finish' do
+      description 'Execute until current stack frame returns.'
+
+      def process
+        check_file_context
+        breakout_navigation :finish
       end
     end
 
@@ -194,12 +204,12 @@ module PryDebugger
 
 
     helpers do
-      def breakout_navigation(action, times)
+      def breakout_navigation(action, times = nil)
         _pry_.binding_stack.clear     # Clear the binding stack.
         throw :breakout_nav, {        # Break out of the REPL loop and
           :action => action,          #   signal the tracer.
-          :times =>  times,
-          :pry => _pry_
+          :times  =>  times,
+          :pry    => _pry_
         }
       end
 

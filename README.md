@@ -3,8 +3,8 @@ pry-debugger
 
 _Fast execution control in Pry_
 
-Adds **step**, **next**, and **continue** commands and **breakpoints** to
-[Pry][pry] using [debugger][debugger].
+Adds **step**, **next**, **finish**, and **continue** commands and
+**breakpoints** to [Pry][pry] using [debugger][debugger].
 
 To use, invoke pry normally. No need to start your script or app differently.
 
@@ -15,9 +15,8 @@ def some_method
 end
 ```
 
-To create a fully flexible debugging environment,
-[pry-stack_explorer][pry-stack_explorer] is recommended as a companion Pry
-plugin to add call-stack frame navigation.
+For a complete debugging environment, add
+[pry-stack_explorer][pry-stack_explorer] for call-stack frame navigation.
 
 
 ## Execution Commands
@@ -28,6 +27,8 @@ argument to step multiple times.
 **next:** Step over to the next line within the same frame. Also takes an
 optional numeric argument to step multiple lines.
 
+**finish:** Execute until current stack frame returns.
+
 **continue:** Continue program execution and end the Pry session.
 
 
@@ -36,9 +37,9 @@ optional numeric argument to step multiple lines.
 You can set and adjust breakpoints directly from a Pry session using the
 following commands:
 
-**break:** Set a new breakpoint. Accepts a line number in the current file, a
-file and line number, or a method, and an optional condition. By passing various
-flags, existing breakpoints can be changed.
+**break:** Set a new breakpoint from a line number in the current file, a file
+and line number, or a method. Pass an optional expression to create a
+conditional breakpoint. Edit existing breakpoints via various flags.
 
 Examples:
 
@@ -118,6 +119,7 @@ Stepping through code often? Add the following shortcuts to `~/.pryrc`:
 Pry.commands.alias_command 'c', 'continue'
 Pry.commands.alias_command 's', 'step'
 Pry.commands.alias_command 'n', 'next'
+Pry.commands.alias_command 'f', 'finish'
 ```
 
 
