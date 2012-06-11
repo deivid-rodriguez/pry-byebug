@@ -3,21 +3,56 @@ require 'pry-debugger/breakpoints'
 
 module PryDebugger
   Commands = Pry::CommandSet.new do
-    block_command 'step', 'Step execution into the next line or method.' do |steps|
-      check_file_context
-      breakout_navigation :step, steps
+    create_command 'step' do
+      description 'Step execution into the next line or method.'
+
+      banner <<-BANNER
+        Usage: step [TIMES]
+
+        Step execution forward. By default, moves a single step.
+
+        Examples:
+
+          step                           Move a single step forward.
+          step 5                         Execute the next 5 steps.
+      BANNER
+
+      def process
+        check_file_context
+        breakout_navigation :step, args.first
+      end
     end
 
 
-    block_command 'next', 'Execute the next line within the same stack frame.' do |lines|
-      check_file_context
-      breakout_navigation :next, lines
+    create_command 'next' do
+      description 'Execute the next line within the same stack frame.'
+
+      banner <<-BANNER
+        Usage: next [LINES]
+
+        Step over within the same frame. By default, moves forward a single
+        line.
+
+        Examples:
+
+          next                           Move a single line forward.
+          next 4                         Execute the next 4 lines.
+      BANNER
+
+      def process
+        check_file_context
+        breakout_navigation :next, args.first
+      end
     end
 
 
-    block_command 'continue', 'Continue program execution and end the Pry session.' do
-      check_file_context
-      run 'exit-all'
+    create_command 'continue' do
+      description 'Continue program execution and end the Pry session.'
+
+      def process
+        check_file_context
+        run 'exit-all'
+      end
     end
 
 
@@ -25,23 +60,23 @@ module PryDebugger
       description 'Set or edit a breakpoint.'
 
       banner <<-BANNER
-        Usage:   break [METH | FILE:LINE | LINE]
+        Usage:   break [METHOD | FILE:LINE | LINE]
                  break [--delete | --enable | --disable] N
                  break [--delete-all | --disable-all]
-        Aliases: Set
+        Aliases: breakpoint
 
-        breakpoint a breakpoint. Accepts a line number in the current file, a file and
+        Set a breakpoint. Accepts a line number in the current file, a file and
         line number, or a method.
 
-        Or pass appropriate flags to manipulate existing breakpoints.
+        Pass appropriate flags to manipulate existing breakpoints.
 
         Examples:
 
-          break SomeClass#run           # Break at the start of SomeClass#run
-          break app/models/user.rb:15   # Break at line 15 in user.rb
-          break 14                      # Break at line 14 in the current file.
-          break --delete 5              # Delete breakpoint #5.
-          break --disable-all           # Disable all breakpoints.
+          break SomeClass#run            Break at the start of `SomeClass#run`
+          break app/models/user.rb:15    Break at line 15 in user.rb
+          break 14                       Break at line 14 in the current file.
+          break --delete 5               Delete breakpoint #5.
+          break --disable-all            Disable all breakpoints.
       BANNER
 
       def options(opt)
@@ -75,10 +110,11 @@ module PryDebugger
         file, line =
           case args.join
           when /(\d+)/       # Line number only
+            line = $1
             unless PryDebugger.check_file_context(target)
               raise ArgumentError, 'Line number declaration valid only in a file context.'
             end
-            [target.eval('__FILE__'), $1]
+            [target.eval('__FILE__'), line]
           when /(.+):(\d+)/  # File and line number
             [$1, $2]
           else               # Method or class name
@@ -148,6 +184,8 @@ module PryDebugger
         end
       end
 
+      # Print out full information about a breakpoint including surrounding code
+      # at that point.
       def print_full_breakpoint(breakpoint)
         line = breakpoint.pos
         output.print text.bold("Breakpoint #{breakpoint.id}: ")

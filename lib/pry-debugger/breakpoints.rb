@@ -8,32 +8,38 @@ module PryDebugger
     extend self
 
 
+    # Add a new breakpoint.
     def add(file, line, expression = nil)
       raise ArgumentError, 'Invalid file!' unless File.exist?(file)
-      Pry.processor.tracing = true
+      Pry.processor.debugging = true
       Debugger.add_breakpoint(File.expand_path(file), line)
     end
 
+    # Delete an existing breakpoint with the given ID.
     def delete(id)
       unless Debugger.started? && Debugger.remove_breakpoint(id)
         raise ArgumentError, "No breakpoint ##{id}"
       end
-      Pry.processor.tracing = false if to_a.empty?
+      Pry.processor.debugging = false if to_a.empty?
     end
 
+    # Delete all breakpoints.
     def clear
       Debugger.breakpoints.clear if Debugger.started?
-      Pry.processor.tracing = false
+      Pry.processor.debugging = false
     end
 
+    # Enable a disabled breakpoint with the given ID.
     def enable(id)
       change_status id, true
     end
 
+    # Disable a breakpoint with the given ID.
     def disable(id)
       change_status id, false
     end
 
+    # Disable all breakpoints.
     def disable_all
       each do |breakpoint|
         breakpoint.enabled = false

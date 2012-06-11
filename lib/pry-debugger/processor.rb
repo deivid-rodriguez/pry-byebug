@@ -47,9 +47,10 @@ module PryDebugger
       return_value
     end
 
-    # Adjust tracing. When set to false, the Processor will manage enabling and
-    # disabling tracing itself. When set to true, tracing is always enabled.
-    def tracing=(enabled)
+    # Adjust debugging. When set to false, the Processor will manage enabling
+    # and disabling the debugger itself. When set to true, the debugger is
+    # always enabled.
+    def debugging=(enabled)
       if enabled
         @always_enabled = true
         Debugger.start unless Debugger.started?
@@ -64,6 +65,11 @@ module PryDebugger
 
     def at_line(context, file, line)
       return if file && TRACE_IGNORE_FILES.include?(File.expand_path(file))
+
+      # If stopped for a breakpoint or catchpoint, can't play any delayed steps
+      # as they'll move away from the interruption point. (Unsure if scenario is
+      # possible, but just keeping assertions in check.)
+      @delayed = Hash.new(0) unless :step == context.stop_reason
 
       if @delayed[:next] > 1     # If any delayed nexts/steps, do 'em.
         step_over @delayed[:next] - 1
@@ -80,7 +86,9 @@ module PryDebugger
 
     def at_breakpoint(context, breakpoint)
       @pry.output.print Pry::Helpers::Text.bold("\nBreakpoint #{breakpoint.id}. ")
-      @pry.output.print (breakpoint.hit_count == 1 ? 'First hit.' : "Hit #{breakpoint.hit_count} times." )
+      @pry.output.print (breakpoint.hit_count == 1 ?
+                           'First hit.' :
+                           "Hit #{breakpoint.hit_count} times." )
     end
 
     def at_catchpoint(context, exception)
@@ -90,6 +98,8 @@ module PryDebugger
 
    private
 
+    # Resume an existing Pry REPL at the paused point. Binding extracted from
+    # the Debugger::Context.
     def resume_pry(context)
       new_binding = context.frame_binding(0)
       Debugger.stop unless @always_enabled
@@ -100,17 +110,17 @@ module PryDebugger
       end
     end
 
-    # Move execution forward
+    # Move execution forward.
     def step(times)
       Debugger.current_context.step(times)
     end
 
-    # Move execution forward a number of lines in the same frame
+    # Move execution forward a number of lines in the same frame.
     def step_over(lines)
       Debugger.current_context.step_over(lines, 0)
     end
 
-    # Cleanup when debugging is stopped and execution continues
+    # Cleanup when debugging is stopped and execution continues.
     def stop
       Debugger.stop if !@always_enabled && Debugger.started?
       if PryDebugger.current_remote_server   # Cleanup DRb remote if running
