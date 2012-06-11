@@ -71,7 +71,7 @@ the source code around each breakpoint.
 **pry-debugger** is not yet thread-safe, so only use in single-threaded
 environments.
 
-Only supports MRI 1.9.2 and 1.9.3. For a pure-ruby approach not reliant on
+Only supports MRI 1.9.2 and 1.9.3. For a pure ruby approach not reliant on
 [debugger][debugger], check out [pry-nav][pry-nav]. Note: *pry-nav* and
 *pry-debugger* cannot be loaded together.
 
