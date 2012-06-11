@@ -1,8 +1,8 @@
 ## 0.2.0 (2012-06-11)
 
-# Breakpoints.
-* **finish** command.
-* Internal cleanup and bug fixes.
+* Breakpoints
+* **finish** command
+* Internal cleanup and bug fixes
 
 
 ## 0.1.0 (2012-06-07)
