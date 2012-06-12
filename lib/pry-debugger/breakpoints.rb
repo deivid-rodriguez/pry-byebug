@@ -11,12 +11,16 @@ module PryDebugger
     # Add a new breakpoint.
     def add(file, line, expression = nil)
       raise ArgumentError, 'Invalid file!' unless File.exist?(file)
+      validate_expression expression
+
       Pry.processor.debugging = true
       Debugger.add_breakpoint(File.expand_path(file), line, expression)
     end
 
     # Change the conditional expression for a breakpoint.
     def change(id, expression = nil)
+      validate_expression expression
+
       breakpoint = find_by_id(id)
       breakpoint.expr = expression
       breakpoint
@@ -78,6 +82,11 @@ module PryDebugger
       breakpoint = find_by_id(id)
       breakpoint.enabled = enabled
       breakpoint
+    end
+
+    def validate_expression(expression)
+      # `complete_expression?` throws a SyntaxError on invalid input.
+      expression && Pry::Code.complete_expression?(expression)
     end
   end
 end
