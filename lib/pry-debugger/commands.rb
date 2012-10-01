@@ -142,13 +142,13 @@ module PryDebugger
 
         file, line =
           case place
-          when /(\d+)/       # Line number only
+          when /^(\d+)$/       # Line number only
             line = $1
             unless PryDebugger.check_file_context(target)
               raise ArgumentError, 'Line number declaration valid only in a file context.'
             end
             [target.eval('__FILE__'), line]
-          when /(.+):(\d+)/  # File and line number
+          when /^(.+):(\d+)$/  # File and line number
             [$1, $2]
           else               # Method or class name
             self.args = [place]
