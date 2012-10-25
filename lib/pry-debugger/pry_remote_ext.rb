@@ -19,14 +19,15 @@ module PryRemote
     end
 
     # Override to reset our saved global current server session.
-    alias_method :teardown_existing, :teardown
-    def teardown
+    alias_method :teardown_without_pry_debugger, :teardown
+    def teardown_with_pry_debugger
       return if @torn
 
-      teardown_existing
+      teardown_without_pry_debugger
       PryDebugger.current_remote_server = nil
       @torn = true
     end
+    alias_method :teardown, :teardown_with_pry_debugger
   end
 end
 
