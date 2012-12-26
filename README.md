@@ -123,7 +123,14 @@ Pry.commands.alias_command 'f', 'finish'
 ```
 
 
-## Contributions
+## Contributors
+
+* Gopal Patel (@nixme)
+* John Mair (@banister)
+* Nicolas Viennot (@nviennot)
+* Benjamin R. Haskell (@benizi)
+* Joshua Hou (@jshou)
+* ...and others who helped with [pry-nav][pry-nav]
 
 Patches and bug reports are welcome. Just send a [pull request][pullrequests] or
 file an [issue][issues]. [Project changelog][changelog].

@@ -1,3 +1,13 @@
+## 0.2.1 (2012-12-26)
+
+* Support breakpoints on methods defined in the pry console. (@banister)
+* Fix support for specifying breakpoints by *file:line_number*. (@nviennot)
+* Validate breakpoint conditionals are real Ruby expressions.
+* Support for [debugger][debugger] ~> 1.2.0. (@jshou)
+* Safer `alias_method_chain`-style patching of `Pry.start` and
+  `PryRemote::Server#teardown`. (@benizi)
+
+
 ## 0.2.0 (2012-06-11)
 
 * Breakpoints
@@ -12,3 +22,4 @@
 
 
 [pry-remote]:  https://github.com/Mon-Ouie/pry-remote
+[debugger]:    https://github.com/cldwalker/debugger
