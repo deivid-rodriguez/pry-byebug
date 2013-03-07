@@ -1,3 +1,8 @@
+## 0.2.2 (2013-03-07)
+
+* Relaxed [debugger][debugger] dependency.
+
+
 ## 0.2.1 (2012-12-26)
 
 * Support breakpoints on methods defined in the pry console. (@banister)
