@@ -1,12 +1,12 @@
 require 'pry'
-require 'debugger'
+require 'byebug'
 
-module PryDebugger
+module PryByebug
   class Processor
     attr_accessor :pry
 
     def initialize
-      Debugger.handler = self
+      Byebug.handler = self
       @always_enabled = false
       @delayed = Hash.new(0)
     end
@@ -14,7 +14,7 @@ module PryDebugger
     # Wrap a Pry REPL to catch navigational commands and act on them.
     def run(initial = true, &block)
       return_value = nil
-      command = catch(:breakout_nav) do  # Throws from PryDebugger::Commands
+      command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
         return_value = yield
         {}    # Nothing thrown == no navigational command
       end
@@ -24,17 +24,18 @@ module PryDebugger
 
       if [:step, :next, :finish].include? command[:action]
         @pry = command[:pry]   # Pry instance to resume after stepping
-        Debugger.start unless Debugger.started?
+        Byebug.start unless Byebug.started?
 
         if initial
           # Movement when on the initial binding.pry line will have a frame
-          # inside Debugger. If we step normally, it'll stop inside this
+          # inside Byebug. If we step normally, it'll stop inside this
           # Processor. So jump out and stop at the above frame, then step/next
           # from our callback.
-          Debugger.current_context.stop_frame = 1
+          Byebug.current_context.stop_frame = 1
           @delayed[command[:action]] = times
+        end
 
-        elsif :next == command[:action]
+        if :next == command[:action]
           step_over times
 
         elsif :step == command[:action]
@@ -51,20 +52,20 @@ module PryDebugger
     end
 
     # Adjust debugging. When set to false, the Processor will manage enabling
-    # and disabling the debugger itself. When set to true, the debugger is
+    # and disabling the byebug itself. When set to true, the byebug is
     # always enabled.
     def debugging=(enabled)
       if enabled
         @always_enabled = true
-        Debugger.start unless Debugger.started?
+        Byebug.start unless Byebug.started?
       else
         @always_enabled = false
-        # Debugger will get stopped if necessary in `stop` once the repl ends.
+        # Byebug will get stopped if necessary in `stop` once the repl ends.
       end
     end
 
 
-    # --- Callbacks from debugger C extension ---
+    # --- Callbacks from byebug C extension ---
 
     def at_line(context, file, line)
       return if file && TRACE_IGNORE_FILES.include?(File.expand_path(file))
@@ -112,10 +113,10 @@ module PryDebugger
    private
 
     # Resume an existing Pry REPL at the paused point. Binding extracted from
-    # the Debugger::Context.
+    # the Byebug::Context.
     def resume_pry(context)
       new_binding = context.frame_binding(0)
-      Debugger.stop unless @always_enabled
+      Byebug.stop unless @always_enabled
 
       @pry.binding_stack.clear
       run(false) do
@@ -125,24 +126,24 @@ module PryDebugger
 
     # Move execution forward.
     def step(times)
-      Debugger.current_context.step(times)
+      Byebug.current_context.step(times)
     end
 
     # Move execution forward a number of lines in the same frame.
     def step_over(lines)
-      Debugger.current_context.step_over(lines, 0)
+      Byebug.current_context.step_over(lines, 0)
     end
 
     # Execute until current frame returns.
     def finish
-      Debugger.current_context.stop_frame = 0
+      Byebug.current_context.stop_frame = 0
     end
 
     # Cleanup when debugging is stopped and execution continues.
     def stop
-      Debugger.stop if !@always_enabled && Debugger.started?
-      if PryDebugger.current_remote_server   # Cleanup DRb remote if running
-        PryDebugger.current_remote_server.teardown
+      Byebug.stop if !@always_enabled && Byebug.started?
+      if PryByebug.current_remote_server   # Cleanup DRb remote if running
+        PryByebug.current_remote_server.teardown
       end
     end
   end

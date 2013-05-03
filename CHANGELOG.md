@@ -1,6 +1,6 @@
 ## 0.2.2 (2013-03-07)
 
-* Relaxed [debugger][debugger] dependency.
+* Relaxed [byebug][byebug] dependency.
 
 
 ## 0.2.1 (2012-12-26)
@@ -8,7 +8,7 @@
 * Support breakpoints on methods defined in the pry console. (@banister)
 * Fix support for specifying breakpoints by *file:line_number*. (@nviennot)
 * Validate breakpoint conditionals are real Ruby expressions.
-* Support for [debugger][debugger] ~> 1.2.0. (@jshou)
+* Support for [byebug][byebug] ~> 1.2.0. (@jshou)
 * Safer `alias_method_chain`-style patching of `Pry.start` and
   `PryRemote::Server#teardown`. (@benizi)
 
@@ -27,4 +27,4 @@
 
 
 [pry-remote]:  https://github.com/Mon-Ouie/pry-remote
-[debugger]:    https://github.com/cldwalker/debugger
+[byebug]:    https://github.com/deivid-rodriguez/byebug

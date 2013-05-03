@@ -1,10 +1,10 @@
-pry-debugger
+pry-byebug
 ============
 
 _Fast execution control in Pry_
 
 Adds **step**, **next**, **finish**, and **continue** commands and
-**breakpoints** to [Pry][pry] using [debugger][debugger].
+**breakpoints** to [Pry][pry] using [byebug][byebug].
 
 To use, invoke pry normally. No need to start your script or app differently.
 
@@ -68,18 +68,18 @@ the source code around each breakpoint.
 
 ## Caveats
 
-**pry-debugger** is not yet thread-safe, so only use in single-threaded
+**pry-byebug** is not yet thread-safe, so only use in single-threaded
 environments.
 
 Only supports MRI 1.9.2 and 1.9.3. For a pure ruby approach not reliant on
-[debugger][debugger], check out [pry-nav][pry-nav]. Note: *pry-nav* and
-*pry-debugger* cannot be loaded together.
+[byebug][byebug], check out [pry-nav][pry-nav]. Note: *pry-nav* and
+*pry-byebug* cannot be loaded together.
 
 
 ## Remote debugging
 
 Support for [pry-remote][pry-remote] (>= 0.1.4) is also included. Requires
-explicity requiring *pry-debugger*, not just relying on pry's plugin loader.
+explicity requiring *pry-byebug*, not just relying on pry's plugin loader.
 
 Want to debug a Rails app running inside [foreman][foreman]? Add to your
 Gemfile:
@@ -88,7 +88,7 @@ Gemfile:
 gem 'pry'
 gem 'pry-remote'
 gem 'pry-stack_explorer'
-gem 'pry-debugger'
+gem 'pry-byebug'
 ```
 
 Then add `binding.remote_pry` where you want to pause:
@@ -138,12 +138,12 @@ file an [issue][issues]. [Project changelog][changelog].
 
 
 [pry]:                http://pry.github.com
-[debugger]:           https://github.com/cldwalker/debugger
+[byebug]:           https://github.com/deivid-rodriguez/byebug
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
 [pry-nav]:            https://github.com/nixme/pry-nav
 [pry-remote]:         https://github.com/Mon-Ouie/pry-remote
 [foreman]:            https://github.com/ddollar/foreman
 [jazz_hands]:         https://github.com/nixme/jazz_hands
-[pullrequests]:       https://github.com/nixme/pry-debugger/pulls
-[issues]:             https://github.com/nixme/pry-debugger/issues
-[changelog]:          https://github.com/nixme/pry-debugger/blob/master/CHANGELOG.md
+[pullrequests]:       https://github.com/nixme/pry-byebug/pulls
+[issues]:             https://github.com/nixme/pry-byebug/issues
+[changelog]:          https://github.com/nixme/pry-byebug/blob/master/CHANGELOG.md

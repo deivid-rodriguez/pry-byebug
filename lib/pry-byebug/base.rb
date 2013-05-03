@@ -1,4 +1,4 @@
-module PryDebugger
+module PryByebug
   TRACE_IGNORE_FILES = Dir[File.join(File.dirname(__FILE__), '..', '**', '*.rb')].map { |f| File.expand_path(f) }
 
   extend self

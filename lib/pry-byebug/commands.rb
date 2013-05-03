@@ -1,7 +1,7 @@
 require 'pry'
-require 'pry-debugger/breakpoints'
+require 'pry-byebug/breakpoints'
 
-module PryDebugger
+module PryByebug
   Commands = Pry::CommandSet.new do
     create_command 'step' do
       description 'Step execution into the next line or method.'
@@ -144,7 +144,7 @@ module PryDebugger
           case place
           when /^(\d+)$/       # Line number only
             line = $1
-            unless PryDebugger.check_file_context(target)
+            unless PryByebug.check_file_context(target)
               raise ArgumentError, 'Line number declaration valid only in a file context.'
             end
             [target.eval('__FILE__'), line]
@@ -215,7 +215,7 @@ module PryDebugger
 
       # Ensures that a command is executed in a local file context.
       def check_file_context
-        unless PryDebugger.check_file_context(target)
+        unless PryByebug.check_file_context(target)
           raise Pry::CommandError, 'Cannot find local context. Did you use `binding.pry`?'
         end
       end
@@ -242,4 +242,4 @@ module PryDebugger
   end
 end
 
-Pry.commands.import PryDebugger::Commands
+Pry.commands.import PryByebug::Commands

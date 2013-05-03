@@ -1,6 +1,6 @@
-module PryDebugger
+module PryByebug
 
-  # Wrapper for Debugger.breakpoints that respects our Processor and has better
+  # Wrapper for Byebug.breakpoints that respects our Processor and has better
   # failure behavior. Acts as an Enumerable.
   #
   module Breakpoints
@@ -17,7 +17,7 @@ module PryDebugger
       Pry.processor.debugging = true
 
       path = (real_file ? File.expand_path(file) : file)
-      Debugger.add_breakpoint(path, line, expression)
+      Byebug.add_breakpoint(path, line, expression)
     end
 
     # Change the conditional expression for a breakpoint.
@@ -31,7 +31,7 @@ module PryDebugger
 
     # Delete an existing breakpoint with the given ID.
     def delete(id)
-      unless Debugger.started? && Debugger.remove_breakpoint(id)
+      unless Byebug.started? && Byebug.remove_breakpoint(id)
         raise ArgumentError, "No breakpoint ##{id}"
       end
       Pry.processor.debugging = false if to_a.empty?
@@ -39,7 +39,7 @@ module PryDebugger
 
     # Delete all breakpoints.
     def clear
-      Debugger.breakpoints.clear if Debugger.started?
+      Byebug.breakpoints.clear if Byebug.started?
       Pry.processor.debugging = false
     end
 
@@ -61,7 +61,7 @@ module PryDebugger
     end
 
     def to_a
-      Debugger.started? ? Debugger.breakpoints : []
+      Byebug.started? ? Byebug.breakpoints : []
     end
 
     def size
