@@ -7,7 +7,6 @@ module PryByebug
     extend Enumerable
     extend self
 
-
     # Add a new breakpoint.
     def add(file, line, expression = nil)
       real_file = (file != Pry.eval_path)

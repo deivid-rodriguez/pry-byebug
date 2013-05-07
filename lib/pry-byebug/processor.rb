@@ -7,7 +7,7 @@ module PryByebug
 
     def initialize
       Byebug.handler = self
-      @always_enabled = false
+      @always_enabled = true
       @delayed = Hash.new(0)
     end
 
@@ -31,7 +31,7 @@ module PryByebug
           # inside Byebug. If we step normally, it'll stop inside this
           # Processor. So jump out and stop at the above frame, then step/next
           # from our callback.
-          Byebug.current_context.stop_frame = 1
+          finish
           @delayed[command[:action]] = times
         end
 
@@ -52,8 +52,8 @@ module PryByebug
     end
 
     # Adjust debugging. When set to false, the Processor will manage enabling
-    # and disabling the byebug itself. When set to true, the byebug is
-    # always enabled.
+    # and disabling the debugger itself. When set to true, byebug is always
+    # enabled.
     def debugging=(enabled)
       if enabled
         @always_enabled = true
@@ -68,19 +68,18 @@ module PryByebug
     # --- Callbacks from byebug C extension ---
 
     def at_line(context, file, line)
-      return if file && TRACE_IGNORE_FILES.include?(File.expand_path(file))
-
       # If stopped for a breakpoint or catchpoint, can't play any delayed steps
       # as they'll move away from the interruption point. (Unsure if scenario is
       # possible, but just keeping assertions in check.)
+      p "Stop_reason: #{context.stop_reason}"
       @delayed = Hash.new(0) unless :step == context.stop_reason
 
-      if @delayed[:next] > 1     # If any delayed nexts/steps, do 'em.
-        step_over @delayed[:next] - 1
+      if @delayed[:next] > 0     # If any delayed nexts/steps, do 'em.
+        step_over @delayed[:next]
         @delayed = Hash.new(0)
 
-      elsif @delayed[:step] > 1
-        step @delayed[:step] - 1
+      elsif @delayed[:step] > 0
+        step @delayed[:step]
         @delayed = Hash.new(0)
 
       elsif @delayed[:finish] > 0
@@ -126,17 +125,17 @@ module PryByebug
 
     # Move execution forward.
     def step(times)
-      Byebug.current_context.step(times)
+      Byebug.context.step_into times
     end
 
     # Move execution forward a number of lines in the same frame.
     def step_over(lines)
-      Byebug.current_context.step_over(lines, 0)
+      Byebug.context.step_over lines, 0
     end
 
-    # Execute until current frame returns.
-    def finish
-      Byebug.current_context.stop_frame = 0
+    # Execute until specified frame returns.
+    def finish(frame = 0)
+      Byebug.context.step_out frame
     end
 
     # Cleanup when debugging is stopped and execution continues.

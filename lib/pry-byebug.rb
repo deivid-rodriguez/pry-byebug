@@ -1,7 +1,3 @@
-require 'pry-byebug/cli'
-
-# Load pry-remote monkey patches if pry-remote's available
-begin
-  require 'pry-byebug/pry_remote_ext'
-rescue LoadError
-end
+require 'pry-byebug/base'
+require 'pry-byebug/pry_ext'
+require 'pry-byebug/commands'
