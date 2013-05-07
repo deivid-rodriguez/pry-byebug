@@ -71,7 +71,6 @@ module PryByebug
       # If stopped for a breakpoint or catchpoint, can't play any delayed steps
       # as they'll move away from the interruption point. (Unsure if scenario is
       # possible, but just keeping assertions in check.)
-      p "Stop_reason: #{context.stop_reason}"
       @delayed = Hash.new(0) unless :step == context.stop_reason
 
       if @delayed[:next] > 0     # If any delayed nexts/steps, do 'em.
