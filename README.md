@@ -68,47 +68,7 @@ the source code around each breakpoint.
 
 ## Caveats
 
-**pry-byebug** is not yet thread-safe, so only use in single-threaded
-environments.
-
-Only supports MRI 1.9.2 and 1.9.3. For a pure ruby approach not reliant on
-[byebug][byebug], check out [pry-nav][pry-nav]. Note: *pry-nav* and
-*pry-byebug* cannot be loaded together.
-
-
-## Remote debugging
-
-Support for [pry-remote][pry-remote] (>= 0.1.4) is also included. Requires
-explicity requiring *pry-byebug*, not just relying on pry's plugin loader.
-
-Want to debug a Rails app running inside [foreman][foreman]? Add to your
-Gemfile:
-
-```ruby
-gem 'pry'
-gem 'pry-remote'
-gem 'pry-stack_explorer'
-gem 'pry-byebug'
-```
-
-Then add `binding.remote_pry` where you want to pause:
-
-```ruby
-class UsersController < ApplicationController
-  def index
-    binding.remote_pry
-    ...
-  end
-end
-```
-
-Load a page that triggers the code. Connect to the session:
-
-```
-$ bundle exec pry-remote
-```
-
-Using Pry with Rails? Check out [Jazz Hands][jazz_hands].
+Only supports MRI 2.0.0 or newer.
 
 
 ## Tips
@@ -121,6 +81,8 @@ Pry.commands.alias_command 's', 'step'
 Pry.commands.alias_command 'n', 'next'
 Pry.commands.alias_command 'f', 'finish'
 ```
+
+Using Pry with Rails? Check out [Jazz Hands][jazz_hands].
 
 
 ## Contributors
@@ -135,15 +97,10 @@ Pry.commands.alias_command 'f', 'finish'
 Patches and bug reports are welcome. Just send a [pull request][pullrequests] or
 file an [issue][issues]. [Project changelog][changelog].
 
-
-
 [pry]:                http://pry.github.com
-[byebug]:           https://github.com/deivid-rodriguez/byebug
+[byebug]:             https://github.com/deivid-rodriguez/byebug
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
-[pry-nav]:            https://github.com/nixme/pry-nav
-[pry-remote]:         https://github.com/Mon-Ouie/pry-remote
-[foreman]:            https://github.com/ddollar/foreman
 [jazz_hands]:         https://github.com/nixme/jazz_hands
-[pullrequests]:       https://github.com/nixme/pry-byebug/pulls
-[issues]:             https://github.com/nixme/pry-byebug/issues
-[changelog]:          https://github.com/nixme/pry-byebug/blob/master/CHANGELOG.md
+[pullrequests]:       https://github.com/deivid-rodriguez/pry-byebug/pulls
+[issues]:             https://github.com/deivid-rodriguez/pry-byebug/issues
+[changelog]:          https://github.com/deivid-rodriguez/pry-byebug/blob/master/CHANGELOG.md
