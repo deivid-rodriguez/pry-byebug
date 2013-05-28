@@ -31,8 +31,8 @@ in your Gemfile and run
 
     bundle install
 
-_Make sure you include the gem globally or inside the development group in you
-plan to use to debug your tests!_
+_Make sure you include the gem globally or inside the `:development` group if you
+plan to use it to debug your tests!_
 
 
 ## Execution Commands
@@ -120,3 +120,4 @@ file an [issue][issues]. [Project changelog][changelog].
 [pullrequests]:       https://github.com/deivid-rodriguez/pry-byebug/pulls
 [issues]:             https://github.com/deivid-rodriguez/pry-byebug/issues
 [changelog]:          https://github.com/deivid-rodriguez/pry-byebug/blob/master/CHANGELOG.md
+[pry-nav]:            https://github.com/nixme/pry-nav
