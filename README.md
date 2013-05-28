@@ -19,6 +19,22 @@ For a complete debugging environment, add
 [pry-stack_explorer][pry-stack_explorer] for call-stack frame navigation.
 
 
+## Installation
+
+Drop
+
+```ruby
+gem 'pry-byebug'
+```
+
+in your Gemfile and run
+
+    bundle install
+
+_Make sure you include the gem globally or inside the development group in you
+plan to use to debug your tests!_
+
+
 ## Execution Commands
 
 **step:** Step execution into the next line or method. Takes an optional numeric
