@@ -31,8 +31,8 @@ in your Gemfile and run
 
     bundle install
 
-_Make sure you include the gem globally or inside the `:development` group if you
-plan to use it to debug your tests!_
+_Make sure you include the gem globally or inside the `:test` group if you plan
+to use it to debug your tests!_
 
 
 ## Execution Commands
