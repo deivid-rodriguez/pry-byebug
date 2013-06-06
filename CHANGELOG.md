@@ -1,8 +1,16 @@
+## 1.1.0 (2013-06-06)
+
+* Adds a test suite
+* Uses byebug ~> 1.4.0
+* Uses s, n, f and c aliases by default
+
+
 ## 1.0.0, 1.0.1 (2013-05-07)
 
 * Forked from [pry-debugger](https://github.com/nixme/pry-debugger) to support
   byebug
 * Dropped pry-remote support
+
 
 ## 0.2.2 (2013-03-07)
 
