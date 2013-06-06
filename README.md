@@ -3,7 +3,7 @@ pry-byebug
 
 _Fast execution control in Pry_
 
-Adds **step**, **next**, **finish**, and **continue** commands and
+Adds **step**, **next**, **finish** and **continue** commands and
 **breakpoints** to [Pry][pry] using [byebug][byebug].
 
 To use, invoke pry normally. No need to start your script or app differently.
@@ -38,14 +38,14 @@ to use it to debug your tests!_
 ## Execution Commands
 
 **step:** Step execution into the next line or method. Takes an optional numeric
-argument to step multiple times.
+argument to step multiple times. Aliased to `s`
 
 **next:** Step over to the next line within the same frame. Also takes an
-optional numeric argument to step multiple lines.
+optional numeric argument to step multiple lines. Aliased to `n`
 
-**finish:** Execute until current stack frame returns.
+**finish:** Execute until current stack frame returns. Aliased to `f`
 
-**continue:** Continue program execution and end the Pry session.
+**continue:** Continue program execution and end the Pry session. Aliased to `c`
 
 
 ## Breakpoints
@@ -88,15 +88,6 @@ Only supports MRI 2.0.0 or newer.
 
 
 ## Tips
-
-Stepping through code often? Add the following shortcuts to `~/.pryrc`:
-
-```ruby
-Pry.commands.alias_command 'c', 'continue'
-Pry.commands.alias_command 's', 'step'
-Pry.commands.alias_command 'n', 'next'
-Pry.commands.alias_command 'f', 'finish'
-```
 
 Using Pry with Rails? Check out [Jazz Hands][jazz_hands].
 
