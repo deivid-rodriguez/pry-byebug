@@ -1,8 +1,8 @@
 ## 1.1.0 (2013-06-06)
 
-* Adds a test suite
+* Adds a test suite (thanks @teeparham!)
 * Uses byebug ~> 1.4.0
-* Uses s, n, f and c aliases by default
+* Uses s, n, f and c aliases by default (thanks @jgakos!)
 
 
 ## 1.0.0, 1.0.1 (2013-05-07)
