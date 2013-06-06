@@ -22,4 +22,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'pry', '>= 0.9.10'
   gem.add_runtime_dependency 'byebug', '~> 1.1.1'
   gem.add_development_dependency 'bundler', '~> 1.3.5'
+  gem.add_development_dependency "rake", '>= 10.0.4'
+  gem.add_development_dependency "minitest", '>= 5.0.3'
+  gem.add_development_dependency "mocha", '>= 0.14.0'
 end
