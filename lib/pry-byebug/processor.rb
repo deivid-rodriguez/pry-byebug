@@ -32,18 +32,16 @@ module PryByebug
           # inside Byebug. If we step normally, it'll stop inside this
           # Processor. So jump out and stop at the above frame, then step/next
           # from our callback.
-          finish
           @delayed[command[:action]] = times
-        end
-
-        if :next == command[:action]
+          step_out 2
+        elsif :next == command[:action]
           step_over times
 
         elsif :step == command[:action]
-          step times
+          step_into times
 
         elsif :finish == command[:action]
-          finish
+          step_out
         end
       else
         stop
@@ -65,30 +63,24 @@ module PryByebug
       end
     end
 
-
     # --- Callbacks from byebug C extension ---
-
     def at_line(context, file, line)
-      # If stopped for a breakpoint or catchpoint, can't play any delayed steps
-      # as they'll move away from the interruption point. (Unsure if scenario is
-      # possible, but just keeping assertions in check.)
-      @delayed = Hash.new(0) unless :step == context.stop_reason
+       # If any delayed nexts/steps, do 'em.
+      if @delayed[:next] > 1
+        step_over @delayed[:next] - 1
 
-      if @delayed[:next] > 0     # If any delayed nexts/steps, do 'em.
-        step_over @delayed[:next]
-        @delayed = Hash.new(0)
+      elsif @delayed[:step] > 1
+        step_into @delayed[:step] - 1
 
-      elsif @delayed[:step] > 0
-        step @delayed[:step]
-        @delayed = Hash.new(0)
+      elsif @delayed[:finish] > 1
+        step_out @delayed[:finish] - 1
 
-      elsif @delayed[:finish] > 0
-        finish
-        @delayed = Hash.new(0)
-
-      else  # Otherwise, resume the pry session at the stopped line.
+      # Otherwise, resume the pry session at the stopped line.
+      else
         resume_pry context
       end
+
+      @delayed = Hash.new(0)
     end
 
     # Called when a breakpoint is triggered. Note: `at_line`` is called
@@ -108,42 +100,40 @@ module PryByebug
       # TODO
     end
 
+    private
 
-   private
+      # Resume an existing Pry REPL at the paused point.
+      # Binding extracted from Byebug::Context
+      def resume_pry(context)
+        new_binding = context.frame_binding(0)
+        Byebug.stop unless @always_enabled
 
-    # Resume an existing Pry REPL at the paused point. Binding extracted from
-    # the Byebug::Context.
-    def resume_pry(context)
-      new_binding = context.frame_binding(0)
-      Byebug.stop unless @always_enabled
-
-      @pry.binding_stack.clear
-      run(false) do
-        @pry.repl new_binding
+        run(false) do
+          @pry.repl new_binding
+        end
       end
-    end
 
-    # Move execution forward.
-    def step(times)
-      Byebug.context.step_into times
-    end
-
-    # Move execution forward a number of lines in the same frame.
-    def step_over(lines)
-      Byebug.context.step_over lines, 0
-    end
-
-    # Execute until specified frame returns.
-    def finish(frame = 0)
-      Byebug.context.step_out frame
-    end
-
-    # Cleanup when debugging is stopped and execution continues.
-    def stop
-      Byebug.stop if !@always_enabled && Byebug.started?
-      if PryByebug.current_remote_server   # Cleanup DRb remote if running
-        PryByebug.current_remote_server.teardown
+      # Move execution forward.
+      def step_into(times)
+        Byebug.context.step_into times
       end
-    end
+
+      # Move execution forward a number of lines in the same frame.
+      def step_over(lines)
+        Byebug.context.step_over lines, 0
+      end
+
+      # Execute until specified frame returns.
+      def step_out(frame = 0)
+        Byebug.context.step_out frame
+      end
+
+      # Cleanup when debugging is stopped and execution continues.
+      def stop
+        Byebug.stop if !@always_enabled && Byebug.started?
+        if PryByebug.current_remote_server   # Cleanup DRb remote if running
+          PryByebug.current_remote_server.teardown
+        end
+      end
   end
 end
