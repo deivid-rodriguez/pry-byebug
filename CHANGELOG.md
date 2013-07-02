@@ -1,5 +1,11 @@
-## 1.1.0 (2013-06-06)
+## 1.1.1 (2013-02-07)
 
+* Adds some initial tests to the test suite
+* Fixes bug when doing "step n" or "next n" where n > 1 right after binding.pry
+
+
+## 1.1.0 (2013-06-06)
+ 
 * Adds a test suite (thanks @teeparham!)
 * Uses byebug ~> 1.4.0
 * Uses s, n, f and c aliases by default (thanks @jgakos!)
