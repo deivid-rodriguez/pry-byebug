@@ -6,6 +6,7 @@ doc
 .config
 .yardoc
 .gdb_history
+.rvmrc
 .ruby-gemset
 .ruby-version
 
