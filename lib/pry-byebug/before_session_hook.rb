@@ -1,4 +1,4 @@
-module PryDebugger
+module PryByebug
   class BeforeSessionHook
 
     def caller_bindings(target)
@@ -7,7 +7,7 @@ module PryDebugger
 
       start_frames = bindings.each_with_index.select do |b, i|
         (b.frame_type == :method &&
-         b.eval("self.class") == Debugger::Context &&
+         b.eval("self.class") == Byebug::Context &&
          b.eval("__method__") == :at_line)
       end
 
