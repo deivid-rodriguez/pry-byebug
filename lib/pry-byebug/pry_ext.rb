@@ -9,7 +9,7 @@ class << Pry
     @processor ||= PryByebug::Processor.new
 
     if target.is_a?(Binding) && PryByebug.check_file_context(target)
-      # Wrap the processer around the usual Pry.start to catch navigation
+      # Wrap the processor around the usual Pry.start to catch navigation
       # commands.
       @processor.run(true) do
         start_without_pry_byebug(target, options)

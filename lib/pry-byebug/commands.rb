@@ -48,7 +48,6 @@ module PryByebug
     end
     alias_command 'n', 'next'
 
-
     create_command 'finish' do
       description 'Execute until current stack frame returns.'
 
@@ -215,12 +214,11 @@ module PryByebug
     end
     alias_command 'breaks', 'breakpoints'
 
-
     helpers do
       def breakout_navigation(action, times = nil)
-        _pry_.binding_stack.clear     # Clear the binding stack.
-        throw :breakout_nav, {        # Break out of the REPL loop and
-          :action => action,          #   signal the tracer.
+        _pry_.binding_stack.clear # Clear the binding stack.
+        throw :breakout_nav, {    # Break out of the REPL loop and signal tracer
+          :action => action,
           :times  => times,
           :pry    => _pry_
         }

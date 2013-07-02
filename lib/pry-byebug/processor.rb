@@ -14,6 +14,7 @@ module PryByebug
     # Wrap a Pry REPL to catch navigational commands and act on them.
     def run(initial = true, &block)
       return_value = nil
+
       command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
         return_value = yield
         {}    # Nothing thrown == no navigational command
@@ -99,7 +100,7 @@ module PryByebug
                            "Hit #{breakpoint.hit_count} times." )
       if (expr = breakpoint.expr)
         @pry.output.print Pry::Helpers::Text.bold("Condition: ")
-        @pry.output.puts  expr
+        @pry.output.puts expr
       end
     end
 
