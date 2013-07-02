@@ -1,34 +1,3 @@
-## 1.3.2 (2014-24-02)
-
-* Bumps byebug dependency to get rid of bug in byebug.
-
-
-## 1.3.1 (2014-08-02)
-
-* Fix #22 (thanks @andreychernih)
-
-
-## 1.3.0 (2014-05-02)
-
-* Add breakpoints on method names (thanks @andreychernih & @palkan)
-* Fix "undefined method `interface`" error (huge thanks to @andreychernih)
-
-
-## 1.2.1 (2013-30-12)
-
-* Fix for "uncaught throw :breakout_nav" (thanks @lukebergen)
-
-
-## 1.2.0 (2013-24-09)
-
-* Compatibility with byebug's 2.x series
-
-
-## 1.1.2 (2013-11-07)
-
-* Allow pry-byebug to use backwards compatible versions of byebug
-
-
 ## 1.1.1 (2013-02-07)
 
 * Adds some initial tests to the test suite

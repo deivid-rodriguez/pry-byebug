@@ -87,9 +87,13 @@ the source code around each breakpoint.
 Only supports MRI 2.0.0 or newer.
 
 
+## Tips
+
+Using Pry with Rails? Check out [Jazz Hands][jazz_hands].
+
+
 ## Contributors
 
-* Tee Parham (@teeparham)
 * Gopal Patel (@nixme)
 * John Mair (@banister)
 * Nicolas Viennot (@nviennot)
