@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PryRemoteExtTest < Minitest::Test
-  
+class PryRemoteExtTest < MiniTest::Spec
+
 end
 

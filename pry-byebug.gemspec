@@ -13,15 +13,15 @@ Gem::Specification.new do |gem|
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- test/*`.split("\n")
+  gem.require_paths = ['lib']
 
   # Dependencies
   gem.required_ruby_version = '>= 2.0.0'
 
   gem.add_runtime_dependency 'pry', '~> 0.9.12'
-  gem.add_runtime_dependency 'byebug', '~> 1.4.0'
+  gem.add_runtime_dependency 'byebug', '~> 1.5.0'
 
   gem.add_development_dependency 'bundler', '~> 1.3.5'
-  gem.add_development_dependency 'rake', '~> 10.0.4'
-  gem.add_development_dependency 'minitest', '~> 5.0.3'
+  gem.add_development_dependency 'rake', '~> 10.1.0'
   gem.add_development_dependency 'mocha', '~> 0.14.0'
 end

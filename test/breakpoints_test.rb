@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class BreakpointsTest < Minitest::Test
-  
+class BreakpointsTest < MiniTest::Spec
+
   def test_add_raises_argument_error
     Pry.stubs eval_path: "something"
     File.stubs :exist?
@@ -9,6 +9,6 @@ class BreakpointsTest < Minitest::Test
       PryByebug::Breakpoints.add("file", 1)
     end
   end
-  
+
 end
 

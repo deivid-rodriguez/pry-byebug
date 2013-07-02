@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PryExtTest < Minitest::Test
-  
+class PryExtTest < MiniTest::Spec
+
 end
 
