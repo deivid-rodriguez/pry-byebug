@@ -94,6 +94,7 @@ Using Pry with Rails? Check out [Jazz Hands][jazz_hands].
 
 ## Contributors
 
+* Tee Parham (@teeparham)
 * Gopal Patel (@nixme)
 * John Mair (@banister)
 * Nicolas Viennot (@nviennot)
