@@ -1,3 +1,8 @@
+## 1.1.2 (2013-11-07)
+
+* Allow pry-byebug to use backwards compatible versions of byebug
+
+
 ## 1.1.1 (2013-02-07)
 
 * Adds some initial tests to the test suite
