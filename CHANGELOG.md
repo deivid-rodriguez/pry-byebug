@@ -1,3 +1,8 @@
+## 1.2.0 (2013-24-09)
+
+* Compatibility with byebug's 2.x series
+
+
 ## 1.1.2 (2013-11-07)
 
 * Allow pry-byebug to use backwards compatible versions of byebug
