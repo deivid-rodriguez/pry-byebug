@@ -1,3 +1,8 @@
+## 1.2.1 (2013-30-12)
+
+* Fix for "uncaught throw :breakout_nav" (thanks @lukebergen)
+
+
 ## 1.2.0 (2013-24-09)
 
 * Compatibility with byebug's 2.x series
