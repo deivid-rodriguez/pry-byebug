@@ -112,3 +112,7 @@ file an [issue][issues]. [Project changelog][changelog].
 [2]: http://badge.fury.io/rb/pry-byebug
 [3]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.png
 [4]: http://travis-ci.org/deivid-rodriguez/pry-byebug
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/deivid-rodriguez/pry-byebug/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
