@@ -152,22 +152,21 @@ module PryByebug
         place = args.shift
         condition = args.join(' ') if 'if' == args.shift
 
-        file, line =
+        bp =
           case place
           when /^(\d+)$/       # Line number only
             line = $1
             unless PryByebug.check_file_context(target)
               raise ArgumentError, 'Line number declaration valid only in a file context.'
             end
-            [target.eval('__FILE__'), line]
+            Breakpoints.add_file(target.eval('__FILE__'), line.to_i, condition)
           when /^(.+):(\d+)$/  # File and line number
-            [$1, $2]
+            Breakpoints.add_file($1, $2.to_i, condition)
           else               # Method or class name
-            self.args = [place]
-            method_object.source_location
+            Breakpoints.add_method(place, condition)
           end
 
-        print_full_breakpoint Breakpoints.add(file, line.to_i, condition)
+        print_full_breakpoint bp
       end
     end
     alias_command 'breakpoint', 'break'
@@ -201,7 +200,7 @@ module PryByebug
             Breakpoints.each do |breakpoint|
               output.printf "%#{max_width}d  ", breakpoint.id
               output.print  breakpoint.enabled? ? 'Yes      ' : 'No       '
-              output.print  "#{breakpoint.source}:#{breakpoint.pos}"
+              output.print  breakpoint.to_s
               output.print  " (if #{breakpoint.expr})" if breakpoint.expr
               output.puts
             end
@@ -236,17 +235,14 @@ module PryByebug
       def print_full_breakpoint(breakpoint)
         line = breakpoint.pos
         output.print text.bold("Breakpoint #{breakpoint.id}: ")
-        output.print "#{breakpoint.source} @ line #{line} "
+        output.print "#{breakpoint.to_s} "
         output.print breakpoint.enabled? ? '(Enabled)' : '(Disabled)'
         output.puts  ' :'
         if (expr = breakpoint.expr)
           output.puts "#{text.bold('Condition:')} #{expr}"
         end
         output.puts
-        output.puts  Pry::Code.from_file(breakpoint.source).
-                       around(line, 3).
-                       with_line_numbers.
-                       with_marker(line).to_s
+        output.puts breakpoint.source_code.with_line_numbers.to_s
         output.puts
       end
     end
