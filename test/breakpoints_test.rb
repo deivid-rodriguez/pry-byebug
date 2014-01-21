@@ -16,7 +16,7 @@ class BreakpointsTest < MiniTest::Spec
 
   def test_add_method_adds_instance_method_breakpoint
     Pry.stub :processor, PryByebug::Processor.new do
-      PryByebug::Breakpoints.add_method 'BreakpointsTest::Tester', 'instance_method'
+      PryByebug::Breakpoints.add_method 'BreakpointsTest::Tester#instance_method'
       bp = Byebug.breakpoints.last
       assert_equal 'BreakpointsTest::Tester', bp.source
       assert_equal 'instance_method', bp.pos
@@ -25,7 +25,7 @@ class BreakpointsTest < MiniTest::Spec
 
   def test_add_method_adds_class_method_breakpoint
     Pry.stub :processor, PryByebug::Processor.new do
-      PryByebug::Breakpoints.add_method 'BreakpointsTest::Tester', 'class_method'
+      PryByebug::Breakpoints.add_method 'BreakpointsTest::Tester.class_method'
       bp = Byebug.breakpoints.last
       assert_equal 'BreakpointsTest::Tester', bp.source
       assert_equal 'class_method', bp.pos
