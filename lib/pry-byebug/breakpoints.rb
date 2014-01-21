@@ -40,7 +40,7 @@ module PryByebug
     def add_method(method, expression = nil)
       validate_expression expression
       Pry.processor.debugging = true
-      owner, name = method.split /[.#]/
+      owner, name = method.split /[\.#]/
       byebug_bp = Byebug.add_breakpoint(owner, name.to_sym, expression)
       bp = MethodBreakpoint.new byebug_bp, method
       breakpoints << bp
