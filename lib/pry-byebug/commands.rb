@@ -164,7 +164,9 @@ module PryByebug
             [$1, $2]
           else               # Method or class name
             self.args = [place]
-            method_object.source_location
+            file, line = method_object.source_location
+            line += 1 if method_object.source.lines.count > 2
+            [file, line]
           end
 
         print_full_breakpoint Breakpoints.add(file, line.to_i, condition)
