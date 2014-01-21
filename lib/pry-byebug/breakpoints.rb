@@ -37,12 +37,11 @@ module PryByebug
     end
 
     # Add method breakpoint.
-    def add_method(method, expression = nil)
+    def add_method(clazz, method, expression = nil)
       validate_expression expression
       Pry.processor.debugging = true
-      owner, name = method.split /[.#]/
-      byebug_bp = Byebug.add_breakpoint(owner, name.to_sym, expression)
-      bp = MethodBreakpoint.new byebug_bp, method
+      byebug_bp = Byebug.add_breakpoint(clazz, method.to_sym, expression)
+      bp = MethodBreakpoint.new byebug_bp, "#{clazz}\##{method}"
       breakpoints << bp
       bp
     end
