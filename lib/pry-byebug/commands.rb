@@ -166,9 +166,9 @@ module PryByebug
             Breakpoints.add_method(place,condition)
           when /^#[\w\_\d]+$/ # Only method name
             unless PryByebug.check_file_context(target)
-              raise ArgumentError, 'Line number declaration valid only in a file context.'
-            end
-            return Breakpoints.add_method(target.eval('self.class.to_s')+place, condition)  
+              raise ArgumentError, 'Method name declaration valid only in a file context.'
+            end 
+            Breakpoints.add_method(target.eval('self.class.to_s')+place, condition)  
           else
             raise ArgumentError, 'Cannot identify arguments as breakpoint'
           end
