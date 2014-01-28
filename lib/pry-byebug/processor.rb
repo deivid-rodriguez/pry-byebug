@@ -2,10 +2,12 @@ require 'pry'
 require 'byebug'
 
 module PryByebug
-  class Processor
+  class Processor < Byebug::Processor
     attr_accessor :pry
 
-    def initialize
+    def initialize(interface = Byebug::LocalInterface.new)
+      super(interface)
+      
       Byebug.handler = self
       @always_enabled = true
       @delayed = Hash.new(0)
