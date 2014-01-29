@@ -108,25 +108,47 @@ class CommandsTest < MiniTest::Spec
     end
 
     describe 'set by method_id' do
+      before do
+        @input = InputTester.new 'break BreakExample#a'
+        redirect_pry_io(@input, @output) do
+          load break_first_file
+        end
+      end
+
+      it 'shows breakpoint enabled' do
+        @output.string.must_match /^Breakpoint [\d]+: BreakExample#a \(Enabled\)/
+      end
+
+      it 'shows breakpoint hit' do
+        @output.string =~ /^Breakpoint ([\d]+): BreakExample#a \(Enabled\)/
+        @output.string.must_match Regexp.new("^Breakpoint #{$1}\. First hit")
+      end
+
+      it 'shows breakpoint line' do
+        @output.string.must_match /\=> 4:/
+      end
+
+      describe 'when its a bang method' do
         before do
-          @input = InputTester.new 'break BreakExample#a'
+          @input = InputTester.new 'break BreakExample#c!'
           redirect_pry_io(@input, @output) do
             load break_first_file
           end
         end
 
         it 'shows breakpoint enabled' do
-          @output.string.must_match /^Breakpoint [\d]+: BreakExample#a \(Enabled\)/
+          @output.string.must_match /^Breakpoint [\d]+: BreakExample#c! \(Enabled\)/
         end
 
         it 'shows breakpoint hit' do
-          @output.string =~ /^Breakpoint ([\d]+): BreakExample#a \(Enabled\)/
+          @output.string =~ /^Breakpoint ([\d]+): BreakExample#c! \(Enabled\)/
           @output.string.must_match Regexp.new("^Breakpoint #{$1}\. First hit")
         end
 
         it 'shows breakpoint line' do
-          @output.string.must_match /\=> 4:/
+          @output.string.must_match /\=> 14:/
         end
+      end
     end
 
     describe 'set by method_id within context' do

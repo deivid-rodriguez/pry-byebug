@@ -162,13 +162,14 @@ module PryByebug
             Breakpoints.add_file(target.eval('__FILE__'), line.to_i, condition)
           when /^(.+):(\d+)$/  # File and line number
             Breakpoints.add_file($1, $2.to_i, condition)
-          when /^[\w\d\:\_]+[#\.][\w\_\d]+$/  # Method or class name
+          when /^(.*)[.#].+$/  # Method or class name
+            if $1.strip.empty?
+              unless PryByebug.check_file_context(target)
+                raise ArgumentError, 'Method name declaration valid only in a file context.'
+              end
+              place = target.eval('self.class.to_s') + place
+            end
             Breakpoints.add_method(place,condition)
-          when /^#[\w\_\d]+$/ # Only method name
-            unless PryByebug.check_file_context(target)
-              raise ArgumentError, 'Method name declaration valid only in a file context.'
-            end 
-            Breakpoints.add_method(target.eval('self.class.to_s')+place, condition)  
           else
             raise ArgumentError, 'Cannot identify arguments as breakpoint'
           end
