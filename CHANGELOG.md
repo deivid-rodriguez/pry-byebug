@@ -1,3 +1,9 @@
+## 1.3.0 (2014-05-02)
+
+* Add breakpoints on method names (thanks @andreychernih & @palkan)
+* Fix "undefined method `interface`" error (huge thanks to @andreychernih)
+
+
 ## 1.2.1 (2013-30-12)
 
 * Fix for "uncaught throw :breakout_nav" (thanks @lukebergen)
