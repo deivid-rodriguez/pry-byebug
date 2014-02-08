@@ -1,3 +1,8 @@
+## 1.3.1 (2014-08-02)
+
+* Fix #22 (thanks @andreychernih)
+
+
 ## 1.3.0 (2014-05-02)
 
 * Add breakpoints on method names (thanks @andreychernih & @palkan)
