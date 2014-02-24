@@ -1,3 +1,8 @@
+## 1.3.2 (2014-24-02)
+
+* Bumps byebug dependency to get rid of bug in byebug.
+
+
 ## 1.3.1 (2014-08-02)
 
 * Fix #22 (thanks @andreychernih)
