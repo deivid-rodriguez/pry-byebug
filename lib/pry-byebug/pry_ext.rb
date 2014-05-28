@@ -21,3 +21,11 @@ class << Pry
   end
   alias_method :start, :start_with_pry_byebug
 end
+
+if Pry.plugins.include?("stack_explorer")
+  Pry.config.hooks.add_hook(:before_session, :debugger_frame_manager, PryByebug::BeforeSessionHook.new)
+  # move default to the back of before_session
+  default = Pry.config.hooks.get_hook(:before_session, :default)
+  Pry.config.hooks.delete_hook(:before_session, :default)
+  Pry.config.hooks.add_hook(:before_session, :default, default)
+end

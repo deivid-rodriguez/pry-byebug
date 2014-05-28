@@ -16,3 +16,4 @@ _yardoc
 coverage
 lib/bundler/man
 rdoc
+*.un~
