@@ -84,7 +84,8 @@ the source code around each breakpoint.
 
 ## Caveats
 
-Only supports MRI 2.0.0 or newer.
+Only supports MRI 2.0.0 or newer. For MRI 1.9.3 or older, use
+[pry-debugger][pry-debugger]
 
 
 ## Contributors
@@ -102,6 +103,7 @@ file an [issue][issues]. [Project changelog][changelog].
 
 [pry]:                http://pry.github.com
 [byebug]:             https://github.com/deivid-rodriguez/byebug
+[pry-debugger]:       https://github.com/nixme/pry-debugger
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
 [jazz_hands]:         https://github.com/nixme/jazz_hands
 [pullrequests]:       https://github.com/deivid-rodriguez/pry-byebug/pulls
