@@ -105,7 +105,6 @@ file an [issue][issues]. [Project changelog][changelog].
 [byebug]:             https://github.com/deivid-rodriguez/byebug
 [pry-debugger]:       https://github.com/nixme/pry-debugger
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
-[jazz_hands]:         https://github.com/nixme/jazz_hands
 [pullrequests]:       https://github.com/deivid-rodriguez/pry-byebug/pulls
 [issues]:             https://github.com/deivid-rodriguez/pry-byebug/issues
 [changelog]:          https://github.com/deivid-rodriguez/pry-byebug/blob/master/CHANGELOG.md
