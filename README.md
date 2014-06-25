@@ -59,24 +59,23 @@ conditional breakpoint. Edit existing breakpoints via various flags.
 
 Examples:
 
-```
-break SomeClass#run            Break at the start of `SomeClass#run`.
-break Foo#bar if baz?          Break at `Foo#bar` only if `baz?`.
-break app/models/user.rb:15    Break at line 15 in user.rb.
-break 14                       Break at line 14 in the current file.
+```ruby
+break SomeClass#run            # Break at the start of `SomeClass#run`.
+break Foo#bar if baz?          # Break at `Foo#bar` only if `baz?`.
+break app/models/user.rb:15    # Break at line 15 in user.rb.
+break 14                       # Break at line 14 in the current file.
 
-break --condition 4 x > 2      Change condition on breakpoint #4 to 'x > 2'.
-break --condition 3            Remove the condition on breakpoint #3.
+break --condition 4 x > 2      # Change condition on breakpoint #4 to 'x > 2'.
+break --condition 3            # Remove the condition on breakpoint #3.
 
-break --delete 5               Delete breakpoint #5.
-break --disable-all            Disable all breakpoints.
+break --delete 5               # Delete breakpoint #5.
+break --disable-all            # Disable all breakpoints.
 
-break                          List all breakpoints. (Same as `breakpoints`)
-break --show 2                 Show details about breakpoint #2.
+break                          # List all breakpoints. (Same as `breakpoints`)
+break --show 2                 # Show details about breakpoint #2.
 ```
 
 Type `break --help` from a Pry session to see all available options.
-
 
 **breakpoints**: List all defined breakpoints. Pass `-v` or `--verbose` to see
 the source code around each breakpoint.
