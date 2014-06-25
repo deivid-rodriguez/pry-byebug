@@ -87,15 +87,12 @@ Only supports MRI 2.0.0 or newer. For MRI 1.9.3 or older, use
 [pry-debugger][pry-debugger]
 
 
-## Contributors
+## Credits
 
-* Tee Parham (@teeparham)
-* Gopal Patel (@nixme)
-* John Mair (@banister)
-* Nicolas Viennot (@nviennot)
-* Benjamin R. Haskell (@benizi)
-* Joshua Hou (@jshou)
-* ...and others who helped with [pry-nav][pry-nav]
+* Gopal Patel (@nixme), creator of [pry-debugger][pry-debugger], and everybody
+who contributed to it. pry-byebug is a fork of pry-debugger so it wouldn't
+exist as it is without those contributions.
+* John Mair (@banister), creator of [pry][pry].
 
 Patches and bug reports are welcome. Just send a [pull request][pullrequests] or
 file an [issue][issues]. [Project changelog][changelog].
@@ -107,7 +104,6 @@ file an [issue][issues]. [Project changelog][changelog].
 [pullrequests]:       https://github.com/deivid-rodriguez/pry-byebug/pulls
 [issues]:             https://github.com/deivid-rodriguez/pry-byebug/issues
 [changelog]:          https://github.com/deivid-rodriguez/pry-byebug/blob/master/CHANGELOG.md
-[pry-nav]:            https://github.com/nixme/pry-nav
 [1]: https://badge.fury.io/rb/pry-byebug.png
 [2]: http://badge.fury.io/rb/pry-byebug
 [3]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.png
