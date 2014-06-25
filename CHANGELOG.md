@@ -1,3 +1,9 @@
+## 1.3.3 (2014-25-06)
+
+* Relaxes pry dependency to support pry 0.10 series and further minor version
+level releases.
+
+
 ## 1.3.2 (2014-24-02)
 
 * Bumps byebug dependency to get rid of bug in byebug.
