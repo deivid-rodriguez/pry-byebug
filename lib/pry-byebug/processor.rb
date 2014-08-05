@@ -112,7 +112,7 @@ module PryByebug
         Byebug.stop unless @always_enabled
 
         run(false) do
-          @pry.repl new_binding
+          @pry.repl new_binding if @pry
         end
       end
 
