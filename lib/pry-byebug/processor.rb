@@ -61,8 +61,11 @@ module PryByebug
        resume_pry(context)
     end
 
-    # Called when a breakpoint is triggered. Note: `at_line`` is called
-    # immediately after with the context's `stop_reason == :breakpoint`.
+    #
+    # Called when a breakpoint is hit. Note that `at_line`` is called immediately after
+    # with the context's `stop_reason == :breakpoint`, so we must not resume the
+    # pry instance here
+    #
     def at_breakpoint(context, breakpoint)
       @pry ||= Pry.new
 
