@@ -122,6 +122,8 @@ module PryByebug
       end
 
       def process
+        Byebug.start unless Byebug.started?
+
         { :delete        => :delete,
           :disable       => :disable,
           :enable        => :enable,
