@@ -30,7 +30,7 @@ class CommandsTest < MiniTest::Spec
       end
 
       it 'shows current line' do
-        @output.string.must_match /\=> 3:/
+        @output.string.must_match /\=> 4:/
       end
     end
 
@@ -43,7 +43,7 @@ class CommandsTest < MiniTest::Spec
       end
 
       it 'shows current line' do
-        @output.string.must_match /\=> 4:/
+        @output.string.must_match /\=>  9:/
       end
     end
   end
@@ -71,7 +71,7 @@ class CommandsTest < MiniTest::Spec
       end
 
       it 'shows current line' do
-        @output.string.must_match /\=> 20:/
+        @output.string.must_match /\=> 21:/
       end
     end
   end
@@ -87,23 +87,23 @@ class CommandsTest < MiniTest::Spec
 
     describe 'set by line number' do
       before do
-        @input = InputTester.new 'break 3'
+        @input = InputTester.new 'break 4'
         redirect_pry_io(@input, @output) do
           load break_first_file
         end
       end
 
       it 'shows breakpoint enabled' do
-        @output.string.must_match /^Breakpoint [\d]+: #{break_first_file} @ 3 \(Enabled\)/
+        @output.string.must_match /^Breakpoint [\d]+: #{break_first_file} @ 4 \(Enabled\)/
       end
 
       it 'shows breakpoint hit' do
-        @output.string =~ /^Breakpoint ([\d]+): #{break_first_file} @ 3 \(Enabled\)/
+        @output.string =~ /^Breakpoint ([\d]+): #{break_first_file} @ 4 \(Enabled\)/
         @output.string.must_match Regexp.new("^Breakpoint #{$1}\. First hit")
       end
 
       it 'shows breakpoint line' do
-        @output.string.must_match /\=> 3:/
+        @output.string.must_match /\=> 4:/
       end
     end
 

@@ -9,40 +9,36 @@ module PryByebug
       super(interface)
       
       Byebug.handler = self
-      @delayed = Hash.new(0)
     end
 
     # Wrap a Pry REPL to catch navigational commands and act on them.
-    def run(initial = true, &block)
+    def run(initial = false, &block)
       return_value = nil
 
-      command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
-        return_value = yield
-        {}    # Nothing thrown == no navigational command
-      end
+      if initial
+        Byebug.start
+        Byebug.current_context.step_out(3)
+      else
+        command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
+          return_value = yield
+          {}    # Nothing thrown == no navigational command
+        end
 
-      times = (command[:times] || 1).to_i   # Command argument
-      times = 1 if times <= 0
+        times = (command[:times] || 1).to_i   # Command argument
+        times = 1 if times <= 0
 
-      if [:step, :next, :finish].include? command[:action]
-        @pry = command[:pry]   # Pry instance to resume after stepping
-        Byebug.start unless Byebug.started?
+        if [:step, :next, :finish].include? command[:action]
+          @pry = command[:pry]   # Pry instance to resume after stepping
 
-        if initial
-          # Movement when on the initial binding.pry line will have a frame
-          # inside Byebug. If we step normally, it'll stop inside this
-          # Processor. So jump out and stop at the above frame, then step/next
-          # from our callback.
-          @delayed[command[:action]] = times
-          Byebug.current_context.step_out(2)
-        elsif :next == command[:action]
-          Byebug.current_context.step_over(times, 0)
+          if :next == command[:action]
+            Byebug.current_context.step_over(times, 0)
 
-        elsif :step == command[:action]
-          Byebug.current_context.step_into(times)
+          elsif :step == command[:action]
+            Byebug.current_context.step_into(times)
 
-        elsif :finish == command[:action]
-          Byebug.current_context.step_out(0)
+          elsif :finish == command[:action]
+            Byebug.current_context.step_out(times)
+          end
         end
       end
 
@@ -50,23 +46,19 @@ module PryByebug
     end
 
     # --- Callbacks from byebug C extension ---
+
+    #
+    # Called when the wants to stop at a regular line
+    #
     def at_line(context, file, line)
-       # If any delayed nexts/steps, do 'em.
-      if @delayed[:next] > 1
-        context.step_over(@delayed[:next] - 1, 0)
+      resume_pry(context)
+    end
 
-      elsif @delayed[:step] > 1
-        context.step_into(@delayed[:step] - 1)
-
-      elsif @delayed[:finish] > 1
-        context.step_out(@delayed[:finish] - 1)
-
-      # Otherwise, resume the pry session at the stopped line.
-      else
-        resume_pry context
-      end
-
-      @delayed = Hash.new(0)
+    #
+    # Called when the wants to stop right before a method return
+    #
+    def at_return(context, file, line)
+       resume_pry(context)
     end
 
     # Called when a breakpoint is triggered. Note: `at_line`` is called
