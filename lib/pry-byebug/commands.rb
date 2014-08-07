@@ -73,7 +73,7 @@ module PryByebug
 
       def process
         check_file_context
-        run 'exit-all'
+        breakout_navigation :continue
       end
     end
     alias_command 'c', 'continue'
