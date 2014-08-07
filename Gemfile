@@ -4,6 +4,6 @@ gemspec
 
 gem 'rake', '~> 10.3'
 
-group :development, :test do
+group :test do
   gem 'mocha', '~> 1.1'
 end
