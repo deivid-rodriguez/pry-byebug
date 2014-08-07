@@ -1,17 +1,9 @@
 require 'test_helper'
 
 class CommandsTest < MiniTest::Spec
-  let(:step_file) do
-    (Pathname.new(__FILE__) + "../examples/stepping.rb").cleanpath.to_s
-  end
-
-  let(:break_first_file) do
-    (Pathname.new(__FILE__) + "../examples/break1.rb").cleanpath.to_s
-  end
-
-  let(:break_second_file) do
-    (Pathname.new(__FILE__) + "../examples/break2.rb").cleanpath.to_s
-  end
+  let(:step_file) { test_file('stepping') }
+  let(:break_first_file) { test_file('break1') }
+  let(:break_second_file) { test_file('break2') }
 
   before do
     Pry.color = false
@@ -82,7 +74,6 @@ class CommandsTest < MiniTest::Spec
       redirect_pry_io(@input, @output) do
         load break_first_file
       end
-      @output = StringIO.new
     end
 
     describe 'set by line number' do
