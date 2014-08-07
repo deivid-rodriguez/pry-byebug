@@ -15,9 +15,6 @@ def some_method
 end
 ```
 
-For a complete debugging environment, add
-[pry-stack_explorer][pry-stack_explorer] for call-stack frame navigation.
-
 
 ## Installation
 
