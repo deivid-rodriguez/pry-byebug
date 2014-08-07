@@ -64,6 +64,8 @@ module PryByebug
     # Called when a breakpoint is triggered. Note: `at_line`` is called
     # immediately after with the context's `stop_reason == :breakpoint`.
     def at_breakpoint(context, breakpoint)
+      @pry ||= Pry.new
+
       @pry.output.print Pry::Helpers::Text.bold("\nBreakpoint #{breakpoint.id}. ")
       @pry.output.puts  (breakpoint.hit_count == 1 ?
                            'First hit.' :
@@ -72,10 +74,6 @@ module PryByebug
         @pry.output.print Pry::Helpers::Text.bold("Condition: ")
         @pry.output.puts expr
       end
-    end
-
-    def at_catchpoint(context, exception)
-      # TODO
     end
 
     private
@@ -87,7 +85,11 @@ module PryByebug
         new_binding = context.frame_binding(0)
 
         run(false) do
-          @pry.repl new_binding
+          if @pry
+            @pry.repl(new_binding)
+          else
+            @pry = Pry.start_without_pry_byebug(new_binding)
+          end
         end
       end
   end

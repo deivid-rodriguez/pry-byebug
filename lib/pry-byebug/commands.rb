@@ -122,8 +122,6 @@ module PryByebug
       end
 
       def process
-        Pry.processor.pry = _pry_
-
         { :delete        => :delete,
           :disable       => :disable,
           :enable        => :enable,
