@@ -52,19 +52,6 @@ module PryByebug
       return_value
     end
 
-    # Adjust debugging. When set to false, the Processor will manage enabling
-    # and disabling the debugger itself. When set to true, byebug is always
-    # enabled.
-    def debugging=(enabled)
-      if enabled
-        @always_enabled = true
-        Byebug.start unless Byebug.started?
-      else
-        @always_enabled = false
-        # Byebug will get stopped if necessary in `stop` once the repl ends.
-      end
-    end
-
     # --- Callbacks from byebug C extension ---
     def at_line(context, file, line)
        # If any delayed nexts/steps, do 'em.

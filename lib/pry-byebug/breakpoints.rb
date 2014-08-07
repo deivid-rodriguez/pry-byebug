@@ -39,7 +39,6 @@ module PryByebug
     # Add method breakpoint.
     def add_method(method, expression = nil)
       validate_expression expression
-      Pry.processor.debugging = true
       owner, name = method.split(/[\.#]/)
       byebug_bp = Byebug.add_breakpoint(owner, name.to_sym, expression)
       bp = MethodBreakpoint.new byebug_bp, method
@@ -52,8 +51,6 @@ module PryByebug
       real_file = (file != Pry.eval_path)
       raise ArgumentError, 'Invalid file!' if real_file && !File.exist?(file)
       validate_expression expression
-
-      Pry.processor.debugging = true
 
       path = (real_file ? File.expand_path(file) : file)
       bp = FileBreakpoint.new Byebug.add_breakpoint(path, line, expression)
@@ -76,14 +73,12 @@ module PryByebug
         Byebug.remove_breakpoint(id) &&
         breakpoints.delete(find_by_id(id))
       raise ArgumentError, "No breakpoint ##{id}" if not deleted
-      Pry.processor.debugging = false if to_a.empty?
     end
 
     # Delete all breakpoints.
     def clear
       @breakpoints = []
       Byebug.breakpoints.clear if Byebug.started?
-      Pry.processor.debugging = false
     end
 
     # Enable a disabled breakpoint with the given ID.
