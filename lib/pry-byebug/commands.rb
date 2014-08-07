@@ -222,6 +222,7 @@ module PryByebug
     helpers do
       def breakout_navigation(action, times = nil)
         _pry_.binding_stack.clear # Clear the binding stack.
+
         throw :breakout_nav, {    # Break out of the REPL loop and signal tracer
           :action => action,
           :times  => times,

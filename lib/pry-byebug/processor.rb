@@ -7,7 +7,7 @@ module PryByebug
 
     def initialize(interface = Byebug::LocalInterface.new)
       super(interface)
-      
+
       Byebug.handler = self
     end
 
@@ -67,9 +67,8 @@ module PryByebug
       @pry ||= Pry.new
 
       @pry.output.print Pry::Helpers::Text.bold("\nBreakpoint #{breakpoint.id}. ")
-      @pry.output.puts  (breakpoint.hit_count == 1 ?
-                           'First hit.' :
-                           "Hit #{breakpoint.hit_count} times." )
+      @pry.output.puts(breakpoint.hit_count == 1 ?
+                         'First hit.' : "Hit #{breakpoint.hit_count} times." )
       if (expr = breakpoint.expr)
         @pry.output.print Pry::Helpers::Text.bold("Condition: ")
         @pry.output.puts expr
