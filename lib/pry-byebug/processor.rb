@@ -9,7 +9,6 @@ module PryByebug
       super(interface)
       
       Byebug.handler = self
-      @always_enabled = true
       @delayed = Hash.new(0)
     end
 
@@ -45,8 +44,6 @@ module PryByebug
         elsif :finish == command[:action]
           Byebug.current_context.step_out(0)
         end
-      else
-        stop
       end
 
       return_value
@@ -96,18 +93,9 @@ module PryByebug
       #
       def resume_pry(context)
         new_binding = context.frame_binding(0)
-        Byebug.stop unless @always_enabled
 
         run(false) do
           @pry.repl new_binding
-        end
-      end
-
-      # Cleanup when debugging is stopped and execution continues.
-      def stop
-        Byebug.stop if !@always_enabled && Byebug.started?
-        if PryByebug.current_remote_server   # Cleanup DRb remote if running
-          PryByebug.current_remote_server.teardown
         end
       end
   end
