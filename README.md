@@ -93,16 +93,12 @@ who contributed to it. pry-byebug is a fork of pry-debugger so it wouldn't
 exist as it is without those contributions.
 * John Mair (@banister), creator of [pry][pry].
 
-Patches and bug reports are welcome. Just send a [pull request][pullrequests] or
-file an [issue][issues]. [Project changelog][changelog].
+Patches and bug reports are welcome.
 
 [pry]:                http://pry.github.com
 [byebug]:             https://github.com/deivid-rodriguez/byebug
 [pry-debugger]:       https://github.com/nixme/pry-debugger
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
-[pullrequests]:       https://github.com/deivid-rodriguez/pry-byebug/pulls
-[issues]:             https://github.com/deivid-rodriguez/pry-byebug/issues
-[changelog]:          https://github.com/deivid-rodriguez/pry-byebug/blob/master/CHANGELOG.md
 [VersionBadge]: https://badge.fury.io/rb/pry-byebug.png
 [VersionURL]: http://badge.fury.io/rb/pry-byebug
 [TravisBadge]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.png
