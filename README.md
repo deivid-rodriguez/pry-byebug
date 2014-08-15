@@ -1,6 +1,7 @@
 # pry-byebug
 [![Version][VersionBadge]][VersionURL]
 [![Build][TravisBadge]][TravisURL]
+[![Gittip][GittipBadge]][GittipURL]
 
 _Fast execution control in Pry_
 
@@ -106,3 +107,5 @@ file an [issue][issues]. [Project changelog][changelog].
 [VersionURL]: http://badge.fury.io/rb/pry-byebug
 [TravisBadge]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.png
 [TravisURL]: http://travis-ci.org/deivid-rodriguez/pry-byebug
+[GittipBadge]: http://img.shields.io/gittip/deivid-rodriguez.svg
+[GittipURL]: https://www.gittip.com/deivid-rodriguez
