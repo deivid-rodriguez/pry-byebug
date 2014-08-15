@@ -1,5 +1,5 @@
-pry-byebug [![Gem Version][1]][2] [![Build Status][3]][4]
-============
+# pry-byebug
+[![Gem Version][1]][2] [![Build Status][3]][4]
 
 _Fast execution control in Pry_
 
