@@ -95,9 +95,9 @@ exist as it is without those contributions.
 
 Patches and bug reports are welcome.
 
-[pry]:                http://pry.github.com
-[byebug]:             https://github.com/deivid-rodriguez/byebug
-[pry-debugger]:       https://github.com/nixme/pry-debugger
+[pry]: http://pry.github.com
+[byebug]: https://github.com/deivid-rodriguez/byebug
+[pry-debugger]: https://github.com/nixme/pry-debugger
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
 [VersionBadge]: https://badge.fury.io/rb/pry-byebug.png
 [VersionURL]: http://badge.fury.io/rb/pry-byebug
