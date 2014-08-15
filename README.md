@@ -1,5 +1,6 @@
 # pry-byebug
-[![Gem Version][1]][2] [![Build Status][3]][4]
+[![Version][VersionBadge]][VersionURL]
+[![Build][TravisBadge]][TravisURL]
 
 _Fast execution control in Pry_
 
@@ -101,7 +102,7 @@ file an [issue][issues]. [Project changelog][changelog].
 [pullrequests]:       https://github.com/deivid-rodriguez/pry-byebug/pulls
 [issues]:             https://github.com/deivid-rodriguez/pry-byebug/issues
 [changelog]:          https://github.com/deivid-rodriguez/pry-byebug/blob/master/CHANGELOG.md
-[1]: https://badge.fury.io/rb/pry-byebug.png
-[2]: http://badge.fury.io/rb/pry-byebug
-[3]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.png
-[4]: http://travis-ci.org/deivid-rodriguez/pry-byebug
+[VersionBadge]: https://badge.fury.io/rb/pry-byebug.png
+[VersionURL]: http://badge.fury.io/rb/pry-byebug
+[TravisBadge]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.png
+[TravisURL]: http://travis-ci.org/deivid-rodriguez/pry-byebug
