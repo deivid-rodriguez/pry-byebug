@@ -1,24 +1,6 @@
 require 'test_helper'
 
 #
-# Some common specs for breakpoints
-#
-module BreakpointSpecs
-  def test_shows_breakpoint_enabled
-    @output.string.must_match @regexp
-  end
-
-  def test_shows_breakpoint_hit
-    match = @output.string.match(@regexp)
-    @output.string.must_match(/^Breakpoint #{match[:id]}\. First hit/)
-  end
-
-  def test_shows_breakpoint_line
-    @output.string.must_match(/\=> \s*#{@line}:/)
-  end
-end
-
-#
 # Some common specs for stepping
 #
 module SteppingSpecs
@@ -36,8 +18,6 @@ end
 #
 class CommandsTest < MiniTest::Spec
   let(:step_file) { test_file('stepping') }
-  let(:break_first_file) { test_file('break1') }
-  let(:break_second_file) { test_file('break2') }
 
   before do
     Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
@@ -93,56 +73,5 @@ class CommandsTest < MiniTest::Spec
     end
 
     include SteppingSpecs
-  end
-
-  describe 'Set Breakpoints' do
-    before do
-      @input = InputTester.new 'break --delete-all'
-      redirect_pry_io(@input, @output) { load break_first_file }
-    end
-
-    describe 'set by line number' do
-      before do
-        @input = InputTester.new('break 7')
-        redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 7
-        @regexp = /^Breakpoint (?<id>\d+): #{break_first_file} @ 7 \(Enabled\)/
-      end
-
-      include BreakpointSpecs
-    end
-
-    describe 'set by method_id' do
-      before do
-        @input = InputTester.new('break Break1Example#a')
-        redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 7
-        @regexp = /Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
-      end
-
-      include BreakpointSpecs
-    end
-
-    describe 'set by method_id when its a bang method' do
-      before do
-        @input = InputTester.new('break Break1Example#c!')
-        redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 17
-        @regexp = /Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
-      end
-
-      include BreakpointSpecs
-    end
-
-    describe 'set by method_id within context' do
-      before do
-        @input = InputTester.new('break #b')
-        redirect_pry_io(@input, @output) { load break_second_file }
-        @line = 11
-        @regexp = /Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
-      end
-
-      include BreakpointSpecs
-    end
   end
 end
