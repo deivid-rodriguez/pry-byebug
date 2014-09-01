@@ -1,5 +1,5 @@
 module PryByebug
-
+  #
   # Wrapper for Byebug.breakpoints that respects our Processor and has better
   # failure behavior. Acts as an Enumerable.
   #
@@ -36,7 +36,9 @@ module PryByebug
       @breakpoints ||= []
     end
 
-    # Add method breakpoint.
+    #
+    # Adds a method breakpoint.
+    #
     def add_method(method, expression = nil)
       validate_expression expression
       owner, name = method.split(/[\.#]/)
@@ -46,7 +48,9 @@ module PryByebug
       bp
     end
 
-    # Add file breakpoint.
+    #
+    # Adds a file breakpoint.
+    #
     def add_file(file, line, expression = nil)
       real_file = (file != Pry.eval_path)
       raise ArgumentError, 'Invalid file!' if real_file && !File.exist?(file)
@@ -58,7 +62,9 @@ module PryByebug
       bp
     end
 
-    # Change the conditional expression for a breakpoint.
+    #
+    # Changes the conditional expression for a breakpoint.
+    #
     def change(id, expression = nil)
       validate_expression expression
 
@@ -67,7 +73,9 @@ module PryByebug
       breakpoint
     end
 
-    # Delete an existing breakpoint with the given ID.
+    #
+    # Deletes an existing breakpoint with the given ID.
+    #
     def delete(id)
       deleted = Byebug.started? && 
         Byebug.remove_breakpoint(id) &&
@@ -75,23 +83,31 @@ module PryByebug
       raise ArgumentError, "No breakpoint ##{id}" if not deleted
     end
 
-    # Delete all breakpoints.
+    #
+    # Deletes all breakpoints.
+    #
     def clear
       @breakpoints = []
       Byebug.breakpoints.clear if Byebug.started?
     end
 
-    # Enable a disabled breakpoint with the given ID.
+    #
+    # Enables a disabled breakpoint with the given ID.
+    #
     def enable(id)
       change_status id, true
     end
 
-    # Disable a breakpoint with the given ID.
+    #
+    # Disables a breakpoint with the given ID.
+    #
     def disable(id)
       change_status id, false
     end
 
-    # Disable all breakpoints.
+    #
+    # Disables all breakpoints.
+    #
     def disable_all
       each do |breakpoint|
         breakpoint.enabled = false
