@@ -132,7 +132,7 @@ module PryByebug
     end
 
 
-   private
+    private
 
     def change_status(id, enabled = true)
       breakpoint = find_by_id(id)
@@ -141,8 +141,8 @@ module PryByebug
     end
 
     def validate_expression(expression)
-      if expression &&   # `nil` implies no expression given, so pass
-          (expression.empty? || !Pry::Code.complete_expression?(expression))
+      if expression && # `nil` implies no expression given, so pass
+         (expression.empty? || !Pry::Code.complete_expression?(expression))
         raise "Invalid breakpoint conditional: #{expression}"
       end
     end
