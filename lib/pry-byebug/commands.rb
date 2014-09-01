@@ -214,7 +214,7 @@ module PryByebug
           Breakpoints.each { |b| print_full_breakpoint(b) }
         else
           output.puts
-          print_breakpints_header
+          print_breakpoints_header
           Breakpoints.each { |b| print_short_breakpoint(b) }
           output.puts
         end
@@ -269,11 +269,17 @@ module PryByebug
       # Prints a header for the breakpoint list.
       #
       def print_breakpoints_header
-        max_width = [Math.log10(Breakpoints.count).ceil, 1].max
         header = "#{' ' * (max_width - 1)}#  Enabled  At "
 
         output.puts text.bold(header)
         output.puts text.bold('-' * header.size)
+      end
+
+      #
+      # Max width of breakpoints id column
+      #
+      def max_width
+        [Math.log10(Breakpoints.count).ceil, 1].max
       end
     end
   end

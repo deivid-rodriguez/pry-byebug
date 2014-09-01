@@ -119,4 +119,15 @@ class BreakpointsTestCommands < Minitest::Spec
       include BreakpointSpecs
     end
   end
+
+  describe 'List breakpoints' do
+    before do
+      @input = InputTester.new('break --delete-all', 'break #b', 'breakpoints')
+      redirect_pry_io(@input, @output) { load break_second_file }
+    end
+
+    it 'shows all breakpoints' do
+      @output.string.must_match(/Yes \s*Break2Example#b/)
+    end
+  end
 end
