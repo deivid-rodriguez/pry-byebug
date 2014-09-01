@@ -1,3 +1,12 @@
+## 2.0.0 (2014-01-09)
+
+- Improvements:
+  * Compatibility with byebug 3
+  * Now pry starts at the first line after binding.pry, not at binding.pry
+- Bugfixes:
+  * 'continue' doesn't finish pry instance (issue #13)
+
+
 ## 1.3.3 (2014-25-06)
 
 * Relaxes pry dependency to support pry 0.10 series and further minor version
