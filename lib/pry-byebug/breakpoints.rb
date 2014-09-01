@@ -42,7 +42,7 @@ module PryByebug
     def add_method(method, expression = nil)
       validate_expression expression
       owner, name = method.split(/[\.#]/)
-      byebug_bp = Byebug.add_breakpoint(owner, name.to_sym, expression)
+      byebug_bp = Byebug::Breakpoint.add(owner, name.to_sym, expression)
       bp = MethodBreakpoint.new byebug_bp, method
       breakpoints << bp
       bp
@@ -57,7 +57,7 @@ module PryByebug
       validate_expression expression
 
       path = (real_file ? File.expand_path(file) : file)
-      bp = FileBreakpoint.new Byebug.add_breakpoint(path, line, expression)
+      bp = FileBreakpoint.new Byebug::Breakpoint.add(path, line, expression)
       breakpoints << bp
       bp
     end
@@ -77,9 +77,8 @@ module PryByebug
     # Deletes an existing breakpoint with the given ID.
     #
     def delete(id)
-      deleted = Byebug.started? && 
-        Byebug.remove_breakpoint(id) &&
-        breakpoints.delete(find_by_id(id))
+      deleted = Byebug.started? &&
+        Byebug::Breakpoint.remove(id) && breakpoints.delete(find_by_id(id))
       raise ArgumentError, "No breakpoint ##{id}" if not deleted
     end
 
