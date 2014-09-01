@@ -126,8 +126,6 @@ module PryByebug
       end
 
       def process
-        Byebug.start unless Byebug.started?
-
         all = %w(condition show delete disable enable disable-all delete-all)
         all.each do |option|
           next unless opts.present?(option)
