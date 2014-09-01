@@ -32,8 +32,4 @@ class InputTester
   def readline(*)
     @actions.shift
   end
-
-  def rewind
-    @actions = @orig_actions.dup
-  end
 end
