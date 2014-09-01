@@ -1,14 +1,16 @@
 require 'test_helper'
 
+#
+# Checks current pry-byebug's context.
+#
 class BaseTest < MiniTest::Spec
   def test_main_file_context
-    Pry.stubs eval_path: "<main>"
+    Pry.stubs eval_path: '<main>'
     assert PryByebug.check_file_context(TOPLEVEL_BINDING)
   end
 
   def test_other_file_context
-    Pry.stubs eval_path: "something"
+    Pry.stubs eval_path: 'something'
     refute PryByebug.check_file_context(TOPLEVEL_BINDING)
   end
 end
-

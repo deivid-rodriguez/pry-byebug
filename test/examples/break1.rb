@@ -1,20 +1,23 @@
 binding.pry
 
-class BreakExample
+#
+# A toy example for testing break commands.
+#
+class Break1Example
   def a
     z = 2
-    b
+    z + b
   end
 
   def b
-    v2 = 5 if 1 == 2 ; [1,2,3].map { |a| a.to_f }
-    c!
+    z = 5
+    z + c!
   end
 
   def c!
     z = 4
-    5
+    z
   end
 end
 
-BreakExample.new.a
+Break1Example.new.a

@@ -1,8 +1,11 @@
-class BreakExample
+#
+# Another toy example for testing break commands.
+#
+class Break2Example
   def a
     binding.pry
     z = 2
-    b
+    z + b
   end
 
   def b
@@ -11,8 +14,8 @@ class BreakExample
 
   def c
     z = 4
-    5
+    z + 5
   end
 end
 
-BreakExample.new.a
+Break2Example.new.a

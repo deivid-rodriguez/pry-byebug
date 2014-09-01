@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.license       = 'MIT'
   gem.homepage      = 'https://github.com/deivid-rodriguez/pry-byebug'
   gem.summary       = 'Fast debugging with Pry.'
-  gem.description   = %q{Combine 'pry' with 'byebug'. Adds 'step', 'next',
-   'finish', 'continue' and 'break' commands to control execution.}
+  gem.description   = "Combine 'pry' with 'byebug'. Adds 'step', 'next',
+   'finish', 'continue' and 'break' commands to control execution."
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- test/*`.split("\n")

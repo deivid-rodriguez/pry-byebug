@@ -1,21 +1,22 @@
 require 'pry-remote'
 
 module PryRemote
+  #
+  # Overrides PryRemote::Server
+  #
   class Server
+    #
     # Override the call to Pry.start to save off current Server, and not
     # teardown the server right after Pry.start finishes.
+    #
     def run
-      if PryByebug.current_remote_server
-        raise 'Already running a pry-remote session!'
-      else
-        PryByebug.current_remote_server = self
-      end
+      fail('Already running a pry-remote session!') if
+        PryByebug.current_remote_server
+
+      PryByebug.current_remote_server = self
 
       setup
-      Pry.start @object, {
-        :input  => client.input_proxy,
-        :output => client.output
-      }
+      Pry.start @object, input: client.input_proxy, output: client.output
     end
 
     # Override to reset our saved global current server session.
@@ -35,7 +36,5 @@ end
 # 'next' on the last line of a program won't hit PryByebug::Processor#run,
 # which normally handles cleanup.
 at_exit do
-  if PryByebug.current_remote_server
-    PryByebug.current_remote_server.teardown
-  end
+  PryByebug.current_remote_server.teardown if PryByebug.current_remote_server
 end

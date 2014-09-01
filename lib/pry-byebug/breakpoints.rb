@@ -7,6 +7,9 @@ module PryByebug
     extend Enumerable
     extend self
 
+    #
+    # Breakpoint in a file:line location
+    #
     class FileBreakpoint < SimpleDelegator
       def source_code
         Pry::Code.from_file(source).around(pos, 3).with_marker(pos)
@@ -17,6 +20,9 @@ module PryByebug
       end
     end
 
+    #
+    # Breakpoint in a Class#method location
+    #
     class MethodBreakpoint < SimpleDelegator
       def initialize(byebug_bp, method)
         __setobj__ byebug_bp
@@ -53,7 +59,7 @@ module PryByebug
     #
     def add_file(file, line, expression = nil)
       real_file = (file != Pry.eval_path)
-      raise ArgumentError, 'Invalid file!' if real_file && !File.exist?(file)
+      fail(ArgumentError, 'Invalid file!') if real_file && !File.exist?(file)
       validate_expression expression
 
       path = (real_file ? File.expand_path(file) : file)
@@ -79,13 +85,13 @@ module PryByebug
     def delete(id)
       deleted = Byebug.started? &&
         Byebug::Breakpoint.remove(id) && breakpoints.delete(find_by_id(id))
-      raise ArgumentError, "No breakpoint ##{id}" if not deleted
+      fail(ArgumentError, "No breakpoint ##{id}") unless deleted
     end
 
     #
     # Deletes all breakpoints.
     #
-    def clear
+    def delete_all
       @breakpoints = []
       Byebug.breakpoints.clear if Byebug.started?
     end
@@ -127,10 +133,9 @@ module PryByebug
 
     def find_by_id(id)
       breakpoint = find { |b| b.id == id }
-      raise ArgumentError, "No breakpoint ##{id}!" unless breakpoint
+      fail(ArgumentError, "No breakpoint ##{id}!") unless breakpoint
       breakpoint
     end
-
 
     private
 
@@ -140,11 +145,10 @@ module PryByebug
       breakpoint
     end
 
-    def validate_expression(expression)
-      if expression && # `nil` implies no expression given, so pass
-         (expression.empty? || !Pry::Code.complete_expression?(expression))
-        raise "Invalid breakpoint conditional: #{expression}"
-      end
+    def validate_expression(exp)
+      return unless exp && (exp.empty? || !Pry::Code.complete_expression?(exp))
+
+      fail("Invalid breakpoint conditional: #{expression}")
     end
   end
 end

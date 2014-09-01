@@ -2,6 +2,9 @@ require 'pry'
 require 'byebug'
 
 module PryByebug
+  #
+  # Extends raw byebug's processor.
+  #
   class Processor < Byebug::Processor
     attr_accessor :pry
 
@@ -12,7 +15,7 @@ module PryByebug
     end
 
     # Wrap a Pry REPL to catch navigational commands and act on them.
-    def run(initial = false, &block)
+    def run(initial = false, &_block)
       return_value = nil
 
       if initial
@@ -50,49 +53,53 @@ module PryByebug
     #
     # Called when the wants to stop at a regular line
     #
-    def at_line(context, file, line)
+    def at_line(context, _file, _line)
       resume_pry(context)
     end
 
     #
     # Called when the wants to stop right before a method return
     #
-    def at_return(context, file, line)
-       resume_pry(context)
+    def at_return(context, _file, _line)
+      resume_pry(context)
     end
 
     #
-    # Called when a breakpoint is hit. Note that `at_line`` is called immediately after
-    # with the context's `stop_reason == :breakpoint`, so we must not resume the
-    # pry instance here
+    # Called when a breakpoint is hit. Note that `at_line`` is called
+    # inmediately after with the context's `stop_reason == :breakpoint`, so we
+    # must not resume the pry instance here
     #
-    def at_breakpoint(context, breakpoint)
+    def at_breakpoint(_context, breakpoint)
       @pry ||= Pry.new
 
-      @pry.output.print Pry::Helpers::Text.bold("\nBreakpoint #{breakpoint.id}. ")
-      @pry.output.puts(breakpoint.hit_count == 1 ?
-                         'First hit.' : "Hit #{breakpoint.hit_count} times." )
-      if (expr = breakpoint.expr)
-        @pry.output.print Pry::Helpers::Text.bold("Condition: ")
-        @pry.output.puts expr
-      end
+      brkpt_num = "\nBreakpoint #{breakpoint.id}. "
+      @pry.output.print Pry::Helpers::Text.bold(brkpt_num)
+
+      n_hits = breakpoint.hit_count
+      @pry.output.puts(n_hits == 1 ? 'First hit' : "Hit #{n_hits} times.")
+
+      expr = breakpoint.expr
+      return unless expr
+
+      @pry.output.print Pry::Helpers::Text.bold('Condition: ')
+      @pry.output.puts expr
     end
 
     private
 
-      #
-      # Resume an existing Pry REPL at the paused point.
-      #
-      def resume_pry(context)
-        new_binding = context.frame_binding(0)
+    #
+    # Resume an existing Pry REPL at the paused point.
+    #
+    def resume_pry(context)
+      new_binding = context.frame_binding(0)
 
-        run(false) do
-          if @pry
-            @pry.repl(new_binding)
-          else
-            @pry = Pry.start_without_pry_byebug(new_binding)
-          end
+      run(false) do
+        if @pry
+          @pry.repl(new_binding)
+        else
+          @pry = Pry.start_without_pry_byebug(new_binding)
         end
       end
+    end
   end
 end

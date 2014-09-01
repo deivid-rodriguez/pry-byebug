@@ -1,6 +1,9 @@
 require 'pry'
 require 'pry-byebug/breakpoints'
 
+#
+# Container for all of pry-byebug's functionality
+#
 module PryByebug
   Commands = Pry::CommandSet.new do
     create_command 'step' do
@@ -95,57 +98,69 @@ module PryByebug
 
         Examples:
 
-          break SomeClass#run            Break at the start of `SomeClass#run`.
-          break Foo#bar if baz?          Break at `Foo#bar` only if `baz?`.
-          break app/models/user.rb:15    Break at line 15 in user.rb.
-          break 14                       Break at line 14 in the current file.
+          break SomeClass#run         Break at the start of `SomeClass#run`.
+          break Foo#bar if baz?       Break at `Foo#bar` only if `baz?`.
+          break app/models/user.rb:15 Break at line 15 in user.rb.
+          break 14                    Break at line 14 in the current file.
 
-          break --condition 4 x > 2      Add/change condition on breakpoint #4.
-          break --condition 3            Remove the condition on breakpoint #3.
+          break --condition 4 x > 2   Add/change condition on breakpoint #4.
+          break --condition 3         Remove the condition on breakpoint #3.
 
-          break --delete 5               Delete breakpoint #5.
-          break --disable-all            Disable all breakpoints.
+          break --delete 5            Delete breakpoint #5.
+          break --disable-all         Disable all breakpoints.
 
-          break                          List all breakpoints. (Same as `breakpoints`)
-          break --show 2                 Show details about breakpoint #2.
+          break                       List all breakpoints.
+          break --show 2              Show details about breakpoint #2.
       BANNER
 
       def options(opt)
-        opt.on :c, :condition,     'Change the condition of a breakpoint.', :argument => true, :as => Integer
-        opt.on :s, :show,          'Show breakpoint details and source.',   :argument => true, :as => Integer
-        opt.on :D, :delete,        'Delete a breakpoint.',                  :argument => true, :as => Integer
-        opt.on :d, :disable,       'Disable a breakpoint.',                 :argument => true, :as => Integer
-        opt.on :e, :enable,        'Enable a disabled breakpoint.',         :argument => true, :as => Integer
-        opt.on     :'disable-all', 'Disable all breakpoints.'
-        opt.on     :'delete-all',  'Delete all breakpoints.'
-        method_options(opt)
+        defaults = { argument: true, as: Integer }
+
+        opt.on :c, :condition, 'Change condition of a breakpoint.', defaults
+        opt.on :s, :show, 'Show breakpoint details and source.', defaults
+        opt.on :D, :delete, 'Delete a breakpoint.', defaults
+        opt.on :d, :disable, 'Disable a breakpoint.', defaults
+        opt.on :e, :enable, 'Enable a disabled breakpoint.', defaults
+        opt.on :'disable-all', 'Disable all breakpoints.'
+        opt.on :'delete-all', 'Delete all breakpoints.'
       end
 
       def process
         Byebug.start unless Byebug.started?
 
-        { :delete        => :delete,
-          :disable       => :disable,
-          :enable        => :enable,
-          :'disable-all' => :disable_all,
-          :'delete-all'  => :clear
-        }.each do |action, method|
-          if opts.present?(action)
-            Breakpoints.__send__ method, *(method == action ? [opts[action]] : [])
-            return run 'breakpoints'
-          end
+        all = %w(condition show delete disable enable disable-all delete-all)
+        all.each do |option|
+          next unless opts.present?(option)
+
+          method_name = "process_#{option.gsub('-', '_')}"
+          return send(method_name)
         end
 
-        if opts.present?(:condition)
-          Breakpoints.change(opts[:condition], args.empty? ? nil : args.join(' '))
+        new_breakpoint unless args.empty?
+      end
+
+      %w(delete disable enable).each do |command|
+        define_method(:"process_#{command}") do
+          Breakpoints.send(command, opts[command])
           run 'breakpoints'
-        elsif opts.present?(:show)
-          print_full_breakpoint Breakpoints.find_by_id(opts[:show])
-        elsif args.empty?
-          run 'breakpoints'
-        else
-          new_breakpoint
         end
+      end
+
+      %w(disable-all delete-all).each do |command|
+        method_name = command.gsub('-', '_')
+        define_method(:"process_#{method_name}") do
+          Breakpoints.send(method_name)
+          run 'breakpoints'
+        end
+      end
+
+      def process_show
+        print_full_breakpoint(Breakpoints.find_by_id(opts[:show]))
+      end
+
+      def process_condition
+        expr = args.empty? ? nil : args.join(' ')
+        Breakpoints.change(opts[:condition], expr)
       end
 
       def new_breakpoint
@@ -154,31 +169,30 @@ module PryByebug
 
         bp =
           case place
-          when /^(\d+)$/       # Line number only
-            line = $1
-            unless PryByebug.check_file_context(target)
-              raise ArgumentError, 'Line number declaration valid only in a file context.'
-            end
+          when /^(\d+)$/
+            line = Regexp.last_match[1]
+            errmsg = 'Line number declaration valid only in a file context.'
+            check_file_context(errmsg)
+
             Breakpoints.add_file(target.eval('__FILE__'), line.to_i, condition)
-          when /^(.+):(\d+)$/  # File and line number
-            Breakpoints.add_file($1, $2.to_i, condition)
+          when /^(.+):(\d+)$/
+            file, lineno = Regexp.last_match[1], Regexp.last_match[2].to_i
+            Breakpoints.add_file(file, lineno, condition)
           when /^(.*)[.#].+$/  # Method or class name
-            if $1.strip.empty?
-              unless PryByebug.check_file_context(target)
-                raise ArgumentError, 'Method name declaration valid only in a file context.'
-              end
+            if Regexp.last_match[1].strip.empty?
+              errmsg = 'Method name declaration valid only in a file context.'
+              check_file_context(errmsg)
               place = target.eval('self.class.to_s') + place
             end
-            Breakpoints.add_method(place,condition)
+            Breakpoints.add_method(place, condition)
           else
-            raise ArgumentError, 'Cannot identify arguments as breakpoint'
+            fail(ArgumentError, 'Cannot identify arguments as breakpoint')
           end
 
-        print_full_breakpoint bp
+        print_full_breakpoint(bp)
       end
     end
     alias_command 'breakpoint', 'break'
-
 
     create_command 'breakpoints' do
       description 'List defined breakpoints.'
@@ -195,27 +209,16 @@ module PryByebug
       end
 
       def process
-        if Breakpoints.count > 0
-          if opts.verbose?   # Long-form with source output
-            Breakpoints.each { |b| print_full_breakpoint(b) }
-          else               # Simple table output
-            max_width = [Math.log10(Breakpoints.count).ceil, 1].max
-            header = "#{' ' * (max_width - 1)}#  Enabled  At "
+        errmsg = 'No breakpoints defined.'
+        return output.puts text.bold(errmsg) unless Breakpoints.count > 0
 
-            output.puts
-            output.puts text.bold(header)
-            output.puts text.bold('-' * header.size)
-            Breakpoints.each do |breakpoint|
-              output.printf "%#{max_width}d  ", breakpoint.id
-              output.print  breakpoint.enabled? ? 'Yes      ' : 'No       '
-              output.print  breakpoint.to_s
-              output.print  " (if #{breakpoint.expr})" if breakpoint.expr
-              output.puts
-            end
-            output.puts
-          end
+        if opts.verbose?
+          Breakpoints.each { |b| print_full_breakpoint(b) }
         else
-          output.puts text.bold('No breakpoints defined.')
+          output.puts
+          print_breakpints_header
+          Breakpoints.each { |b| print_short_breakpoint(b) }
+          output.puts
         end
       end
     end
@@ -225,34 +228,54 @@ module PryByebug
       def breakout_navigation(action, times = nil)
         _pry_.binding_stack.clear # Clear the binding stack.
 
-        throw :breakout_nav, {    # Break out of the REPL loop and signal tracer
-          :action => action,
-          :times  => times,
-          :pry    => _pry_
-        }
+        # Break out of the REPL loop and signal tracer
+        throw :breakout_nav, action: action, times: times, pry: _pry_
       end
 
       # Ensures that a command is executed in a local file context.
-      def check_file_context
-        unless PryByebug.check_file_context(target)
-          raise Pry::CommandError, 'Cannot find local context. Did you use `binding.pry`?'
-        end
+      def check_file_context(e = nil)
+        e ||= 'Cannot find local context. Did you use `binding.pry`?'
+        fail(Pry::CommandError, e) unless PryByebug.check_file_context(target)
       end
 
-      # Print out full information about a breakpoint including surrounding code
-      # at that point.
+      #
+      # Print out full information about a breakpoint.
+      #
+      # Includes surrounding code at that point.
+      #
       def print_full_breakpoint(breakpoint)
-        line = breakpoint.pos
         output.print text.bold("Breakpoint #{breakpoint.id}: ")
-        output.print "#{breakpoint.to_s} "
+        output.print "#{breakpoint} "
         output.print breakpoint.enabled? ? '(Enabled)' : '(Disabled)'
-        output.puts  ' :'
+        output.puts ' :'
         if (expr = breakpoint.expr)
           output.puts "#{text.bold('Condition:')} #{expr}"
         end
         output.puts
         output.puts breakpoint.source_code.with_line_numbers.to_s
         output.puts
+      end
+
+      #
+      # Print out concise information about a breakpoint.
+      #
+      def print_short_breakpoint(breakpoint)
+        output.printf "%#{max_width}d  ", breakpoint.id
+        output.print breakpoint.enabled? ? 'Yes      ' : 'No       '
+        output.print breakpoint.to_s
+        output.print " (if #{breakpoint.expr})" if breakpoint.expr
+        output.puts
+      end
+
+      #
+      # Prints a header for the breakpoint list.
+      #
+      def print_breakpoints_header
+        max_width = [Math.log10(Breakpoints.count).ceil, 1].max
+        header = "#{' ' * (max_width - 1)}#  Enabled  At "
+
+        output.puts text.bold(header)
+        output.puts text.bold('-' * header.size)
       end
     end
   end

@@ -1,14 +1,20 @@
 require 'test_helper'
 
+#
+# Tests for pry-byebug breakpoints.
+#
 class BreakpointsTest < MiniTest::Spec
   def test_add_file_raises_argument_error
-    Pry.stubs eval_path: "something"
+    Pry.stubs eval_path: 'something'
     File.stubs :exist?
     assert_raises(ArgumentError) do
-      PryByebug::Breakpoints.add_file("file", 1)
+      PryByebug::Breakpoints.add_file('file', 1)
     end
   end
 
+  #
+  # Minimal dummy example class.
+  #
   class Tester
     def self.class_method; end
     def instance_method; end
