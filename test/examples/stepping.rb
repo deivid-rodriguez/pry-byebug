@@ -1,23 +1,24 @@
 binding.pry
 
 class SteppingExample
-  def a
+  def method_a
     z = 2
-    b
+    method_b
   end
 
-  def b
-    v2 = 5 if 1 == 2 ; [1,2,3].map { |a| a.to_f }
-    c
+  def method_b
+    c = Math::PI/2
+    c += method_c
+    c + 1
   end
 
-  def c
+  def method_c
     z = 4
     5
   end
 end
 
-ex = SteppingExample.new.a
+ex = SteppingExample.new.method_a
 2.times do
   ex += 1
 end

@@ -63,8 +63,22 @@ class CommandsTest < MiniTest::Spec
       end
 
       it 'shows current line' do
-        @output.string.must_match /\=> 21:/
+        @output.string.must_match /\=> 22:/
       end
+    end
+  end
+
+  describe 'Finish Command' do
+    before do
+      @input = \
+        InputTester.new 'break 16', 'continue', 'finish', 'break --delete-all'
+      redirect_pry_io(@input, @output) do
+        load step_file
+      end
+    end
+
+    it 'goes to correct line' do
+      @output.string.must_match /\=> 12:/
     end
   end
 
@@ -163,7 +177,6 @@ class CommandsTest < MiniTest::Spec
         @output.string.must_match /\=>  8:/
       end
     end
-
   end
 end
 
