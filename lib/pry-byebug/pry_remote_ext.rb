@@ -19,7 +19,9 @@ module PryRemote
       Pry.start @object, input: client.input_proxy, output: client.output
     end
 
+    #
     # Override to reset our saved global current server session.
+    #
     alias_method :teardown_without_pry_byebug, :teardown
     def teardown_with_pry_byebug
       return if @torn

@@ -14,7 +14,9 @@ module Byebug
       Byebug.handler = self
     end
 
+    #
     # Wrap a Pry REPL to catch navigational commands and act on them.
+    #
     def run(initial = false, &_block)
       return_value = nil
 
