@@ -1,86 +1,8 @@
 require 'pry'
 require 'pry/byebug/breakpoints'
 
-#
-# Container for all of pry-byebug's functionality
-#
-module PryByebug
-  Commands = Pry::CommandSet.new do
-    create_command 'step' do
-      description 'Step execution into the next line or method.'
-
-      banner <<-BANNER
-        Usage: step [TIMES]
-        Aliases: s
-
-        Step execution forward. By default, moves a single step.
-
-        Examples:
-
-          step                           Move a single step forward.
-          step 5                         Execute the next 5 steps.
-      BANNER
-
-      def process
-        check_file_context
-        breakout_navigation :step, args.first
-      end
-    end
-    alias_command 's', 'step'
-
-    create_command 'next' do
-      description 'Execute the next line within the current stack frame.'
-
-      banner <<-BANNER
-        Usage: next [LINES]
-        Aliases: n
-
-        Step over within the same frame. By default, moves forward a single
-        line.
-
-        Examples:
-
-          next                           Move a single line forward.
-          next 4                         Execute the next 4 lines.
-      BANNER
-
-      def process
-        check_file_context
-        breakout_navigation :next, args.first
-      end
-    end
-    alias_command 'n', 'next'
-
-    create_command 'finish' do
-      description 'Execute until current stack frame returns.'
-
-      banner <<-BANNER
-        Usage: finish
-        Aliases: f
-      BANNER
-
-      def process
-        check_file_context
-        breakout_navigation :finish
-      end
-    end
-    alias_command 'f', 'finish'
-
-    create_command 'continue' do
-      description 'Continue program execution and end the Pry session.'
-
-      banner <<-BANNER
-        Usage: continue
-        Aliases: c
-      BANNER
-
-      def process
-        check_file_context
-        breakout_navigation :continue
-      end
-    end
-    alias_command 'c', 'continue'
-
+class Pry
+  BreakpointCommands = CommandSet.new do
     create_command 'break' do
       description 'Set or edit a breakpoint.'
 
@@ -139,7 +61,7 @@ module PryByebug
 
       %w(delete disable enable).each do |command|
         define_method(:"process_#{command}") do
-          Pry::Byebug::Breakpoints.send(command, opts[command])
+          Byebug::Breakpoints.send(command, opts[command])
           run 'breakpoints'
         end
       end
@@ -147,18 +69,18 @@ module PryByebug
       %w(disable-all delete-all).each do |command|
         method_name = command.gsub('-', '_')
         define_method(:"process_#{method_name}") do
-          Pry::Byebug::Breakpoints.send(method_name)
+          Byebug::Breakpoints.send(method_name)
           run 'breakpoints'
         end
       end
 
       def process_show
-        print_full_breakpoint(Pry::Byebug::Breakpoints.find_by_id(opts[:show]))
+        print_full_breakpoint(Byebug::Breakpoints.find_by_id(opts[:show]))
       end
 
       def process_condition
         expr = args.empty? ? nil : args.join(' ')
-        Pry::Byebug::Breakpoints.change(opts[:condition], expr)
+        Byebug::Breakpoints.change(opts[:condition], expr)
       end
 
       def new_breakpoint
@@ -169,20 +91,20 @@ module PryByebug
           case place
           when /^(\d+)$/
             errmsg = 'Line number declaration valid only in a file context.'
-            check_file_context(errmsg)
+            PryByebug.check_file_context(target, errmsg)
 
             file, lineno = target.eval('__FILE__'), Regexp.last_match[1].to_i
-            Pry::Byebug::Breakpoints.add_file(file, lineno, condition)
+            Byebug::Breakpoints.add_file(file, lineno, condition)
           when /^(.+):(\d+)$/
             file, lineno = Regexp.last_match[1], Regexp.last_match[2].to_i
-            Pry::Byebug::Breakpoints.add_file(file, lineno, condition)
+            Byebug::Breakpoints.add_file(file, lineno, condition)
           when /^(.*)[.#].+$/  # Method or class name
             if Regexp.last_match[1].strip.empty?
               errmsg = 'Method name declaration valid only in a file context.'
-              check_file_context(errmsg)
+              PryByebug.check_file_context(target, errmsg)
               place = target.eval('self.class.to_s') + place
             end
-            Pry::Byebug::Breakpoints.add_method(place, condition)
+            Byebug::Breakpoints.add_method(place, condition)
           else
             fail(ArgumentError, 'Cannot identify arguments as breakpoint')
           end
@@ -207,17 +129,17 @@ module PryByebug
       end
 
       def process
-        unless Pry::Byebug::Breakpoints.count > 0
+        unless Byebug::Breakpoints.count > 0
           errmsg = 'No breakpoints defined.'
           return output.puts text.bold(errmsg)
         end
 
         if opts.verbose?
-          Pry::Byebug::Breakpoints.each { |b| print_full_breakpoint(b) }
+          Byebug::Breakpoints.each { |b| print_full_breakpoint(b) }
         else
           output.puts
           print_breakpoints_header
-          Pry::Byebug::Breakpoints.each { |b| print_short_breakpoint(b) }
+          Byebug::Breakpoints.each { |b| print_short_breakpoint(b) }
           output.puts
         end
       end
@@ -225,19 +147,6 @@ module PryByebug
     alias_command 'breaks', 'breakpoints'
 
     helpers do
-      def breakout_navigation(action, times = nil)
-        _pry_.binding_stack.clear # Clear the binding stack.
-
-        # Break out of the REPL loop and signal tracer
-        throw :breakout_nav, action: action, times: times, pry: _pry_
-      end
-
-      # Ensures that a command is executed in a local file context.
-      def check_file_context(e = nil)
-        e ||= 'Cannot find local context. Did you use `binding.pry`?'
-        fail(Pry::CommandError, e) unless PryByebug.check_file_context(target)
-      end
-
       #
       # Print out full information about a breakpoint.
       #
@@ -281,10 +190,10 @@ module PryByebug
       # Max width of breakpoints id column
       #
       def max_width
-        [Math.log10(Pry::Byebug::Breakpoints.count).ceil, 1].max
+        [Math.log10(Byebug::Breakpoints.count).ceil, 1].max
       end
     end
   end
-end
 
-Pry.commands.import PryByebug::Commands
+  Pry.commands.import(BreakpointCommands)
+end

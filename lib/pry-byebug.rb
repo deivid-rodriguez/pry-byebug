@@ -1,3 +1,4 @@
 require 'pry-byebug/base'
 require 'pry-byebug/pry_ext'
-require 'pry-byebug/commands'
+require 'pry/commands/stepping'
+require 'pry/commands/breakpoint'

@@ -8,7 +8,7 @@ class << Pry
   def start_with_pry_byebug(target = TOPLEVEL_BINDING, options = {})
     @processor ||= Byebug::PryProcessor.new
 
-    if target.is_a?(Binding) && PryByebug.check_file_context(target)
+    if target.is_a?(Binding) && PryByebug.file_context?(target)
       # Wrap processor around the usual Pry.start to catch navigation commands
       @processor.run(true) { start_without_pry_byebug(target, options) }
     else
