@@ -12,9 +12,8 @@ class Pry
         Step execution forward. By default, moves a single step.
 
         Examples:
-
-          step                           Move a single step forward.
-          step 5                         Execute the next 5 steps.
+          step   #=> Move a single step forward.
+          step 5 #=> Execute the next 5 steps.
       BANNER
 
       def process
@@ -35,9 +34,8 @@ class Pry
         line.
 
         Examples:
-
-          next                           Move a single line forward.
-          next 4                         Execute the next 4 lines.
+          next   #=> Move a single line forward.
+          next 4 #=> Execute the next 4 lines.
       BANNER
 
       def process
