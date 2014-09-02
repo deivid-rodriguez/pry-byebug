@@ -33,7 +33,7 @@ module PryRemote
 end
 
 # Ensure cleanup when a program finishes without another break. For example,
-# 'next' on the last line of a program won't hit PryByebug::Processor#run,
+# 'next' on the last line of a program won't hit Byebug::PryProcessor#run,
 # which normally handles cleanup.
 at_exit do
   PryByebug.current_remote_server.teardown if PryByebug.current_remote_server

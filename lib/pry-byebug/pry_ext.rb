@@ -1,12 +1,12 @@
 require 'pry'
-require 'pry-byebug/processor'
+require 'byebug/processors/pry_processor'
 
 class << Pry
   alias_method :start_without_pry_byebug, :start
   attr_reader :processor
 
   def start_with_pry_byebug(target = TOPLEVEL_BINDING, options = {})
-    @processor ||= PryByebug::Processor.new
+    @processor ||= Byebug::PryProcessor.new
 
     if target.is_a?(Binding) && PryByebug.check_file_context(target)
       # Wrap the processor around the usual Pry.start to catch navigation

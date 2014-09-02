@@ -6,6 +6,4 @@ Style/FileName:
   Exclude:
     - lib/pry-byebug.rb
     - lib/pry-byebug/cli.rb
-    - lib/pry-byebug/commands.rb
-    - lib/pry-byebug/pry_ext.rb
     - test/test_helper.rb

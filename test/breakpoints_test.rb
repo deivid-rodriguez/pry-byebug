@@ -8,7 +8,7 @@ class BreakpointsTestGeneral < MiniTest::Spec
     Pry.stubs eval_path: 'something'
     File.stubs :exist?
     assert_raises(ArgumentError) do
-      PryByebug::Breakpoints.add_file('file', 1)
+      Pry::Byebug::Breakpoints.add_file('file', 1)
     end
   end
 
@@ -21,8 +21,8 @@ class BreakpointsTestGeneral < MiniTest::Spec
   end
 
   def test_add_method_adds_instance_method_breakpoint
-    Pry.stub :processor, PryByebug::Processor.new do
-      PryByebug::Breakpoints.add_method 'BreakpointsTest::Tester#instance_method'
+    Pry.stub :processor, Byebug::PryProcessor.new do
+      Pry::Byebug::Breakpoints.add_method 'BreakpointsTest::Tester#instance_method'
       bp = Byebug.breakpoints.last
       assert_equal 'BreakpointsTest::Tester', bp.source
       assert_equal 'instance_method', bp.pos
@@ -30,8 +30,8 @@ class BreakpointsTestGeneral < MiniTest::Spec
   end
 
   def test_add_method_adds_class_method_breakpoint
-    Pry.stub :processor, PryByebug::Processor.new do
-      PryByebug::Breakpoints.add_method 'BreakpointsTest::Tester.class_method'
+    Pry.stub :processor, Byebug::PryProcessor.new do
+      Pry::Byebug::Breakpoints.add_method 'BreakpointsTest::Tester.class_method'
       bp = Byebug.breakpoints.last
       assert_equal 'BreakpointsTest::Tester', bp.source
       assert_equal 'class_method', bp.pos

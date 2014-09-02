@@ -1,14 +1,14 @@
 require 'pry'
 require 'byebug'
 
-module PryByebug
+module Byebug
   #
   # Extends raw byebug's processor.
   #
-  class Processor < Byebug::Processor
+  class PryProcessor < Processor
     attr_accessor :pry
 
-    def initialize(interface = Byebug::LocalInterface.new)
+    def initialize(interface = LocalInterface.new)
       super(interface)
 
       Byebug.handler = self

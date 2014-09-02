@@ -1,5 +1,5 @@
 require 'pry'
-require 'pry-byebug/breakpoints'
+require 'pry/byebug/breakpoints'
 
 #
 # Container for all of pry-byebug's functionality
@@ -139,7 +139,7 @@ module PryByebug
 
       %w(delete disable enable).each do |command|
         define_method(:"process_#{command}") do
-          Breakpoints.send(command, opts[command])
+          Pry::Byebug::Breakpoints.send(command, opts[command])
           run 'breakpoints'
         end
       end
@@ -147,18 +147,18 @@ module PryByebug
       %w(disable-all delete-all).each do |command|
         method_name = command.gsub('-', '_')
         define_method(:"process_#{method_name}") do
-          Breakpoints.send(method_name)
+          Pry::Byebug::Breakpoints.send(method_name)
           run 'breakpoints'
         end
       end
 
       def process_show
-        print_full_breakpoint(Breakpoints.find_by_id(opts[:show]))
+        print_full_breakpoint(Pry::Byebug::Breakpoints.find_by_id(opts[:show]))
       end
 
       def process_condition
         expr = args.empty? ? nil : args.join(' ')
-        Breakpoints.change(opts[:condition], expr)
+        Pry::Byebug::Breakpoints.change(opts[:condition], expr)
       end
 
       def new_breakpoint
@@ -168,21 +168,21 @@ module PryByebug
         bp =
           case place
           when /^(\d+)$/
-            line = Regexp.last_match[1]
             errmsg = 'Line number declaration valid only in a file context.'
             check_file_context(errmsg)
 
-            Breakpoints.add_file(target.eval('__FILE__'), line.to_i, condition)
+            file, lineno = target.eval('__FILE__'), Regexp.last_match[1].to_i
+            Pry::Byebug::Breakpoints.add_file(file, lineno, condition)
           when /^(.+):(\d+)$/
             file, lineno = Regexp.last_match[1], Regexp.last_match[2].to_i
-            Breakpoints.add_file(file, lineno, condition)
+            Pry::Byebug::Breakpoints.add_file(file, lineno, condition)
           when /^(.*)[.#].+$/  # Method or class name
             if Regexp.last_match[1].strip.empty?
               errmsg = 'Method name declaration valid only in a file context.'
               check_file_context(errmsg)
               place = target.eval('self.class.to_s') + place
             end
-            Breakpoints.add_method(place, condition)
+            Pry::Byebug::Breakpoints.add_method(place, condition)
           else
             fail(ArgumentError, 'Cannot identify arguments as breakpoint')
           end
@@ -207,15 +207,17 @@ module PryByebug
       end
 
       def process
-        errmsg = 'No breakpoints defined.'
-        return output.puts text.bold(errmsg) unless Breakpoints.count > 0
+        unless Pry::Byebug::Breakpoints.count > 0
+          errmsg = 'No breakpoints defined.'
+          return output.puts text.bold(errmsg)
+        end
 
         if opts.verbose?
-          Breakpoints.each { |b| print_full_breakpoint(b) }
+          Pry::Byebug::Breakpoints.each { |b| print_full_breakpoint(b) }
         else
           output.puts
           print_breakpoints_header
-          Breakpoints.each { |b| print_short_breakpoint(b) }
+          Pry::Byebug::Breakpoints.each { |b| print_short_breakpoint(b) }
           output.puts
         end
       end
@@ -279,7 +281,7 @@ module PryByebug
       # Max width of breakpoints id column
       #
       def max_width
-        [Math.log10(Breakpoints.count).ceil, 1].max
+        [Math.log10(Pry::Byebug::Breakpoints.count).ceil, 1].max
       end
     end
   end
