@@ -29,21 +29,16 @@ module Byebug
           {}    # Nothing thrown == no navigational command
         end
 
-        times = (command[:times] || 1).to_i   # Command argument
-        times = 1 if times <= 0
+        @pry = command[:pry] # Pry instance to resume after stepping
+        times = (command[:times] || '1').to_i
 
-        if [:step, :next, :finish].include? command[:action]
-          @pry = command[:pry]   # Pry instance to resume after stepping
-
-          if :next == command[:action]
-            Byebug.current_context.step_over(times, 0)
-
-          elsif :step == command[:action]
-            Byebug.current_context.step_into(times)
-
-          elsif :finish == command[:action]
-            Byebug.current_context.step_out(times)
-          end
+        case command[:action]
+        when :next
+          Byebug.current_context.step_over(times, 0)
+        when :step
+          Byebug.current_context.step_into(times)
+        when :finish
+          Byebug.current_context.step_out(times)
         end
       end
 
