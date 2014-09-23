@@ -18,12 +18,12 @@ module Byebug
     # Wrap a Pry REPL to catch navigational commands and act on them.
     #
     def run(initial = false, &_block)
-      return_value = nil
-
       if initial
         Byebug.start
         Byebug.current_context.step_out(3)
       else
+        return_value = nil
+
         command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
           return_value = yield
           {}    # Nothing thrown == no navigational command
@@ -40,9 +40,9 @@ module Byebug
         when :finish
           Byebug.current_context.step_out(times)
         end
-      end
 
-      return_value
+        return_value
+      end
     end
 
     # --- Callbacks from byebug C extension ---
