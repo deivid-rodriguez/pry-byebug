@@ -9,12 +9,16 @@ Adds **step**, **next**, **finish** and **continue** commands and
 **breakpoints** to [Pry][pry] using [byebug][byebug].
 
 To use, invoke pry normally. No need to start your script or app differently.
+Execution will stop in the first statement after your `binding.pry`.
 
 ```ruby
 def some_method
-  binding.pry          # Execution will stop here.
-  puts 'Hello World'   # Run 'step' or 'next' in the console to move here.
+  puts 'Hello World' # Run 'step' in the console to move here
 end
+
+binding.pry
+some_method          # Execution will stop here.
+puts 'Goodbye World' # Run 'next' in the console to move here.
 ```
 
 
