@@ -10,7 +10,7 @@ class << Pry
 
     if target.is_a?(Binding) && PryByebug.file_context?(target)
       # Wrap processor around the usual Pry.start to catch navigation commands
-      @processor.run(true) { start_without_pry_byebug(target, options) }
+      @processor.start
     else
       # No need for the tracer unless we have a file context to step through
       start_without_pry_byebug(target, options)

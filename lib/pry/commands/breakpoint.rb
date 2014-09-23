@@ -1,6 +1,11 @@
 require 'pry'
 require 'pry/byebug/breakpoints'
 
+#
+# Main Pry class.
+#
+# We're going to add to it custom breakpoint commands for Pry-Byebug
+#
 class Pry
   BreakpointCommands = CommandSet.new do
     create_command 'break' do

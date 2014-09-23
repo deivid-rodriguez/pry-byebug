@@ -147,7 +147,8 @@ class Pry
       end
 
       def validate_expression(exp)
-        return unless exp && (exp.empty? || !Pry::Code.complete_expression?(exp))
+        return unless exp &&
+                     (exp.empty? || !Pry::Code.complete_expression?(exp))
 
         fail("Invalid breakpoint conditional: #{expression}")
       end

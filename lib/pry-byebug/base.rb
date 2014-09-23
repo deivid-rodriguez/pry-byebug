@@ -1,3 +1,6 @@
+#
+# Main container module for Pry-Byebug functionality
+#
 module PryByebug
   #
   # Checks that a target binding is in a local file context.

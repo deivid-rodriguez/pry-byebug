@@ -1,5 +1,10 @@
 require 'pry'
 
+#
+# Main Pry class.
+#
+# We're going to add to it custom stepping commands for Pry-Byebug
+#
 class Pry
   SteppingCommands = CommandSet.new do
     create_command 'step' do

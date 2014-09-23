@@ -14,34 +14,41 @@ module Byebug
       Byebug.handler = self
     end
 
+    def start
+      Byebug.start
+      Byebug.current_context.step_out(3, true)
+    end
+
     #
     # Wrap a Pry REPL to catch navigational commands and act on them.
     #
-    def run(initial = false, &_block)
-      if initial
-        Byebug.start
-        Byebug.current_context.step_out(3, true)
-      else
-        return_value = nil
+    def run(&_block)
+      return_value = nil
 
-        command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
-          return_value = yield
-          {}    # Nothing thrown == no navigational command
-        end
+      command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
+        return_value = yield
+        {}    # Nothing thrown == no navigational command
+      end
 
-        @pry = command[:pry] # Pry instance to resume after stepping
-        times = (command[:times] || '1').to_i
+      # Pry instance to resume after stepping
+      @pry = command[:pry]
 
-        case command[:action]
-        when :next
-          Byebug.current_context.step_over(times, 0)
-        when :step
-          Byebug.current_context.step_into(times)
-        when :finish
-          Byebug.current_context.step_out(times)
-        end
+      perform(command[:action], (command[:times] || '1').to_i)
 
-        return_value
+      return_value
+    end
+
+    #
+    # Set up a number of navigational commands to be performed by Byebug.
+    #
+    def perform(action, times)
+      case action
+      when :next
+        Byebug.current_context.step_over(times, 0)
+      when :step
+        Byebug.current_context.step_into(times)
+      when :finish
+        Byebug.current_context.step_out(times)
       end
     end
 
@@ -90,7 +97,7 @@ module Byebug
     def resume_pry(context)
       new_binding = context.frame_binding(0)
 
-      run(false) do
+      run do
         if @pry
           @pry.repl(new_binding)
         else
