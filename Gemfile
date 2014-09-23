@@ -5,7 +5,7 @@ gemspec
 gem 'rake', '~> 10.3'
 
 group :development do
-  gem 'rubocop', '~> 0.25'
+  gem 'rubocop', '~> 0.26'
 end
 
 group :test do
