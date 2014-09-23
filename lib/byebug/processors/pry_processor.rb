@@ -20,7 +20,7 @@ module Byebug
     def run(initial = false, &_block)
       if initial
         Byebug.start
-        Byebug.current_context.step_out(3)
+        Byebug.current_context.step_out(3, true)
       else
         return_value = nil
 
