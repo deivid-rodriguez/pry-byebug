@@ -50,6 +50,14 @@ optional numeric argument to step multiple lines. Aliased to `n`
 
 **continue:** Continue program execution and end the Pry session. Aliased to `c`
 
+To configure the `Enter` key to repeat the last command (e.g., `step` or
+`next`), add this to your ~/.pryrc file:
+
+    # Hit Enter to repeat last command
+    Pry::Commands.command /^$/, "repeat last command" do
+      _pry_.run_command Pry.history.to_a.last
+    end
+
 
 ## Breakpoints
 
