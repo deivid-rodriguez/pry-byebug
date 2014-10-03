@@ -1,6 +1,7 @@
 # pry-byebug
 [![Version][VersionBadge]][VersionURL]
 [![Build][TravisBadge]][TravisURL]
+[![Inline docs][InchCIBadge]](InchCIURL)
 [![Gittip][GittipBadge]][GittipURL]
 
 _Fast execution control in Pry_
@@ -136,5 +137,7 @@ Patches and bug reports are welcome.
 [VersionURL]: http://badge.fury.io/rb/pry-byebug
 [TravisBadge]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.png
 [TravisURL]: http://travis-ci.org/deivid-rodriguez/pry-byebug
+[InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
+[InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
 [GittipBadge]: http://img.shields.io/gittip/deivid-rodriguez.svg
 [GittipURL]: https://www.gittip.com/deivid-rodriguez
