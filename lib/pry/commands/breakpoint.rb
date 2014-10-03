@@ -66,7 +66,7 @@ class Pry
 
       %w(delete disable enable).each do |command|
         define_method(:"process_#{command}") do
-          Byebug::Breakpoints.send(command, opts[command])
+          breakpoints.send(command, opts[command])
           run 'breakpoints'
         end
       end
@@ -74,18 +74,18 @@ class Pry
       %w(disable-all delete-all).each do |command|
         method_name = command.gsub('-', '_')
         define_method(:"process_#{method_name}") do
-          Byebug::Breakpoints.send(method_name)
+          breakpoints.send(method_name)
           run 'breakpoints'
         end
       end
 
       def process_show
-        print_full_breakpoint(Byebug::Breakpoints.find_by_id(opts[:show]))
+        print_full_breakpoint(breakpoints.find_by_id(opts[:show]))
       end
 
       def process_condition
         expr = args.empty? ? nil : args.join(' ')
-        Byebug::Breakpoints.change(opts[:condition], expr)
+        breakpoints.change(opts[:condition], expr)
       end
 
       def new_breakpoint
@@ -99,17 +99,17 @@ class Pry
             PryByebug.check_file_context(target, errmsg)
 
             file, lineno = target.eval('__FILE__'), Regexp.last_match[1].to_i
-            Byebug::Breakpoints.add_file(file, lineno, condition)
+            breakpoints.add_file(file, lineno, condition)
           when /^(.+):(\d+)$/
             file, lineno = Regexp.last_match[1], Regexp.last_match[2].to_i
-            Byebug::Breakpoints.add_file(file, lineno, condition)
+            breakpoints.add_file(file, lineno, condition)
           when /^(.*)[.#].+$/  # Method or class name
             if Regexp.last_match[1].strip.empty?
               errmsg = 'Method name declaration valid only in a file context.'
               PryByebug.check_file_context(target, errmsg)
               place = target.eval('self.class.to_s') + place
             end
-            Byebug::Breakpoints.add_method(place, condition)
+            breakpoints.add_method(place, condition)
           else
             fail(ArgumentError, 'Cannot identify arguments as breakpoint')
           end
@@ -134,18 +134,15 @@ class Pry
       end
 
       def process
-        unless Byebug::Breakpoints.count > 0
-          errmsg = 'No breakpoints defined.'
-          return output.puts text.bold(errmsg)
+        if breakpoints.count == 0
+          return output.puts(text.bold('No breakpoints defined.'))
         end
 
         if opts.verbose?
-          Byebug::Breakpoints.each { |b| print_full_breakpoint(b) }
+          breakpoints.each { |b| print_full_breakpoint(b) }
         else
-          output.puts
           print_breakpoints_header
-          Byebug::Breakpoints.each { |b| print_short_breakpoint(b) }
-          output.puts
+          breakpoints.each { |b| print_short_breakpoint(b) }
         end
       end
     end
@@ -153,32 +150,42 @@ class Pry
 
     helpers do
       #
+      # Byebug's array of breakpoints.
+      #
+      def breakpoints
+        Byebug::Breakpoints
+      end
+
+      #
+      # Prints a message with bold font.
+      #
+      def bold_puts(msg)
+        output.puts(text.bold(msg))
+      end
+
+      #
       # Print out full information about a breakpoint.
       #
       # Includes surrounding code at that point.
       #
-      def print_full_breakpoint(breakpoint)
-        output.print text.bold("Breakpoint #{breakpoint.id}: ")
-        output.print "#{breakpoint} "
-        output.print breakpoint.enabled? ? '(Enabled)' : '(Disabled)'
-        output.puts ' :'
-        if (expr = breakpoint.expr)
-          output.puts "#{text.bold('Condition:')} #{expr}"
-        end
-        output.puts
-        output.puts breakpoint.source_code.with_line_numbers.to_s
-        output.puts
+      def print_full_breakpoint(br)
+        header = text.bold("Breakpoint #{br.id}:")
+        status = br.enabled? ? '(Enabled)' : '(Disabled)'
+        code = br.source_code.with_line_numbers.to_s
+        condition = br.expr ? "#{text.bold('Condition:')} #{br.expr}\n" : ''
+
+        output.puts("#{header} #{br} #{status} :\n#{condition}#{code}\n")
       end
 
       #
       # Print out concise information about a breakpoint.
       #
       def print_short_breakpoint(breakpoint)
-        output.printf "%#{max_width}d  ", breakpoint.id
-        output.print breakpoint.enabled? ? 'Yes      ' : 'No       '
-        output.print breakpoint.to_s
-        output.print " (if #{breakpoint.expr})" if breakpoint.expr
-        output.puts
+        id = sprintf('%*d  ', max_width, breakpoint.id)
+        status = breakpoint.enabled? ? 'Yes' : 'No'
+        expr = breakpoint.expr ? breakpoint.expr : ''
+
+        output.puts("#{id} #{status}      #{breakpoint} #{expr}")
       end
 
       #
@@ -187,15 +194,19 @@ class Pry
       def print_breakpoints_header
         header = "#{' ' * (max_width - 1)}#  Enabled  At "
 
-        output.puts text.bold(header)
-        output.puts text.bold('-' * header.size)
+        output.puts <<-EOP
+
+          #{text.bold(header)}
+          #{text.bold('-' * header.size)}
+
+        EOP
       end
 
       #
       # Max width of breakpoints id column
       #
       def max_width
-        [Math.log10(Byebug::Breakpoints.count).ceil, 1].max
+        [Math.log10(breakpoints.count).ceil, 1].max
       end
     end
   end
