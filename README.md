@@ -38,15 +38,41 @@ to use it to debug your tests!_
 ## Execution Commands
 
 **step:** Step execution into the next line or method. Takes an optional numeric
-argument to step multiple times. Aliased to `s`
+argument to step multiple times.
 
 **next:** Step over to the next line within the same frame. Also takes an
-optional numeric argument to step multiple lines. Aliased to `n`
+optional numeric argument to step multiple lines.
 
-**finish:** Execute until current stack frame returns. Aliased to `f`
+**finish:** Execute until current stack frame returns.
 
-**continue:** Continue program execution and end the Pry session. Aliased to `c`
+**continue:** Continue program execution and end the Pry session.
 
+## Matching Byebug Behaviour
+
+The 'n', 's', 'c' and 'f' aliases for the stepping commands were removed
+by default because they commonly conflict with scratch variable names.
+It's very easy to re-enable them by adding the following shortcuts to your
+`~/.pryrc` file:
+
+```ruby
+if defined?(PryByebug)
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+  Pry.commands.alias_command 'f', 'finish'
+end
+```
+
+Also, you might find it useful to repeat the last command by just hitting
+the `Enter` key (e.g., with `step` or `next`). To achieve that, add this to
+your `~/.pryrc` file:
+
+```ruby
+# Hit Enter to repeat last command
+Pry::Commands.command /^$/, "repeat last command" do
+  _pry_.run_command Pry.history.to_a.last
+end
+```
 
 ## Breakpoints
 

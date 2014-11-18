@@ -1,3 +1,7 @@
+## 1.3.4 (2014-17-11)
+
+* Reverted automatic aliases as they commonly conflict with local variables.
+
 ## 1.3.3 (2014-25-06)
 
 * Relaxes pry dependency to support pry 0.10 series and further minor version
@@ -42,7 +46,7 @@ level releases.
 
 
 ## 1.1.0 (2013-06-06)
- 
+
 * Adds a test suite (thanks @teeparham!)
 * Uses byebug ~> 1.4.0
 * Uses s, n, f and c aliases by default (thanks @jgakos!)

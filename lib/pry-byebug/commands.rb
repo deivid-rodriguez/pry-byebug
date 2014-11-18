@@ -8,7 +8,6 @@ module PryByebug
 
       banner <<-BANNER
         Usage: step [TIMES]
-        Aliases: s
 
         Step execution forward. By default, moves a single step.
 
@@ -23,14 +22,12 @@ module PryByebug
         breakout_navigation :step, args.first
       end
     end
-    alias_command 's', 'step'
 
     create_command 'next' do
       description 'Execute the next line within the current stack frame.'
 
       banner <<-BANNER
         Usage: next [LINES]
-        Aliases: n
 
         Step over within the same frame. By default, moves forward a single
         line.
@@ -46,14 +43,12 @@ module PryByebug
         breakout_navigation :next, args.first
       end
     end
-    alias_command 'n', 'next'
 
     create_command 'finish' do
       description 'Execute until current stack frame returns.'
 
       banner <<-BANNER
         Usage: finish
-        Aliases: f
       BANNER
 
       def process
@@ -61,14 +56,12 @@ module PryByebug
         breakout_navigation :finish
       end
     end
-    alias_command 'f', 'finish'
 
     create_command 'continue' do
       description 'Continue program execution and end the Pry session.'
 
       banner <<-BANNER
         Usage: continue
-        Aliases: c
       BANNER
 
       def process
@@ -76,7 +69,6 @@ module PryByebug
         run 'exit-all'
       end
     end
-    alias_command 'c', 'continue'
 
     create_command 'break' do
       description 'Set or edit a breakpoint.'
