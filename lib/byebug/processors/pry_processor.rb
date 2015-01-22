@@ -1,4 +1,3 @@
-require 'pry'
 require 'byebug'
 
 module Byebug
