@@ -4,6 +4,10 @@ binding.pry
 # Toy class for testing steps
 #
 class SteppingExample
+  undef method_a if method_defined? :method_a
+  undef method_b if method_defined? :method_b
+  undef method_c if method_defined? :method_c
+
   def method_a
     z = 2
     z + method_b

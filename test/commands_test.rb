@@ -36,7 +36,7 @@ class CommandsTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input, @line = InputTester.new('step 2'), 12
+        @input, @line = InputTester.new('step 5'), 16
         redirect_pry_io(@input, @output) { load step_file }
       end
 
@@ -56,7 +56,7 @@ class CommandsTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input, @line = InputTester.new('break --delete-all', 'next 2'), 25
+        @input, @line = InputTester.new('break --delete-all', 'next 2'), 29
         redirect_pry_io(@input, @output) { load step_file }
       end
 
@@ -69,7 +69,7 @@ class CommandsTest < MiniTest::Spec
       @input = \
         InputTester.new 'break --delete-all', 'break 19', 'continue', 'finish'
       redirect_pry_io(@input, @output) { load step_file }
-      @line = 15
+      @line = 19
     end
 
     include SteppingSpecs
