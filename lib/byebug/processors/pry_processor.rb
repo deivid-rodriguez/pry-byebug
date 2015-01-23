@@ -97,7 +97,7 @@ module Byebug
       new_binding = context.frame_binding(0)
 
       run do
-        if @pry
+        if defined?(@pry) && @pry
           @pry.repl(new_binding)
         else
           @pry = Pry.start_without_pry_byebug(new_binding)
