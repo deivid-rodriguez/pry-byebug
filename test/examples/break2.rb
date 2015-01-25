@@ -2,10 +2,6 @@
 # Another toy example for testing break commands.
 #
 class Break2Example
-  undef a if method_defined? :a
-  undef b if method_defined? :b
-  undef c if method_defined? :c
-
   def a
     binding.pry
     z = 2
