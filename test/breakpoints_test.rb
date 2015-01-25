@@ -52,6 +52,7 @@ module BreakpointSpecs
   end
 
   def test_shows_breakpoint_hit
+    @output.string.must_match(@regexp)
     match = @output.string.match(@regexp)
     @output.string.must_match(/^  Breakpoint #{match[:id]}\. First hit/)
   end
