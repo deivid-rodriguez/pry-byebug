@@ -73,7 +73,9 @@ class BreakpointsTestCommands < Minitest::Spec
   before do
     Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
     @input = InputTester.new 'break --delete-all'
-    redirect_pry_io(@input, StringIO.new) { binding.pry }
+    redirect_pry_io(@input, StringIO.new) do
+      binding.pry # rubocop:disable Lint/Debugger
+    end
     Object.send :remove_const, :Break1Example if defined? Break1Example
     Object.send :remove_const, :Break2Example if defined? Break2Example
     @output = StringIO.new
