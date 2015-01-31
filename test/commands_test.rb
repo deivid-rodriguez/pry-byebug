@@ -20,6 +20,7 @@ class CommandsTest < MiniTest::Spec
   let(:step_file) { test_file('stepping') }
 
   before do
+    Object.send :remove_const, :SteppingExample if defined? SteppingExample
     Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
     @output = StringIO.new
   end
@@ -36,7 +37,7 @@ class CommandsTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input, @line = InputTester.new('step 5'), 16
+        @input, @line = InputTester.new('step 2'), 12
         redirect_pry_io(@input, @output) { load step_file }
       end
 
@@ -56,7 +57,7 @@ class CommandsTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input, @line = InputTester.new('break --delete-all', 'next 2'), 29
+        @input, @line = InputTester.new('break --delete-all', 'next 2'), 25
         redirect_pry_io(@input, @output) { load step_file }
       end
 
@@ -69,7 +70,7 @@ class CommandsTest < MiniTest::Spec
       @input = \
         InputTester.new 'break --delete-all', 'break 19', 'continue', 'finish'
       redirect_pry_io(@input, @output) { load step_file }
-      @line = 19
+      @line = 15
     end
 
     include SteppingSpecs

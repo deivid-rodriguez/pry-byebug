@@ -14,6 +14,7 @@ class ProcessorTest < Minitest::Spec
     let(:step_file) { test_file('stepping') }
 
     before do
+      Object.send :remove_const, :SteppingExample if defined? SteppingExample
       @input = InputTester.new
       @output = StringIO.new
       redirect_pry_io(@input, @output) { load step_file }
