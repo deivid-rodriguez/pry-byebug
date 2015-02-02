@@ -1,3 +1,18 @@
+## 3.0.0 (Unreleased)
+
+- Improvements:
+  * Adds RuboCop to enforce a consistent code style.
+  * Several refactorings to keep code simpler.
+
+- Bugfixes:
+  * `binding.pry` would not stop at the correct place when called at the last
+line of a method/block.
+
+- Removals:
+  * Stepping aliases for `next` (`n`), `step` (`s`), `finish` (`f`) and
+`continue` (`c`). See #34.
+
+
 ## 2.0.0 (2014-01-09)
 
 - Improvements:
