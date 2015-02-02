@@ -1,4 +1,4 @@
-## 3.0.0 (Unreleased)
+## 3.0.0 (2015-02-02)
 
 - Improvements:
   * Adds RuboCop to enforce a consistent code style.
