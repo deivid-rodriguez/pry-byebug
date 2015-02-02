@@ -76,7 +76,7 @@ module Byebug
     def at_breakpoint(_context, breakpoint)
       @pry ||= Pry.new
 
-      brkpt_num = "\nBreakpoint #{breakpoint.id}. "
+      brkpt_num = "\n  Breakpoint #{breakpoint.id}. "
       @pry.output.print Pry::Helpers::Text.bold(brkpt_num)
 
       n_hits = breakpoint.hit_count

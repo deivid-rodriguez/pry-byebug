@@ -143,6 +143,7 @@ class Pry
         else
           print_breakpoints_header
           breakpoints.each { |b| print_short_breakpoint(b) }
+          output.puts
         end
       end
     end
@@ -169,36 +170,41 @@ class Pry
       # Includes surrounding code at that point.
       #
       def print_full_breakpoint(br)
-        header = text.bold("Breakpoint #{br.id}:")
-        status = br.enabled? ? '(Enabled)' : '(Disabled)'
+        header = "Breakpoint #{br.id}:"
+        status = br.enabled? ? 'Enabled' : 'Disabled'
         code = br.source_code.with_line_numbers.to_s
         condition = br.expr ? "#{text.bold('Condition:')} #{br.expr}\n" : ''
 
-        output.puts("#{header} #{br} #{status} :\n#{condition}#{code}\n")
+        output.puts <<-EOP.gsub(/ {8}/, '')
+
+          #{text.bold(header)} #{br} (#{status}) #{condition}
+
+        #{code}
+
+        EOP
       end
 
       #
       # Print out concise information about a breakpoint.
       #
       def print_short_breakpoint(breakpoint)
-        id = sprintf('%*d  ', max_width, breakpoint.id)
+        id = sprintf('%*d', max_width, breakpoint.id)
         status = breakpoint.enabled? ? 'Yes' : 'No'
         expr = breakpoint.expr ? breakpoint.expr : ''
 
-        output.puts("#{id} #{status}      #{breakpoint} #{expr}")
+        output.puts("  #{id} #{status}     #{breakpoint} #{expr}")
       end
 
       #
       # Prints a header for the breakpoint list.
       #
       def print_breakpoints_header
-        header = "#{' ' * (max_width - 1)}#  Enabled  At "
+        header = "#{' ' * (max_width - 1)}# Enabled At "
 
-        output.puts <<-EOP
+        output.puts <<-EOP.gsub(/ {8}/, '')
 
           #{text.bold(header)}
           #{text.bold('-' * header.size)}
-
         EOP
       end
 
@@ -206,7 +212,7 @@ class Pry
       # Max width of breakpoints id column
       #
       def max_width
-        [Math.log10(breakpoints.count).ceil, 1].max
+        ::Byebug.breakpoints.last.id.to_s.length
       end
     end
   end

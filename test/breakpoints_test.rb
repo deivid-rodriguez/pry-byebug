@@ -53,7 +53,7 @@ module BreakpointSpecs
 
   def test_shows_breakpoint_hit
     match = @output.string.match(@regexp)
-    @output.string.must_match(/^Breakpoint #{match[:id]}\. First hit/)
+    @output.string.must_match(/^  Breakpoint #{match[:id]}\. First hit/)
   end
 
   def test_shows_breakpoint_line
@@ -84,7 +84,7 @@ class BreakpointsTestCommands < Minitest::Spec
         @input = InputTester.new('break 7')
         redirect_pry_io(@input, @output) { load break_first_file }
         @line = 7
-        @regexp = /^Breakpoint (?<id>\d+): #{break_first_file} @ 7 \(Enabled\)/
+        @regexp = /  Breakpoint (?<id>\d+): #{break_first_file} @ 7 \(Enabled\)/
       end
 
       include BreakpointSpecs
@@ -95,7 +95,7 @@ class BreakpointsTestCommands < Minitest::Spec
         @input = InputTester.new('break Break1Example#a')
         redirect_pry_io(@input, @output) { load break_first_file }
         @line = 7
-        @regexp = /Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
+        @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
       end
 
       include BreakpointSpecs
@@ -106,7 +106,7 @@ class BreakpointsTestCommands < Minitest::Spec
         @input = InputTester.new('break Break1Example#c!')
         redirect_pry_io(@input, @output) { load break_first_file }
         @line = 17
-        @regexp = /Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
+        @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
       end
 
       include BreakpointSpecs
@@ -117,7 +117,7 @@ class BreakpointsTestCommands < Minitest::Spec
         @input = InputTester.new('break #b')
         redirect_pry_io(@input, @output) { load break_second_file }
         @line = 11
-        @regexp = /Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
+        @regexp = /  Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
       end
 
       include BreakpointSpecs
@@ -132,6 +132,12 @@ class BreakpointsTestCommands < Minitest::Spec
 
     it 'shows all breakpoints' do
       @output.string.must_match(/Yes \s*Break2Example#b/)
+    end
+
+    it 'properly aligns headers' do
+      width = Byebug.breakpoints.last.id.to_s.length
+      @output.string.must_match(/   {#{width - 1}}# Enabled At/)
+      @output.string.must_match(/  \d{#{width}} Yes     Break2Example#b/)
     end
   end
 end
