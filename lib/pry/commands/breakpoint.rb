@@ -134,9 +134,7 @@ class Pry
       end
 
       def process
-        if breakpoints.count == 0
-          return output.puts(text.bold('No breakpoints defined.'))
-        end
+        return bold_puts('No breakpoints defined.') if breakpoints.count == 0
 
         if opts.verbose?
           breakpoints.each { |b| print_full_breakpoint(b) }
