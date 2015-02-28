@@ -26,4 +26,4 @@ ex = SteppingExample.new.method_a
   ex += 1
 end
 
-ex
+_foo = ex

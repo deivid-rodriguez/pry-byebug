@@ -20,6 +20,7 @@ class CommandsTest < MiniTest::Spec
   let(:step_file) { test_file('stepping') }
 
   before do
+    Object.send :remove_const, :SteppingExample if defined? SteppingExample
     Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
     @output = StringIO.new
   end

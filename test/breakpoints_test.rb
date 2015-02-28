@@ -52,8 +52,10 @@ module BreakpointSpecs
   end
 
   def test_shows_breakpoint_hit
-    match = @output.string.match(@regexp)
-    @output.string.must_match(/^  Breakpoint #{match[:id]}\. First hit/)
+    result = @output.string
+    result.must_match(@regexp)
+    match = result.match(@regexp)
+    result.must_match(/^  Breakpoint #{match[:id]}\. First hit/)
   end
 
   def test_shows_breakpoint_line
@@ -70,21 +72,22 @@ class BreakpointsTestCommands < Minitest::Spec
 
   before do
     Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
+    @input = InputTester.new 'break --delete-all'
+    redirect_pry_io(@input, StringIO.new) do
+      binding.pry # rubocop:disable Lint/Debugger
+    end
+    Object.send :remove_const, :Break1Example if defined? Break1Example
+    Object.send :remove_const, :Break2Example if defined? Break2Example
     @output = StringIO.new
   end
 
   describe 'Set Breakpoints' do
-    before do
-      @input = InputTester.new 'break --delete-all'
-      redirect_pry_io(@input, @output) { load break_first_file }
-    end
-
     describe 'set by line number' do
       before do
-        @input = InputTester.new('break 7')
+        @input = InputTester.new('break 6')
         redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 7
-        @regexp = /  Breakpoint (?<id>\d+): #{break_first_file} @ 7 \(Enabled\)/
+        @line = 6
+        @regexp = /^  Breakpoint (?<id>\d+): #{break_first_file} @ 6 \(Enabled\)/
       end
 
       include BreakpointSpecs
@@ -94,7 +97,7 @@ class BreakpointsTestCommands < Minitest::Spec
       before do
         @input = InputTester.new('break Break1Example#a')
         redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 7
+        @line = 5
         @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
       end
 
@@ -105,7 +108,7 @@ class BreakpointsTestCommands < Minitest::Spec
       before do
         @input = InputTester.new('break Break1Example#c!')
         redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 17
+        @line = 15
         @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
       end
 
@@ -116,7 +119,7 @@ class BreakpointsTestCommands < Minitest::Spec
       before do
         @input = InputTester.new('break #b')
         redirect_pry_io(@input, @output) { load break_second_file }
-        @line = 11
+        @line = 7
         @regexp = /  Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
       end
 
@@ -126,7 +129,7 @@ class BreakpointsTestCommands < Minitest::Spec
 
   describe 'List breakpoints' do
     before do
-      @input = InputTester.new('break --delete-all', 'break #b', 'breakpoints')
+      @input = InputTester.new('break #b', 'breakpoints')
       redirect_pry_io(@input, @output) { load break_second_file }
     end
 

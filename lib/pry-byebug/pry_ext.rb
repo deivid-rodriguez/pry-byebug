@@ -1,4 +1,3 @@
-require 'pry'
 require 'byebug/processors/pry_processor'
 
 class << Pry

@@ -1,5 +1,3 @@
-require 'pry'
-
 #
 # Main Pry class.
 #

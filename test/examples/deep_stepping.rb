@@ -6,4 +6,4 @@ new_str = 'string'.gsub!(/str/) do |_|
   binding.pry
 end
 
-new_str
+_foo = new_str

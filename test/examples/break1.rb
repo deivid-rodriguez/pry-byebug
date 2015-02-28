@@ -1,5 +1,3 @@
-binding.pry
-
 #
 # A toy example for testing break commands.
 #
@@ -19,5 +17,7 @@ class Break1Example
     z
   end
 end
+
+binding.pry
 
 Break1Example.new.a
