@@ -1,6 +1,4 @@
 #
-#
-#
 # A toy example for testing break commands.
 #
 class Break1Example

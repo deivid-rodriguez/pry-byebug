@@ -84,10 +84,10 @@ class BreakpointsTestCommands < Minitest::Spec
   describe 'Set Breakpoints' do
     describe 'set by line number' do
       before do
-        @input = InputTester.new('break 8')
+        @input = InputTester.new('break 6')
         redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 8
-        @regexp = /^  Breakpoint (?<id>\d+): #{break_first_file} @ 8 \(Enabled\)/
+        @line = 6
+        @regexp = /^  Breakpoint (?<id>\d+): #{break_first_file} @ 6 \(Enabled\)/
       end
 
       include BreakpointSpecs
@@ -97,7 +97,7 @@ class BreakpointsTestCommands < Minitest::Spec
       before do
         @input = InputTester.new('break Break1Example#a')
         redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 7
+        @line = 5
         @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
       end
 
@@ -108,7 +108,7 @@ class BreakpointsTestCommands < Minitest::Spec
       before do
         @input = InputTester.new('break Break1Example#c!')
         redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 17
+        @line = 15
         @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
       end
 
