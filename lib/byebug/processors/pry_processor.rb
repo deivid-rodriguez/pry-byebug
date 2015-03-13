@@ -7,6 +7,10 @@ module Byebug
   class PryProcessor < Processor
     attr_accessor :pry
 
+    extend Forwardable
+    def_delegators :@pry, :output
+    def_delegators Pry::Helpers::Text, :bold
+
     def initialize(interface = LocalInterface.new)
       super(interface)
 
@@ -75,20 +79,21 @@ module Byebug
     def at_breakpoint(_context, breakpoint)
       @pry ||= Pry.new
 
-      brkpt_num = "\n  Breakpoint #{breakpoint.id}. "
-      @pry.output.print Pry::Helpers::Text.bold(brkpt_num)
-
-      n_hits = breakpoint.hit_count
-      @pry.output.puts(n_hits == 1 ? 'First hit' : "Hit #{n_hits} times.")
+      output.puts bold("\n  Breakpoint #{breakpoint.id}. ") + n_hits(breakpoint)
 
       expr = breakpoint.expr
       return unless expr
 
-      @pry.output.print Pry::Helpers::Text.bold('Condition: ')
-      @pry.output.puts expr
+      output.puts bold('Condition: ') + expr
     end
 
     private
+
+    def n_hits(breakpoint)
+      n_hits = breakpoint.hit_count
+
+      n_hits == 1 ? 'First hit' : "Hit #{n_hits} times."
+    end
 
     #
     # Resume an existing Pry REPL at the paused point.

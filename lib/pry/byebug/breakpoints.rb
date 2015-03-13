@@ -84,8 +84,11 @@ class Pry
       # Deletes an existing breakpoint with the given ID.
       #
       def delete(id)
-        deleted = ::Byebug.started? &&
-          ::Byebug::Breakpoint.remove(id) && breakpoints.delete(find_by_id(id))
+        deleted =
+          ::Byebug.started? &&
+          ::Byebug::Breakpoint.remove(id) &&
+          breakpoints.delete(find_by_id(id))
+
         fail(ArgumentError, "No breakpoint ##{id}") unless deleted
       end
 
@@ -147,8 +150,8 @@ class Pry
       end
 
       def validate_expression(exp)
-        return unless exp &&
-                     (exp.empty? || !Pry::Code.complete_expression?(exp))
+        valid = exp && (exp.empty? || !Pry::Code.complete_expression?(exp))
+        return unless valid
 
         fail("Invalid breakpoint conditional: #{expression}")
       end

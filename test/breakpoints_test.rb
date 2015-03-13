@@ -87,7 +87,7 @@ class BreakpointsTestCommands < Minitest::Spec
         @input = InputTester.new('break 6')
         redirect_pry_io(@input, @output) { load break_first_file }
         @line = 6
-        @regexp = /^  Breakpoint (?<id>\d+): #{break_first_file} @ 6 \(Enabled\)/
+        @regexp = /  Breakpoint (?<id>\d+): #{break_first_file} @ 6 \(Enabled\)/
       end
 
       include BreakpointSpecs

@@ -56,8 +56,7 @@ class Pry
         all.each do |option|
           next unless opts.present?(option)
 
-          method_name = "process_#{option.gsub('-', '_')}"
-          return send(method_name)
+          return send("process_#{option.gsub('-', '_')}")
         end
 
         new_breakpoint unless args.empty?
@@ -140,7 +139,6 @@ class Pry
         else
           print_breakpoints_header
           breakpoints.each { |b| print_short_breakpoint(b) }
-          output.puts
         end
       end
     end
@@ -185,7 +183,7 @@ class Pry
       # Print out concise information about a breakpoint.
       #
       def print_short_breakpoint(breakpoint)
-        id = sprintf('%*d', max_width, breakpoint.id)
+        id = format('%*d', max_width, breakpoint.id)
         status = breakpoint.enabled? ? 'Yes' : 'No'
         expr = breakpoint.expr ? breakpoint.expr : ''
 
