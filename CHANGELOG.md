@@ -1,3 +1,8 @@
+## 3.1.0 (2015-04-14)
+
+- Improvements:
+  * Add frame nav commands up, down and frame.
+
 ## 3.0.1 (2015-04-02)
 
 - Improvements:

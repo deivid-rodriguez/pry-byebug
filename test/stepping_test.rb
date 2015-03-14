@@ -14,9 +14,9 @@ module SteppingSpecs
 end
 
 #
-# Tests for pry-byebug commands.
+# Tests for pry-byebug stepping commands.
 #
-class CommandsTest < MiniTest::Spec
+class SteppingTest < MiniTest::Spec
   let(:step_file) { test_file('stepping') }
 
   before do
