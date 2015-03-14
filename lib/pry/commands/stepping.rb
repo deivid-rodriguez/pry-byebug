@@ -21,7 +21,7 @@ class Pry
       def process
         PryByebug.check_file_context(target)
 
-        breakout_navigation :step, args.first
+        breakout_navigation :step, times: args.first
       end
     end
 
@@ -42,7 +42,7 @@ class Pry
       def process
         PryByebug.check_file_context(target)
 
-        breakout_navigation :next, args.first
+        breakout_navigation :next, lines: args.first
       end
     end
 
@@ -75,11 +75,11 @@ class Pry
     end
 
     helpers do
-      def breakout_navigation(action, times = nil)
+      def breakout_navigation(action, options = {})
         _pry_.binding_stack.clear # Clear the binding stack.
 
         # Break out of the REPL loop and signal tracer
-        throw :breakout_nav, action: action, times: times, pry: _pry_
+        throw :breakout_nav, action: action, options: options, pry: _pry_
       end
     end
   end
