@@ -51,6 +51,14 @@ optional numeric argument to step multiple lines.
 
 **continue:** Continue program execution and end the Pry session.
 
+**up:** Moves the stack frame up. Takes an optional numeric argument to move
+multiple frames.
+
+**down:** Moves the stack frame down. Takes an optional numeric argument to move
+multiple frames.
+
+**frame:** Moves to a specific frame. Called without arguments will show the
+current frame.
 
 ## Matching Byebug Behaviour
 
