@@ -56,7 +56,7 @@ module Byebug
     #
     def perform(action, options = {})
       return unless [
-        :next, :step, :finish, :up, :down, :frame
+        :next, :step, :finish, :continue, :up, :down, :frame
       ].include?(action)
 
       send("perform_#{action}", options)
@@ -131,6 +131,14 @@ module Byebug
 
     def perform_finish(*)
       state.context.step_out(1)
+    end
+
+    def perform_continue(options)
+      line = options[:line] ? options[:line].to_i : ''
+
+      command = Byebug::ContinueCommand.new(state)
+      command.match("continue #{line}")
+      command.execute
     end
 
     def perform_up(options)

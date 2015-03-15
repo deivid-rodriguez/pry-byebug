@@ -64,13 +64,20 @@ class Pry
       description 'Continue program execution and end the Pry session.'
 
       banner <<-BANNER
-        Usage: continue
+        Usage: continue [LINE]
+
+        Continue program execution until the next breakpoint, or the program
+        ends. Optionally continue to the specified line number.
+
+        Examples:
+          continue   #=> Continue until the next breakpoint.
+          continue 4 #=> Continue to line number 4.
       BANNER
 
       def process
         PryByebug.check_file_context(target)
 
-        breakout_navigation :continue
+        breakout_navigation :continue, line: args.first
       end
     end
 
