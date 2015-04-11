@@ -10,6 +10,8 @@ class FramesTest < MiniTest::Spec
     Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
   end
 
+  after { Object.send(:remove_const, :FramesExample) }
+
   describe 'Up command' do
     let(:input) { InputTester.new('up', 'down') }
 
