@@ -1,7 +1,7 @@
 #
 # Toy class for testing frame commands
 #
-class Frames
+class FramesExample
   def method_a
     method_b
   end
@@ -11,4 +11,4 @@ class Frames
   end
 end
 
-Frames.new.method_a
+FramesExample.new.method_a
