@@ -14,11 +14,12 @@ class ProcessorTest < Minitest::Spec
     let(:step_file) { test_file('stepping') }
 
     before do
-      Object.send :remove_const, :SteppingExample if defined? SteppingExample
       @input = InputTester.new
       @output = StringIO.new
       redirect_pry_io(@input, @output) { load step_file }
     end
+
+    after { Object.send(:remove_const, :SteppingExample) }
 
     it 'stops execution at the first line after binding.pry' do
       @output.string.must_match(/\=>  6:/)
