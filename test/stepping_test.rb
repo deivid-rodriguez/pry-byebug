@@ -76,4 +76,13 @@ class SteppingTest < MiniTest::Spec
 
     include SteppingSpecs
   end
+
+  describe 'Continue Command' do
+    before do
+      @input, @line = InputTester.new('continue 14', 'finish'), 14
+      redirect_pry_io(@input, @output) { load step_file }
+    end
+
+    include SteppingSpecs
+  end
 end
