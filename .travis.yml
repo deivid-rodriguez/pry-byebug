@@ -4,6 +4,14 @@ rvm:
 - 2.2
 - ruby-head
 
+before_script:
+  - git config --local user.email 'travis@travis.ci'
+  - git config --local user.name 'Travis CI'
+
+script:
+  - bundle exec rake
+  - bundle exec overcommit --run
+
 matrix:
   allow_failures:
   - rvm: ruby-head

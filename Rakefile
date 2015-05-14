@@ -9,9 +9,4 @@ Rake::TestTask.new(:test) do |t|
   t.pattern = 'test/**/*_test.rb'
 end
 
-require 'rubocop/rake_task'
-
-desc 'Run RuboCop'
-task(:rubocop) { RuboCop::RakeTask.new }
-
-task default: [:test, :rubocop]
+task default: :test
