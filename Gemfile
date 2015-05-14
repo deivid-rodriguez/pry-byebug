@@ -11,5 +11,5 @@ end
 
 group :test do
   gem 'mocha', '~> 1.1'
-  gem 'minitest', '~> 5.5'
+  gem 'minitest', '~> 5.6'
 end
