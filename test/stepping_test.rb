@@ -62,6 +62,38 @@ class SteppingTest < MiniTest::Spec
         @output.string.must_match(/\=> \s*25:/)
       end
     end
+
+    describe 'inside multiline input' do
+      let(:evaled_source) do
+        <<-RUBY
+          s = 0
+
+          2.times do |i|
+            if i == 0
+              next
+            end
+
+            s -= 1
+            break s
+          end
+        RUBY
+      end
+
+      before do
+        @input.add(evaled_source)
+
+        redirect_pry_io(@input, @output) { load step_file }
+      end
+
+      it 'is ignored' do
+        @output.string.must_match(/\=> \s*6:/)
+        @output.string.wont_match(/\=> \s*24:/)
+      end
+
+      it 'lets input be properly evaluated' do
+        @output.string.must_match(/=> -1/)
+      end
+    end
   end
 
   describe 'Finish Command' do

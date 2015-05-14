@@ -145,4 +145,28 @@ class BreakpointsTestCommands < Minitest::Spec
       @output.string.must_match(/  \d{#{width}} Yes     Break2Example#b/)
     end
   end
+
+  describe 'Break inside multiline input' do
+    let(:evaled_source) do
+      <<-RUBY
+        2.times do |i|
+          break 16 if i > 0
+        end
+      RUBY
+    end
+
+    before do
+      @input.add(evaled_source)
+
+      redirect_pry_io(@input, @output) { load break_first_file }
+    end
+
+    it 'is ignored' do
+      Pry::Byebug::Breakpoints.count.must_equal(0)
+    end
+
+    it 'lets input be properly evaluated' do
+      @output.string.must_match(/=> 16/)
+    end
+  end
 end

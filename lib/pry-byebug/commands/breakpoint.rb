@@ -1,5 +1,6 @@
 require 'pry/byebug/breakpoints'
 require 'pry-byebug/helpers/breakpoints'
+require 'pry-byebug/helpers/multiline'
 
 module PryByebug
   #
@@ -7,6 +8,7 @@ module PryByebug
   #
   class BreakCommand < Pry::ClassCommand
     include Helpers::Breakpoints
+    include Helpers::Multiline
 
     match 'break'
     group 'Byebug'
@@ -54,6 +56,8 @@ module PryByebug
     end
 
     def process
+      return if check_multiline_context
+
       PryByebug.check_file_context(target)
 
       all = %w(condition show delete disable enable disable-all delete-all)

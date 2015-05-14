@@ -1,4 +1,5 @@
 require 'pry-byebug/helpers/navigation'
+require 'pry-byebug/helpers/multiline'
 
 module PryByebug
   #
@@ -6,6 +7,7 @@ module PryByebug
   #
   class NextCommand < Pry::ClassCommand
     include Helpers::Navigation
+    include Helpers::Multiline
 
     match 'next'
     group 'Byebug'
@@ -23,6 +25,8 @@ module PryByebug
     BANNER
 
     def process
+      return if check_multiline_context
+
       PryByebug.check_file_context(target)
 
       breakout_navigation :next, lines: args.first
