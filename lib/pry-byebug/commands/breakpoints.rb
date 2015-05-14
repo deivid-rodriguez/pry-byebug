@@ -24,6 +24,8 @@ module PryByebug
     end
 
     def process
+      PryByebug.check_file_context(target)
+
       return bold_puts('No breakpoints defined.') if breakpoints.count == 0
 
       if opts.verbose?
