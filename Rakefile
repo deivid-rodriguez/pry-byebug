@@ -5,7 +5,8 @@ require 'rake/testtask'
 desc 'Run tests'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'test'
-  t.ruby_opts += ['-w']
+  t.warning = false
+  t.verbose = true
   t.pattern = 'test/**/*_test.rb'
 end
 
