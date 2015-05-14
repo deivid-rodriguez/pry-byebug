@@ -1,3 +1,7 @@
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+
 Lint/Debugger:
   Exclude:
     - test/examples/*.rb
