@@ -9,8 +9,6 @@ Lint/Debugger:
 Style/FileName:
   Exclude:
     - lib/pry-byebug.rb
-    - lib/pry-byebug/cli.rb
-    - test/test_helper.rb
 
 Style/ModuleFunction:
   Enabled: false
