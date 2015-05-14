@@ -86,7 +86,7 @@ class BreakpointsTestCommands < Minitest::Spec
   describe 'Set Breakpoints' do
     describe 'by line number' do
       before do
-        @input = InputTester.new('break 6')
+        @input.add('break 6')
         redirect_pry_io(@input, @output) { load break_first_file }
         @line = 6
         @regexp = /  Breakpoint (?<id>\d+): #{break_first_file} @ 6 \(Enabled\)/
@@ -97,7 +97,7 @@ class BreakpointsTestCommands < Minitest::Spec
 
     describe 'by method_id' do
       before do
-        @input = InputTester.new('break Break1Example#a')
+        @input.add('break Break1Example#a')
         redirect_pry_io(@input, @output) { load break_first_file }
         @line = 5
         @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
@@ -108,7 +108,7 @@ class BreakpointsTestCommands < Minitest::Spec
 
     describe 'by method_id when its a bang method' do
       before do
-        @input = InputTester.new('break Break1Example#c!')
+        @input.add('break Break1Example#c!')
         redirect_pry_io(@input, @output) { load break_first_file }
         @line = 15
         @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
@@ -119,7 +119,7 @@ class BreakpointsTestCommands < Minitest::Spec
 
     describe 'by method_id within context' do
       before do
-        @input = InputTester.new('break #b')
+        @input.add('break #b')
         redirect_pry_io(@input, @output) { load break_second_file }
         @line = 7
         @regexp = /  Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
@@ -131,7 +131,7 @@ class BreakpointsTestCommands < Minitest::Spec
 
   describe 'List breakpoints' do
     before do
-      @input = InputTester.new('break #b', 'breakpoints')
+      @input.add('break #b', 'breakpoints')
       redirect_pry_io(@input, @output) { load break_second_file }
     end
 
