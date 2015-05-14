@@ -38,9 +38,9 @@ module Byebug
 
       return_value = nil
 
-      command = catch(:breakout_nav) do  # Throws from PryByebug::Commands
+      command = catch(:breakout_nav) do # Throws from PryByebug::Commands
         return_value = yield
-        {}    # Nothing thrown == no navigational command
+        {} # Nothing thrown == no navigational command
       end
 
       # Pry instance to resume after stepping
@@ -55,9 +55,7 @@ module Byebug
     # Set up a number of navigational commands to be performed by Byebug.
     #
     def perform(action, options = {})
-      return unless [
-        :next, :step, :finish, :up, :down, :frame
-      ].include?(action)
+      return unless %i(next step finish up down frame).include?(action)
 
       send("perform_#{action}", options)
     end

@@ -90,29 +90,34 @@ class Pry
         place = args.shift
         condition = args.join(' ') if 'if' == args.shift
 
-        bp =
-          case place
-          when /^(\d+)$/
-            errmsg = 'Line number declaration valid only in a file context.'
-            PryByebug.check_file_context(target, errmsg)
-
-            file, lineno = target.eval('__FILE__'), Regexp.last_match[1].to_i
-            breakpoints.add_file(file, lineno, condition)
-          when /^(.+):(\d+)$/
-            file, lineno = Regexp.last_match[1], Regexp.last_match[2].to_i
-            breakpoints.add_file(file, lineno, condition)
-          when /^(.*)[.#].+$/  # Method or class name
-            if Regexp.last_match[1].strip.empty?
-              errmsg = 'Method name declaration valid only in a file context.'
-              PryByebug.check_file_context(target, errmsg)
-              place = target.eval('self.class.to_s') + place
-            end
-            breakpoints.add_method(place, condition)
-          else
-            fail(ArgumentError, 'Cannot identify arguments as breakpoint')
-          end
+        bp = add_breakpoint(place, condition)
 
         print_full_breakpoint(bp)
+      end
+
+      def add_breakpoint(place, condition)
+        case place
+        when /^(\d+)$/
+          errmsg = 'Line number declaration valid only in a file context.'
+          PryByebug.check_file_context(target, errmsg)
+
+          file = target.eval('__FILE__')
+          lineno = Regexp.last_match[1].to_i
+          breakpoints.add_file(file, lineno, condition)
+        when /^(.+):(\d+)$/
+          file = Regexp.last_match[1]
+          lineno = Regexp.last_match[2].to_i
+          breakpoints.add_file(file, lineno, condition)
+        when /^(.*)[.#].+$/  # Method or class name
+          if Regexp.last_match[1].strip.empty?
+            errmsg = 'Method name declaration valid only in a file context.'
+            PryByebug.check_file_context(target, errmsg)
+            place = target.eval('self.class.to_s') + place
+          end
+          breakpoints.add_method(place, condition)
+        else
+          fail(ArgumentError, 'Cannot identify arguments as breakpoint')
+        end
       end
     end
     alias_command 'breakpoint', 'break'

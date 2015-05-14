@@ -7,7 +7,9 @@ class FramesTest < MiniTest::Spec
   let(:output) { StringIO.new }
 
   before do
-    Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
+    Pry.color = false
+    Pry.pager = false
+    Pry.hooks = Pry::DEFAULT_HOOKS
   end
 
   after { Object.send(:remove_const, :FramesExample) }

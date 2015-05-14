@@ -71,7 +71,9 @@ class BreakpointsTestCommands < Minitest::Spec
   let(:break_second_file) { test_file('break2') }
 
   before do
-    Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
+    Pry.color = false
+    Pry.pager = false
+    Pry.hooks = Pry::DEFAULT_HOOKS
     @input = InputTester.new 'break --delete-all'
     redirect_pry_io(@input, StringIO.new) do
       binding.pry # rubocop:disable Lint/Debugger
@@ -82,7 +84,7 @@ class BreakpointsTestCommands < Minitest::Spec
   end
 
   describe 'Set Breakpoints' do
-    describe 'set by line number' do
+    describe 'by line number' do
       before do
         @input = InputTester.new('break 6')
         redirect_pry_io(@input, @output) { load break_first_file }
@@ -93,7 +95,7 @@ class BreakpointsTestCommands < Minitest::Spec
       include BreakpointSpecs
     end
 
-    describe 'set by method_id' do
+    describe 'by method_id' do
       before do
         @input = InputTester.new('break Break1Example#a')
         redirect_pry_io(@input, @output) { load break_first_file }
@@ -104,7 +106,7 @@ class BreakpointsTestCommands < Minitest::Spec
       include BreakpointSpecs
     end
 
-    describe 'set by method_id when its a bang method' do
+    describe 'by method_id when its a bang method' do
       before do
         @input = InputTester.new('break Break1Example#c!')
         redirect_pry_io(@input, @output) { load break_first_file }
@@ -115,7 +117,7 @@ class BreakpointsTestCommands < Minitest::Spec
       include BreakpointSpecs
     end
 
-    describe 'set by method_id within context' do
+    describe 'by method_id within context' do
       before do
         @input = InputTester.new('break #b')
         redirect_pry_io(@input, @output) { load break_second_file }

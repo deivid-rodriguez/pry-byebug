@@ -20,7 +20,9 @@ class SteppingTest < MiniTest::Spec
   let(:step_file) { test_file('stepping') }
 
   before do
-    Pry.color, Pry.pager, Pry.hooks = false, false, Pry::DEFAULT_HOOKS
+    Pry.color = false
+    Pry.pager = false
+    Pry.hooks = Pry::DEFAULT_HOOKS
     @output = StringIO.new
   end
 
@@ -29,7 +31,8 @@ class SteppingTest < MiniTest::Spec
   describe 'Step Command' do
     describe 'single step' do
       before do
-        @input, @line = InputTester.new('step'), 7
+        @input = InputTester.new('step')
+        @line = 7
         redirect_pry_io(@input, @output) { load step_file }
       end
 
@@ -38,7 +41,8 @@ class SteppingTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input, @line = InputTester.new('step 2'), 12
+        @input = InputTester.new('step 2')
+        @line = 12
         redirect_pry_io(@input, @output) { load step_file }
       end
 
@@ -49,7 +53,8 @@ class SteppingTest < MiniTest::Spec
   describe 'Next Command' do
     describe 'single step' do
       before do
-        @input, @line = InputTester.new('break --delete-all', 'next'), 6
+        @input = InputTester.new('break --delete-all', 'next')
+        @line = 6
         redirect_pry_io(@input, @output) { load step_file }
       end
 
@@ -58,7 +63,8 @@ class SteppingTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input, @line = InputTester.new('break --delete-all', 'next 2'), 25
+        @input = InputTester.new('break --delete-all', 'next 2')
+        @line = 25
         redirect_pry_io(@input, @output) { load step_file }
       end
 

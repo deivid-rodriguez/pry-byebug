@@ -30,7 +30,8 @@ class ProcessorTest < Minitest::Spec
     let(:step_file) { test_file('deep_stepping') }
 
     before do
-      @input, @output = InputTester.new, StringIO.new
+      @input = InputTester.new
+      @output = StringIO.new
       redirect_pry_io(@input, @output) { load step_file }
     end
 
