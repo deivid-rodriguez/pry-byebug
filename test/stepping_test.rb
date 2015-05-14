@@ -24,14 +24,15 @@ class SteppingTest < MiniTest::Spec
     Pry.pager = false
     Pry.hooks = Pry::DEFAULT_HOOKS
     @output = StringIO.new
+    @input = InputTester.new('break --delete-all')
   end
 
-  after { Object.send(:remove_const, :SteppingExample) }
+  after { clean_remove_const(:SteppingExample) }
 
   describe 'Step Command' do
     describe 'single step' do
       before do
-        @input = InputTester.new('step')
+        @input.add('step')
         @line = 7
         redirect_pry_io(@input, @output) { load step_file }
       end
@@ -41,7 +42,7 @@ class SteppingTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input = InputTester.new('step 2')
+        @input.add('step 2')
         @line = 12
         redirect_pry_io(@input, @output) { load step_file }
       end
@@ -53,7 +54,7 @@ class SteppingTest < MiniTest::Spec
   describe 'Next Command' do
     describe 'single step' do
       before do
-        @input = InputTester.new('break --delete-all', 'next')
+        @input.add('next')
         @line = 6
         redirect_pry_io(@input, @output) { load step_file }
       end
@@ -63,7 +64,7 @@ class SteppingTest < MiniTest::Spec
 
     describe 'multiple step' do
       before do
-        @input = InputTester.new('break --delete-all', 'next 2')
+        @input.add('next 2')
         @line = 25
         redirect_pry_io(@input, @output) { load step_file }
       end
@@ -74,8 +75,7 @@ class SteppingTest < MiniTest::Spec
 
   describe 'Finish Command' do
     before do
-      @input = \
-        InputTester.new 'break --delete-all', 'break 19', 'continue', 'finish'
+      @input.add('break 19', 'continue', 'finish')
       redirect_pry_io(@input, @output) { load step_file }
       @line = 15
     end

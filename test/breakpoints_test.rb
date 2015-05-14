@@ -78,9 +78,13 @@ class BreakpointsTestCommands < Minitest::Spec
     redirect_pry_io(@input, StringIO.new) do
       binding.pry # rubocop:disable Lint/Debugger
     end
-    Object.send :remove_const, :Break1Example if defined? Break1Example
-    Object.send :remove_const, :Break2Example if defined? Break2Example
+
     @output = StringIO.new
+  end
+
+  after do
+    clean_remove_const(:Break1Example)
+    clean_remove_const(:Break2Example)
   end
 
   describe 'Set Breakpoints' do

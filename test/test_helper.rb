@@ -23,13 +23,20 @@ def test_file(name)
   (Pathname.new(__FILE__) + "../examples/#{name}.rb").cleanpath.to_s
 end
 
+def clean_remove_const(const)
+  Object.send(:remove_const, const.to_s) if Object.send(:const_defined?, const)
+end
+
 #
 # Simulate pry-byebug's input for testing
 #
 class InputTester
   def initialize(*actions)
-    @orig_actions = actions.dup
     @actions = actions
+  end
+
+  def add(*actions)
+    @actions += actions
   end
 
   def readline(*)

@@ -12,7 +12,7 @@ class FramesTest < MiniTest::Spec
     Pry.hooks = Pry::DEFAULT_HOOKS
   end
 
-  after { Object.send(:remove_const, :FramesExample) }
+  after { clean_remove_const(:FramesExample) }
 
   describe 'Up command' do
     let(:input) { InputTester.new('up', 'down') }
