@@ -1,19 +1,6 @@
 require 'test_helper'
 
 #
-# Some common specs for stepping
-#
-module SteppingSpecs
-  def self.included(spec_class)
-    spec_class.class_eval do
-      it 'shows current line' do
-        @output.string.must_match(/\=> \s*#{@line}:/)
-      end
-    end
-  end
-end
-
-#
 # Tests for pry-byebug stepping commands.
 #
 class SteppingTest < MiniTest::Spec
@@ -33,21 +20,23 @@ class SteppingTest < MiniTest::Spec
     describe 'single step' do
       before do
         @input.add('step')
-        @line = 7
         redirect_pry_io(@input, @output) { load step_file }
       end
 
-      include SteppingSpecs
+      it 'stops in the next statement' do
+        @output.string.must_match(/\=> \s*7:/)
+      end
     end
 
     describe 'multiple step' do
       before do
         @input.add('step 2')
-        @line = 12
         redirect_pry_io(@input, @output) { load step_file }
       end
 
-      include SteppingSpecs
+      it 'stops two statements after' do
+        @output.string.must_match(/\=> \s*12:/)
+      end
     end
   end
 
@@ -55,21 +44,23 @@ class SteppingTest < MiniTest::Spec
     describe 'single step' do
       before do
         @input.add('next')
-        @line = 6
         redirect_pry_io(@input, @output) { load step_file }
       end
 
-      include SteppingSpecs
+      it 'goes to the next line in the current frame' do
+        @output.string.must_match(/\=> \s*24:/)
+      end
     end
 
     describe 'multiple step' do
       before do
         @input.add('next 2')
-        @line = 25
         redirect_pry_io(@input, @output) { load step_file }
       end
 
-      include SteppingSpecs
+      it 'advances two lines in the current frame' do
+        @output.string.must_match(/\=> \s*25:/)
+      end
     end
   end
 
@@ -77,9 +68,10 @@ class SteppingTest < MiniTest::Spec
     before do
       @input.add('break 19', 'continue', 'finish')
       redirect_pry_io(@input, @output) { load step_file }
-      @line = 15
     end
 
-    include SteppingSpecs
+    it 'advances until the end of the current frame' do
+      @output.string.must_match(/\=> \s*15:/)
+    end
   end
 end
