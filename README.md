@@ -1,7 +1,7 @@
 # pry-byebug
 [![Version][VersionBadge]][VersionURL]
 [![Build][TravisBadge]][TravisURL]
-[![Inline docs][InchCIBadge]](InchCIURL)
+[![Inline docs][InchCIBadge]][InchCIURL]
 [![Gittip][GittipBadge]][GittipURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
