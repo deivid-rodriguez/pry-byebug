@@ -19,6 +19,7 @@ module PryByebug
                break --condition N [CONDITION]
                break [--show | --delete | --enable | --disable] N
                break [--delete-all | --disable-all]
+               break
       Aliases: breakpoint
 
       Set a breakpoint. Accepts a line number in the current file, a file and
@@ -39,8 +40,8 @@ module PryByebug
         break --delete 5            Delete breakpoint #5.
         break --disable-all         Disable all breakpoints.
 
-        break                       List all breakpoints.
         break --show 2              Show details about breakpoint #2.
+        break                       List all breakpoints.
     BANNER
 
     def options(opt)
@@ -67,7 +68,9 @@ module PryByebug
         return send("process_#{option.gsub('-', '_')}")
       end
 
-      new_breakpoint unless args.empty?
+      return new_breakpoint unless args.empty?
+
+      print_all
     end
 
     private
@@ -75,7 +78,7 @@ module PryByebug
     %w(delete disable enable).each do |command|
       define_method(:"process_#{command}") do
         breakpoints.send(command, opts[command])
-        run 'breakpoints'
+        print_all
       end
     end
 
@@ -83,7 +86,7 @@ module PryByebug
       method_name = command.gsub('-', '_')
       define_method(:"process_#{method_name}") do
         breakpoints.send(method_name)
-        run 'breakpoints'
+        print_all
       end
     end
 
@@ -103,6 +106,11 @@ module PryByebug
       bp = add_breakpoint(place, condition)
 
       print_full_breakpoint(bp)
+    end
+
+    def print_all
+      print_breakpoints_header
+      breakpoints.each { |b| print_short_breakpoint(b) }
     end
 
     def add_breakpoint(place, condition)

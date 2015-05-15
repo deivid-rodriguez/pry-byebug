@@ -92,7 +92,7 @@ end
 ## Breakpoints
 
 You can set and adjust breakpoints directly from a Pry session using the
-following commands:
+`break` command:
 
 **break:** Set a new breakpoint from a line number in the current file, a file
 and line number, or a method. Pass an optional expression to create a
@@ -112,14 +112,11 @@ break --condition 3            # Remove the condition on breakpoint #3.
 break --delete 5               # Delete breakpoint #5.
 break --disable-all            # Disable all breakpoints.
 
-breaks                         # List all breakpoints. (Same as `breakpoints`)
+break                          # List all breakpoints.
 break --show 2                 # Show details about breakpoint #2.
 ```
 
 Type `break --help` from a Pry session to see all available options.
-
-**breakpoints**: List all defined breakpoints. Pass `-v` or `--verbose` to see
-the source code around each breakpoint.
 
 
 ## Caveats

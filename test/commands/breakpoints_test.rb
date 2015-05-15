@@ -88,7 +88,7 @@ class BreakpointsTestCommands < Minitest::Spec
 
   describe 'List breakpoints' do
     before do
-      @input.add('break #b', 'breakpoints')
+      @input.add('break #b', 'break')
       redirect_pry_io(@input, @output) { load break_second_file }
     end
 
