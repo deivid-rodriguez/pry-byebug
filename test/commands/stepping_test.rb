@@ -89,25 +89,16 @@ end
 # Tests that the next Ruby keyword does not conflict with the next command
 #
 class NextInsideMultilineInput < SteppingTest
-  def evaled_source
-    <<-RUBY
-      s = 0
-
-      2.times do |i|
-        if i == 0
-          next
-        end
-
-        s -= 1
-        break s
-      end
-    RUBY
-  end
-
   def setup
     super
 
-    @input.add(evaled_source)
+    @input.add(
+      '2.times do |i|',
+      'if i == 0',
+      'next',
+      'end',
+      'break 1001 + i',
+      'end')
 
     redirect_pry_io(@input, @output) { load test_file('stepping') }
   end
@@ -118,7 +109,7 @@ class NextInsideMultilineInput < SteppingTest
   end
 
   def test_lets_input_be_properly_evaluated
-    assert_match(/=> -1/, @output.string)
+    assert_match(/=> 1002/, @output.string)
   end
 end
 

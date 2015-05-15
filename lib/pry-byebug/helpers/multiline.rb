@@ -13,7 +13,7 @@ module PryByebug
       def check_multiline_context
         return false if eval_string.empty?
 
-        self.eval_string += "#{match} #{arg_string}"
+        eval_string.replace("#{eval_string}#{match} #{arg_string}\n")
         true
       end
     end

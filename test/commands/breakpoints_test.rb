@@ -128,18 +128,10 @@ end
 # Tests that the break Ruby keyword does not conflict with the break command
 #
 class BreakInsideMultilineInput < BreakpointsTest
-  def evaled_source
-    <<-RUBY
-      2.times do |i|
-        break 16 if i > 0
-      end
-    RUBY
-  end
-
   def setup
     super
 
-    @input.add(evaled_source)
+    @input.add('2.times do |i|', 'break 16 if i > 0', 'end')
 
     redirect_pry_io(@input, @output) { load test_file('break1') }
   end
