@@ -77,7 +77,7 @@ module PryByebug
       # Max width of breakpoints id column
       #
       def max_width
-        ::Byebug.breakpoints.last.id.to_s.length
+        breakpoints.last ? breakpoints.last.id.to_s.length : 1
       end
     end
   end

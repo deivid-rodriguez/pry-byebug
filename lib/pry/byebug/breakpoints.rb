@@ -135,6 +135,10 @@ class Pry
         to_a.each(&block)
       end
 
+      def last
+        to_a.last
+      end
+
       def find_by_id(id)
         breakpoint = find { |b| b.id == id }
         fail(ArgumentError, "No breakpoint ##{id}!") unless breakpoint
