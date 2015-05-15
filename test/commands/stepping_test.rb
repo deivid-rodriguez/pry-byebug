@@ -107,13 +107,24 @@ class SteppingTest < MiniTest::Spec
     end
   end
 
-  describe 'Continue Command' do
+  describe 'Continue Command without arguments' do
+    before do
+      @input.add('break 14', 'continue')
+      redirect_pry_io(@input, @output) { load step_file }
+    end
+
+    it 'advances until the next breakpoint' do
+      @output.string.must_match(/\=> \s*14:/)
+    end
+  end
+
+  describe 'Continue Command with a line argument' do
     before do
       @input.add('continue 14')
       redirect_pry_io(@input, @output) { load step_file }
     end
 
-    it 'advances until the end of the current frame' do
+    it 'advances until the specified line' do
       @output.string.must_match(/\=> \s*14:/)
     end
   end
