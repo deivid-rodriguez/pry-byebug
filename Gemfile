@@ -12,4 +12,6 @@ end
 group :test do
   gem 'mocha', '~> 1.1'
   gem 'minitest', '~> 5.6'
+  gem 'simplecov', '0.10.0', require: false
+  gem 'codeclimate-test-reporter', '0.4.7', require: false
 end

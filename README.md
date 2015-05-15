@@ -3,6 +3,7 @@
 [![Build][TravisBadge]][TravisURL]
 [![Inline docs][InchCIBadge]](InchCIURL)
 [![Gittip][GittipBadge]][GittipURL]
+[![Coverage][CoverageBadge]][CoverageURL]
 
 _Fast execution control in Pry_
 
@@ -138,6 +139,7 @@ Patches and bug reports are welcome.
 [byebug]: https://github.com/deivid-rodriguez/byebug
 [pry-debugger]: https://github.com/nixme/pry-debugger
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
+
 [VersionBadge]: https://badge.fury.io/rb/pry-byebug.svg
 [VersionURL]: http://badge.fury.io/rb/pry-byebug
 [TravisBadge]: https://secure.travis-ci.org/deivid-rodriguez/pry-byebug.svg
@@ -146,3 +148,5 @@ Patches and bug reports are welcome.
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
 [GittipBadge]: http://img.shields.io/gittip/deivid-rodriguez.svg
 [GittipURL]: https://www.gittip.com/deivid-rodriguez
+[CoverageBadge]: https://img.shields.io/codeclimate/coverage/github/deivid-rodriguez/pry-byebug.svg
+[CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug
