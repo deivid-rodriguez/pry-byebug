@@ -75,10 +75,6 @@ PreCommit:
     quiet: true
     required_executable: 'grep'
     flags: ['-IHn', "\t"]
-    exclude:
-      - '**/*.go'
-      - '**/Makefile'
-      - '.gitmodules'
 
   LocalPathsInGemfile:
     description: 'Checking for local paths in Gemfile'
