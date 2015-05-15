@@ -5,29 +5,28 @@ require 'test_helper'
 #
 module BreakpointSpecs
   def test_shows_breakpoint_enabled
-    @output.string.must_match @regexp
+    assert_match @regexp, @output.string
   end
 
   def test_shows_breakpoint_hit
-    result = @output.string
-    result.must_match(@regexp)
-    match = result.match(@regexp)
-    result.must_match(/^  Breakpoint #{match[:id]}\. First hit/)
+    assert_match @regexp, @output.string
+
+    match = @output.string.match(@regexp)
+    assert_match(/^  Breakpoint #{match[:id]}\. First hit/, @output.string)
   end
 
   def test_shows_breakpoint_line
-    @output.string.must_match(/\=> \s*#{@line}:/)
+    assert_match(/\=> \s*#{@line}:/, @output.string)
   end
 end
 
 #
 # Tests for breakpoint commands
 #
-class BreakpointsTestCommands < Minitest::Spec
-  let(:break_first_file) { test_file('break1') }
-  let(:break_second_file) { test_file('break2') }
+class BreakpointsTest < Minitest::Test
+  def setup
+    super
 
-  before do
     Pry.color = false
     Pry.pager = false
     Pry.hooks = Pry::DEFAULT_HOOKS
@@ -35,95 +34,121 @@ class BreakpointsTestCommands < Minitest::Spec
     @output = StringIO.new
   end
 
-  after do
+  def teardown
+    super
+
     clean_remove_const(:Break1Example)
     clean_remove_const(:Break2Example)
   end
+end
 
-  describe 'Set Breakpoints' do
-    describe 'by line number' do
-      before do
-        @input.add('break 6')
-        redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 6
-        @regexp = /  Breakpoint (?<id>\d+): #{break_first_file} @ 6 \(Enabled\)/
-      end
+#
+# Tests setting a breakpoint by line number
+#
+class SettingBreakpointsTestByLineNumber < BreakpointsTest
+  def setup
+    super
 
-      include BreakpointSpecs
-    end
-
-    describe 'by method_id' do
-      before do
-        @input.add('break Break1Example#a')
-        redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 5
-        @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
-      end
-
-      include BreakpointSpecs
-    end
-
-    describe 'by method_id when its a bang method' do
-      before do
-        @input.add('break Break1Example#c!')
-        redirect_pry_io(@input, @output) { load break_first_file }
-        @line = 15
-        @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
-      end
-
-      include BreakpointSpecs
-    end
-
-    describe 'by method_id within context' do
-      before do
-        @input.add('break #b')
-        redirect_pry_io(@input, @output) { load break_second_file }
-        @line = 7
-        @regexp = /  Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
-      end
-
-      include BreakpointSpecs
-    end
+    @input.add('break 6')
+    redirect_pry_io(@input, @output) { load test_file('break1') }
+    @line = 6
+    @regexp = /  Breakpoint (?<id>\d+): #{test_file('break1')} @ 6 \(Enabled\)/
   end
 
-  describe 'List breakpoints' do
-    before do
-      @input.add('break #b', 'break')
-      redirect_pry_io(@input, @output) { load break_second_file }
-    end
+  include BreakpointSpecs
+end
 
-    it 'shows all breakpoints' do
-      @output.string.must_match(/Yes \s*Break2Example#b/)
-    end
-
-    it 'properly aligns headers' do
-      width = Byebug.breakpoints.last.id.to_s.length
-      @output.string.must_match(/   {#{width - 1}}# Enabled At/)
-      @output.string.must_match(/  \d{#{width}} Yes     Break2Example#b/)
-    end
+#
+# Tests setting a breakpoint in a method
+#
+class SettingBreakpointsTestByMethodId < BreakpointsTest
+  def setup
+    super
+    @input.add('break Break1Example#a')
+    redirect_pry_io(@input, @output) { load test_file('break1') }
+    @line = 5
+    @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
   end
 
-  describe 'Break inside multiline input' do
-    let(:evaled_source) do
-      <<-RUBY
-        2.times do |i|
-          break 16 if i > 0
-        end
-      RUBY
-    end
+  include BreakpointSpecs
+end
 
-    before do
-      @input.add(evaled_source)
+#
+# Tests setting a breakpoint in a bang method
+#
+class SettingBreakpointsTestByMethodIdForBangMethods < BreakpointsTest
+  def setup
+    super
+    @input.add('break Break1Example#c!')
+    redirect_pry_io(@input, @output) { load test_file('break1') }
+    @line = 15
+    @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
+  end
 
-      redirect_pry_io(@input, @output) { load break_first_file }
-    end
+  include BreakpointSpecs
+end
 
-    it 'is ignored' do
-      Pry::Byebug::Breakpoints.count.must_equal(0)
-    end
+#
+# Tests setting a breakpoint in a (non fully qualified) method
+#
+class SettingBreakpointsTestByMethodIdWithinContext < BreakpointsTest
+  def setup
+    super
+    @input.add('break #b')
+    redirect_pry_io(@input, @output) { load test_file('break2') }
+    @line = 7
+    @regexp = /  Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
+  end
 
-    it 'lets input be properly evaluated' do
-      @output.string.must_match(/=> 16/)
-    end
+  include BreakpointSpecs
+end
+
+#
+# Tests listing breakpoints
+#
+class ListingBreakpoints < BreakpointsTest
+  def setup
+    super
+    @input.add('break #b', 'break')
+    redirect_pry_io(@input, @output) { load test_file('break2') }
+  end
+
+  def test_shows_all_breakpoints
+    assert_match(/Yes \s*Break2Example#b/, @output.string)
+  end
+
+  def test_properly_aligns_headers
+    width = Byebug.breakpoints.last.id.to_s.length
+    assert_match(/   {#{width - 1}}# Enabled At/, @output.string)
+    assert_match(/  \d{#{width}} Yes     Break2Example#b/, @output.string)
+  end
+end
+
+#
+# Tests that the break Ruby keyword does not conflict with the break command
+#
+class BreakInsideMultilineInput < BreakpointsTest
+  def evaled_source
+    <<-RUBY
+      2.times do |i|
+        break 16 if i > 0
+      end
+    RUBY
+  end
+
+  def setup
+    super
+
+    @input.add(evaled_source)
+
+    redirect_pry_io(@input, @output) { load test_file('break1') }
+  end
+
+  def test_it_is_ignored
+    assert_equal 0, Pry::Byebug::Breakpoints.size
+  end
+
+  def test_lets_input_be_properly_evaluated
+    assert_match(/=> 16/, @output.string)
   end
 end

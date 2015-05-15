@@ -1,12 +1,12 @@
 require 'test_helper'
 
 #
-# Tests for pry-byebug stepping commands.
+# Tests for pry-byebug stepping commands
 #
-class SteppingTest < MiniTest::Spec
-  let(:step_file) { test_file('stepping') }
+class SteppingTest < MiniTest::Test
+  def setup
+    super
 
-  before do
     Pry.color = false
     Pry.pager = false
     Pry.hooks = Pry::DEFAULT_HOOKS
@@ -14,118 +14,158 @@ class SteppingTest < MiniTest::Spec
     @input = InputTester.new('break --delete-all')
   end
 
-  after { clean_remove_const(:SteppingExample) }
+  def teardown
+    clean_remove_const(:SteppingExample)
 
-  describe 'Step Command' do
-    describe 'single step' do
-      before do
-        @input.add('step')
-        redirect_pry_io(@input, @output) { load step_file }
-      end
+    super
+  end
+end
 
-      it 'stops in the next statement' do
-        @output.string.must_match(/\=> \s*7:/)
-      end
-    end
+#
+# Tests the step command without arguments
+#
+class StepCommandSingleStepTest < SteppingTest
+  def setup
+    super
 
-    describe 'multiple step' do
-      before do
-        @input.add('step 2')
-        redirect_pry_io(@input, @output) { load step_file }
-      end
-
-      it 'stops two statements after' do
-        @output.string.must_match(/\=> \s*12:/)
-      end
-    end
+    @input.add('step')
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
   end
 
-  describe 'Next Command' do
-    describe 'single step' do
-      before do
-        @input.add('next')
-        redirect_pry_io(@input, @output) { load step_file }
-      end
+  def test_stops_at_the_next_statement
+    assert_match(/\=> \s*7:/, @output.string)
+  end
+end
 
-      it 'goes to the next line in the current frame' do
-        @output.string.must_match(/\=> \s*24:/)
-      end
-    end
+#
+# Tests the step command with a step argument
+#
+class StepCommandMultipleStepTest < SteppingTest
+  def setup
+    super
 
-    describe 'multiple step' do
-      before do
-        @input.add('next 2')
-        redirect_pry_io(@input, @output) { load step_file }
-      end
-
-      it 'advances two lines in the current frame' do
-        @output.string.must_match(/\=> \s*25:/)
-      end
-    end
-
-    describe 'inside multiline input' do
-      let(:evaled_source) do
-        <<-RUBY
-          s = 0
-
-          2.times do |i|
-            if i == 0
-              next
-            end
-
-            s -= 1
-            break s
-          end
-        RUBY
-      end
-
-      before do
-        @input.add(evaled_source)
-
-        redirect_pry_io(@input, @output) { load step_file }
-      end
-
-      it 'is ignored' do
-        @output.string.must_match(/\=> \s*6:/)
-        @output.string.wont_match(/\=> \s*24:/)
-      end
-
-      it 'lets input be properly evaluated' do
-        @output.string.must_match(/=> -1/)
-      end
-    end
+    @input.add('step 2')
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
   end
 
-  describe 'Finish Command' do
-    before do
-      @input.add('break 19', 'continue', 'finish')
-      redirect_pry_io(@input, @output) { load step_file }
-    end
+  def test_stops_a_correct_number_of_steps_after
+    assert_match(/\=> \s*12:/, @output.string)
+  end
+end
 
-    it 'advances until the end of the current frame' do
-      @output.string.must_match(/\=> \s*15:/)
-    end
+#
+# Tests the next command without arguments
+#
+class NextCommandSingleStepTest < SteppingTest
+  def setup
+    super
+
+    @input.add('next')
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
   end
 
-  describe 'Continue Command without arguments' do
-    before do
-      @input.add('break 14', 'continue')
-      redirect_pry_io(@input, @output) { load step_file }
-    end
+  def test_stops_at_the_next_line_in_the_current_frame
+    assert_match(/\=> \s*24:/, @output.string)
+  end
+end
 
-    it 'advances until the next breakpoint' do
-      @output.string.must_match(/\=> \s*14:/)
-    end
+#
+# Tests the next command with an argument
+#
+class NextCommandMultipleStepTest < SteppingTest
+  def setup
+    super
+
+    @input.add('next 2')
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
   end
 
-  describe 'Continue Command with a line argument' do
-    before do
-      @input.add('continue 14')
-      redirect_pry_io(@input, @output) { load step_file }
-    end
+  def test_advances_the_correct_number_of_lines
+    assert_match(/\=> \s*25:/, @output.string)
+  end
+end
 
-    it 'advances until the specified line' do
-      @output.string.must_match(/\=> \s*14:/)
-    end
+#
+# Tests that the next Ruby keyword does not conflict with the next command
+#
+class NextInsideMultilineInput < SteppingTest
+  def evaled_source
+    <<-RUBY
+      s = 0
+
+      2.times do |i|
+        if i == 0
+          next
+        end
+
+        s -= 1
+        break s
+      end
+    RUBY
+  end
+
+  def setup
+    super
+
+    @input.add(evaled_source)
+
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
+  end
+
+  def test_it_is_ignored
+    assert_match(/\=> \s*6:/, @output.string)
+    refute_match(/\=> \s*24:/, @output.string)
+  end
+
+  def test_lets_input_be_properly_evaluated
+    assert_match(/=> -1/, @output.string)
+  end
+end
+
+#
+# Tests the finish command
+#
+class FinishCommand < SteppingTest
+  def setup
+    super
+
+    @input.add('break 19', 'continue', 'finish')
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
+  end
+
+  def test_advances_until_the_end_of_the_current_frame
+    assert_match(/\=> \s*15:/, @output.string)
+  end
+end
+
+#
+# Tests the continue command without arguments
+#
+class ContinueCommandWithoutArguments < SteppingTest
+  def setup
+    super
+
+    @input.add('break 14', 'continue')
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
+  end
+
+  def test_advances_until_the_next_breakpoint
+    assert_match(/\=> \s*14:/, @output.string)
+  end
+end
+
+#
+# Tests the continue command with a line argument
+#
+class ContinueCommandWithALineArgument < SteppingTest
+  def setup
+    super
+
+    @input.add('continue 14')
+    redirect_pry_io(@input, @output) { load test_file('stepping') }
+  end
+
+  def test_advances_until_the_specified_line
+    assert_match(/\=> \s*14:/, @output.string)
   end
 end
