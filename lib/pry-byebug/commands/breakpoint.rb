@@ -119,9 +119,8 @@ module PryByebug
         errmsg = 'Line number declaration valid only in a file context.'
         PryByebug.check_file_context(target, errmsg)
 
-        file = target.eval('__FILE__')
         lineno = Regexp.last_match[1].to_i
-        breakpoints.add_file(file, lineno, condition)
+        breakpoints.add_file(current_file, lineno, condition)
       when /^(.+):(\d+)$/
         file = Regexp.last_match[1]
         lineno = Regexp.last_match[2].to_i

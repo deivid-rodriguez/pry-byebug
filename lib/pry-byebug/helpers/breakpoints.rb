@@ -14,6 +14,14 @@ module PryByebug
       end
 
       #
+      # Current file in the target binding. Used as the default breakpoint
+      # location.
+      #
+      def current_file
+        target.eval('__FILE__')
+      end
+
+      #
       # Prints a message with bold font.
       #
       def bold_puts(msg)

@@ -106,4 +106,15 @@ class SteppingTest < MiniTest::Spec
       @output.string.must_match(/\=> \s*15:/)
     end
   end
+
+  describe 'Continue Command' do
+    before do
+      @input.add('continue 14')
+      redirect_pry_io(@input, @output) { load step_file }
+    end
+
+    it 'advances until the end of the current frame' do
+      @output.string.must_match(/\=> \s*14:/)
+    end
+  end
 end
