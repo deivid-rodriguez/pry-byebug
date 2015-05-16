@@ -6,12 +6,12 @@ def start_coverage_tracking
   require 'simplecov'
   SimpleCov.add_filter 'test'
 
-  conf = if ENV['CI']
-           require 'codeclimate-test-reporter'
-           CodeClimate::TestReporter.configuration.profile
-         end
-
-  SimpleCov.start conf
+  if ENV['CI']
+    require 'codeclimate-test-reporter'
+    CodeClimate::TestReporter.start
+  else
+    SimpleCov.start
+  end
 end
 
 start_coverage_tracking
