@@ -20,6 +20,8 @@ module PryByebug
   end
   module_function :check_file_context
 
-  # Reference to currently running pry-remote server. Used by the processor.
-  attr_accessor :current_remote_server
+  class << self
+    # Reference to currently running pry-remote server. Used by the processor.
+    attr_accessor :current_remote_server
+  end
 end
