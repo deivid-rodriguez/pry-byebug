@@ -125,7 +125,7 @@ module PryByebug
         file = Regexp.last_match[1]
         lineno = Regexp.last_match[2].to_i
         breakpoints.add_file(file, lineno, condition)
-      when /^(.*)[.#].+$/  # Method or class name
+      when /^(.*)[.#].+$/ # Method or class name
         if Regexp.last_match[1].strip.empty?
           errmsg = 'Method name declaration valid only in a file context.'
           PryByebug.check_file_context(target, errmsg)

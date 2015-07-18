@@ -13,4 +13,7 @@ Style/FileName:
 Style/ModuleFunction:
   Enabled: false
 
+Style/ExtraSpacing:
+  Enabled: true
+
 inherit_from: .rubocop_todo.yml
