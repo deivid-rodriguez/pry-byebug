@@ -61,12 +61,8 @@ module PryByebug
 
       PryByebug.check_file_context(target)
 
-      all = %w(condition show delete disable enable disable-all delete-all)
-      all.each do |option|
-        next unless opts.present?(option)
-
-        return send("process_#{option.gsub('-', '_')}")
-      end
+      option, = opts.to_hash.find { |key, _value| opts.present?(key) }
+      return send(option_to_method(option)) if option
 
       return new_breakpoint unless args.empty?
 
@@ -75,17 +71,9 @@ module PryByebug
 
     private
 
-    %w(delete disable enable).each do |command|
+    %w(delete disable enable disable_all delete_all).each do |command|
       define_method(:"process_#{command}") do
-        breakpoints.send(command, opts[command])
-        print_all
-      end
-    end
-
-    %w(disable-all delete-all).each do |command|
-      method_name = command.gsub('-', '_')
-      define_method(:"process_#{method_name}") do
-        breakpoints.send(method_name)
+        breakpoints.send(*[command, opts[command]].compact)
         print_all
       end
     end
@@ -106,6 +94,10 @@ module PryByebug
       bp = add_breakpoint(place, condition)
 
       print_full_breakpoint(bp)
+    end
+
+    def option_to_method(option)
+      "process_#{option.to_s.gsub('-', '_')}"
     end
 
     def print_all
