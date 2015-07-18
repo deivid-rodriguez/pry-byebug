@@ -125,7 +125,7 @@ class ListingBreakpoints < BreakpointsTest
     assert_match(/Yes \s*Break2Example#b/, @output.string)
   end
 
-  def test_properly_aligns_headers
+  def test_properly_displays_breakpoint_list
     assert_match(/   {#{width - 1}}# Enabled At/, @output.string)
     assert_match(/  \d{#{width}} Yes     Break2Example#b/, @output.string)
   end
