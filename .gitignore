@@ -1,18 +1,14 @@
+#
+# Only generated pry-byebug specific files to be kept here.
+#
 tmp
 pkg
 doc
+coverage
 
 .bundle
-.config
-.yardoc
-.gdb_history
-.rvmrc
+
 .ruby-gemset
 .ruby-version
 
 Gemfile.lock
-InstalledFiles
-_yardoc
-coverage
-lib/bundler/man
-rdoc
