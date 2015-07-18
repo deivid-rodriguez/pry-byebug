@@ -40,6 +40,10 @@ class BreakpointsTest < Minitest::Test
     clean_remove_const(:Break1Example)
     clean_remove_const(:Break2Example)
   end
+
+  def width
+    Byebug.breakpoints.last.id.to_s.length
+  end
 end
 
 #
@@ -118,9 +122,25 @@ class ListingBreakpoints < BreakpointsTest
   end
 
   def test_properly_aligns_headers
-    width = Byebug.breakpoints.last.id.to_s.length
     assert_match(/   {#{width - 1}}# Enabled At/, @output.string)
     assert_match(/  \d{#{width}} Yes     Break2Example#b/, @output.string)
+  end
+end
+
+#
+# Tests disabling breakpoints
+#
+class DisablingBreakpoints < BreakpointsTest
+  def setup
+    super
+
+    @input.add('break #b', 'break --disable-all')
+    redirect_pry_io(@input, @output) { load test_file('break2') }
+  end
+
+  def test_shows_breakpoints_as_disabled
+    assert_match(/   {#{width - 1}}# Enabled At/, @output.string)
+    assert_match(/  \d{#{width}} No      Break2Example#b/, @output.string)
   end
 end
 
