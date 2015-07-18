@@ -68,6 +68,7 @@ end
 class SettingBreakpointsTestByMethodId < BreakpointsTest
   def setup
     super
+
     @input.add('break Break1Example#a')
     redirect_pry_io(@input, @output) { load test_file('break1') }
     @line = 5
@@ -83,6 +84,7 @@ end
 class SettingBreakpointsTestByMethodIdForBangMethods < BreakpointsTest
   def setup
     super
+
     @input.add('break Break1Example#c!')
     redirect_pry_io(@input, @output) { load test_file('break1') }
     @line = 15
@@ -98,6 +100,7 @@ end
 class SettingBreakpointsTestByMethodIdWithinContext < BreakpointsTest
   def setup
     super
+
     @input.add('break #b')
     redirect_pry_io(@input, @output) { load test_file('break2') }
     @line = 7
@@ -113,6 +116,7 @@ end
 class ListingBreakpoints < BreakpointsTest
   def setup
     super
+
     @input.add('break #b', 'break')
     redirect_pry_io(@input, @output) { load test_file('break2') }
   end
