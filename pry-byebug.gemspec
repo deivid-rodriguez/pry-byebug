@@ -11,9 +11,9 @@ Gem::Specification.new do |gem|
   gem.description = "Combine 'pry' with 'byebug'. Adds 'step', 'next', 'finish',
     'continue' and 'break' commands to control execution."
 
-  gem.files = `git ls-files`.split("\n")
-  gem.test_files = `git ls-files -- test/*`.split("\n")
-  gem.require_paths = ['lib']
+  gem.files = Dir['lib/**/*.rb', 'LICENSE']
+  gem.extra_rdoc_files = %w(CHANGELOG.md README.md)
+  gem.require_path = 'lib'
 
   # Dependencies
   gem.required_ruby_version = '>= 2.0.0'
