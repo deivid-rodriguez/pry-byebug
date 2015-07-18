@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pry-byebug (3.1.0)
+    pry-byebug (3.2.0)
       byebug (~> 5.0)
       pry (~> 0.10)
 

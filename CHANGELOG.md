@@ -1,7 +1,23 @@
+## 3.2.0 (2015-07-18)
+
+- Improvements:
+  * Allow continue to receive a line number argument (#56).
+  * Refactorings + RuboCop.
+  * Up to date dependencies.
+
+- Bugfixes:
+  * Don't conflict with `break` and `next` Ruby keywords inside multiline
+statements (#44).
+
+- Removals:
+  * `breaks` command. It was broken anyways (#47).
+
+
 ## 3.1.0 (2015-04-14)
 
 - Improvements:
   * Add frame nav commands up, down and frame.
+
 
 ## 3.0.1 (2015-04-02)
 
