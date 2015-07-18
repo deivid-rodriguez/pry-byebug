@@ -53,10 +53,10 @@ module PryByebug
       #
       def print_short_breakpoint(breakpoint)
         id = format('%*d', max_width, breakpoint.id)
-        status = breakpoint.enabled? ? 'Yes' : 'No'
-        expr = breakpoint.expr ? breakpoint.expr : ''
+        status = breakpoint.enabled? ? 'Yes' : 'No '
+        expr = breakpoint.expr ? " #{breakpoint.expr} " : ''
 
-        output.puts("  #{id} #{status}     #{breakpoint} #{expr}")
+        output.puts("  #{id} #{status}     #{breakpoint}#{expr}")
       end
 
       #
