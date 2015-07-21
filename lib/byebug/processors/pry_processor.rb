@@ -4,7 +4,7 @@ module Byebug
   #
   # Extends raw byebug's processor.
   #
-  class PryProcessor < Processor
+  class PryProcessor < CommandProcessor
     attr_accessor :pry
     attr_reader :state
 
