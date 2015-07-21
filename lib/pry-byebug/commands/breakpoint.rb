@@ -20,7 +20,6 @@ module PryByebug
                break [--show | --delete | --enable | --disable] N
                break [--delete-all | --disable-all]
                break
-      Aliases: breakpoint
 
       Set a breakpoint. Accepts a line number in the current file, a file and
       line number, or a method, and an optional condition.
@@ -132,4 +131,3 @@ module PryByebug
 end
 
 Pry::Commands.add_command(PryByebug::BreakCommand)
-Pry::Commands.alias_command 'breakpoint', 'break'
