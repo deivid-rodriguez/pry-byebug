@@ -97,7 +97,7 @@ module PryByebug
     end
 
     def option_to_method(option)
-      "process_#{option.to_s.gsub('-', '_')}"
+      "process_#{option.to_s.tr('-', '_')}"
     end
 
     def print_all
