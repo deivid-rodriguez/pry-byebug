@@ -23,11 +23,8 @@ GEM
     ffi (1.9.10)
     iniparse (1.4.0)
     json (1.8.3)
-    metaclass (0.0.4)
     method_source (0.8.2)
     minitest (5.7.0)
-    mocha (1.1.0)
-      metaclass (~> 0.0.1)
     overcommit (0.27.0)
       childprocess (~> 0.5.6)
       iniparse (~> 1.4)
@@ -60,7 +57,6 @@ PLATFORMS
 DEPENDENCIES
   codeclimate-test-reporter (= 0.4.7)
   minitest (~> 5.7)
-  mocha (~> 1.1)
   overcommit (= 0.27.0)
   pry-byebug!
   rake (~> 10.4)

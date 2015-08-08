@@ -3,7 +3,6 @@ require 'support/coverage'
 require 'pry/test/helper'
 require 'minitest/autorun'
 require 'pry-byebug'
-require 'mocha/setup'
 
 #
 # Set I/O streams. Out defaults to an anonymous StringIO.

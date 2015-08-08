@@ -5,12 +5,14 @@ require 'test_helper'
 #
 class BaseTest < MiniTest::Spec
   def test_main_file_context
-    Pry.stubs eval_path: '<main>'
-    assert PryByebug.file_context?(TOPLEVEL_BINDING)
+    Pry.stub :eval_path, '<main>' do
+      assert PryByebug.file_context?(TOPLEVEL_BINDING)
+    end
   end
 
   def test_other_file_context
-    Pry.stubs eval_path: 'something'
-    refute PryByebug.file_context?(TOPLEVEL_BINDING)
+    Pry.stub :eval_path, 'something' do
+      refute PryByebug.file_context?(TOPLEVEL_BINDING)
+    end
   end
 end

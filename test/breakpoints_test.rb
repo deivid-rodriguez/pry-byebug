@@ -17,10 +17,8 @@ class BreakpointsTestGeneral < MiniTest::Spec
   end
 
   def test_add_file_raises_argument_error
-    Pry.stubs eval_path: 'something'
-    File.stubs :exist?
-    assert_raises(ArgumentError) do
-      breakpoints_class.add_file('file', 1)
+    Pry.stub :eval_path, 'something' do
+      assert_raises(ArgumentError) { breakpoints_class.add_file('file', 1) }
     end
   end
 
