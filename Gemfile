@@ -4,13 +4,8 @@ gemspec
 
 gem 'rake', '~> 10.4'
 
-group :development do
-  gem 'rubocop', '0.32.1', require: false
-  gem 'overcommit', '0.27.0', require: false
-end
-
-group :test do
-  gem 'minitest', '~> 5.7'
-  gem 'simplecov', '0.10.0', require: false
-  gem 'codeclimate-test-reporter', '0.4.7', require: false
-end
+gem 'rubocop', '0.32.1'
+gem 'overcommit', '0.27.0'
+gem 'minitest', '~> 5.7'
+gem 'simplecov', '0.10.0'
+gem 'codeclimate-test-reporter', '0.4.7'
