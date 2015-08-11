@@ -28,6 +28,7 @@ module Byebug
     # Wrap a Pry REPL to catch navigational commands and act on them.
     #
     def run(&_block)
+      Byebug.start unless Byebug.started?
       @state ||= Byebug::RegularState.new(
         Byebug.current_context,
         [],

@@ -8,8 +8,14 @@ class << Pry
     @processor ||= Byebug::PryProcessor.new
 
     if target.is_a?(Binding) && PryByebug.file_context?(target)
-      # Wrap processor around the usual Pry.start to catch navigation commands
-      @processor.start
+      if PryByebug.current_remote_server
+        # Wrap processor around the usual Pry.start to catch navigation commands
+        @processor.run do
+          start_without_pry_byebug(target, options)
+        end
+      else
+        @processor.start
+      end
     else
       # No need for the tracer unless we have a file context to step through
       start_without_pry_byebug(target, options)
