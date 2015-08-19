@@ -4,23 +4,17 @@ module Byebug
   #
   # Extends raw byebug's processor.
   #
-  class PryProcessor < Processor
+  class PryProcessor < CommandProcessor
     attr_accessor :pry
-    attr_reader :state
 
     extend Forwardable
     def_delegators :@pry, :output
     def_delegators Pry::Helpers::Text, :bold
 
-    def initialize(interface = LocalInterface.new)
-      super(interface)
-
-      Byebug.handler = self
-      Byebug::Setting[:autolist] = false
-    end
-
-    def start
+    def self.start
       Byebug.start
+      Setting[:autolist] = false
+      Context.processor = self
       Byebug.current_context.step_out(3, true)
     end
 
@@ -28,14 +22,6 @@ module Byebug
     # Wrap a Pry REPL to catch navigational commands and act on them.
     #
     def run(&_block)
-      @state ||= Byebug::RegularState.new(
-        Byebug.current_context,
-        [],
-        Byebug.current_context.frame_file,
-        interface,
-        Byebug.current_context.frame_line
-      )
-
       return_value = nil
 
       command = catch(:breakout_nav) do # Throws from PryByebug::Commands
@@ -65,15 +51,15 @@ module Byebug
     #
     # Called when the wants to stop at a regular line
     #
-    def at_line(context, _file, _line)
-      resume_pry(context)
+    def at_line
+      resume_pry
     end
 
     #
     # Called when the wants to stop right before a method return
     #
-    def at_return(context, _file, _line)
-      resume_pry(context)
+    def at_return
+      resume_pry
     end
 
     #
@@ -81,7 +67,7 @@ module Byebug
     # inmediately after with the context's `stop_reason == :breakpoint`, so we
     # must not resume the pry instance here
     #
-    def at_breakpoint(_context, breakpoint)
+    def at_breakpoint(breakpoint)
       @pry ||= Pry.new
 
       output.puts bold("\n  Breakpoint #{breakpoint.id}. ") + n_hits(breakpoint)
@@ -103,10 +89,8 @@ module Byebug
     #
     # Resume an existing Pry REPL at the paused point.
     #
-    def resume_pry(context)
-      frame_position = state ? state.frame : 0
-
-      new_binding = context.frame_binding(frame_position)
+    def resume_pry
+      new_binding = frame._binding
 
       run do
         if defined?(@pry) && @pry
@@ -119,46 +103,40 @@ module Byebug
 
     def perform_next(options)
       lines = (options[:lines] || 1).to_i
-      state.context.step_over(lines, state.frame)
+      context.step_over(lines, frame.pos)
     end
 
     def perform_step(options)
       times = (options[:times] || 1).to_i
-      state.context.step_into(times, state.frame)
+      context.step_into(times, frame.pos)
     end
 
     def perform_finish(*)
-      state.context.step_out(1)
+      context.step_out(1)
     end
 
     def perform_up(options)
       times = (options[:times] || 1).to_i
 
-      command = Byebug::UpCommand.new(state)
-      command.match("up #{times}")
-      command.execute
+      Byebug::UpCommand.new(self, "up #{times}").execute
 
-      resume_pry(state.context)
+      resume_pry
     end
 
     def perform_down(options)
       times = (options[:times] || 1).to_i
 
-      command = Byebug::DownCommand.new(state)
-      command.match("down #{times}")
-      command.execute
+      Byebug::DownCommand.new(self, "down #{times}").execute
 
-      resume_pry(state.context)
+      resume_pry
     end
 
     def perform_frame(options)
       index = options[:index] ? options[:index].to_i : ''
 
-      command = Byebug::FrameCommand.new(state)
-      command.match("frame #{index}")
-      command.execute
+      Byebug::FrameCommand.new(self, "frame #{index}").execute
 
-      resume_pry(state.context)
+      resume_pry
     end
   end
 end
