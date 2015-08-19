@@ -4,7 +4,7 @@ gemspec
 
 gem 'rake', '~> 10.4'
 
-gem 'byebug', github: 'deivid-rodriguez/byebug'
+gem 'byebug', '~> 6.0'
 
 group :development do
   gem 'rubocop', '0.32.1', require: false
