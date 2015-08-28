@@ -125,6 +125,27 @@ Type `break --help` from a Pry session to see all available options.
 Only supports MRI 2.0.0 or newer. For MRI 1.9.3 or older, use
 [pry-debugger][pry-debugger]
 
+Sub-debuggers (or nesting) is not supported at this time. This means that you cannot drop into pry and then call methods in your code with binding.pry included; those nested binding.pry calls are silently ignored. The same is true for any breakpoints added to called methods. See Issue #71 for more information.
+
+For example, let's say you have a method
+
+```ruby
+Clients::APD::MyService::V1::MyService.enroll('xyz')
+```
+
+which you're interested in testing. So you add a binding.pry to the method.
+
+The following approach works; you're dropped into a pry session at the binding.pry
+in the enroll method.
+
+```ruby
+When(/^I test my call$/) do
+  Clients::APD::MyService::V1::MyService.enroll('xyz')
+  end
+```  
+
+However, if you try to call that method when already in a pry session, 
+the binding.pry is silently ignored.
 
 ## Credits
 
