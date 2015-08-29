@@ -132,10 +132,10 @@ Type `break --help` from a Pry session to see all available options.
 
 ## Credits
 
-* Gopal Patel (@nixme), creator of [pry-debugger][pry-debugger], and everybody
-who contributed to it. pry-byebug is a fork of pry-debugger so it wouldn't
-exist as it is without those contributions.
-* John Mair (@banister), creator of [pry][pry].
+* Gopal Patel (@nixme), creator of [pry-debugger][], and everybody who
+contributed to it. pry-byebug is a fork of pry-debugger so it wouldn't exist as
+it is without those contributions.
+* John Mair (@banister), creator of [pry][].
 
 Patches and bug reports are welcome.
 
