@@ -47,3 +47,4 @@ PreCommit:
 
   YamlSyntax:
     enabled: true
+    required_files: true
