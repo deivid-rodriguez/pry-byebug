@@ -12,7 +12,6 @@ gemfile: Gemfile
 #
 CommitMsg:
   HardTabs:
-    description: 'Checking for hard tabs'
     enabled: true
 
   RussianNovel:
