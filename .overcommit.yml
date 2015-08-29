@@ -25,6 +25,9 @@ PreCommit:
   BundleCheck:
     enabled: true
 
+  ExecutePermissions:
+    enabled: true
+
   HardTabs:
     enabled: true
 
