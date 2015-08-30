@@ -1,9 +1,9 @@
 #
-# Toy program for testing binding.pry initialization
+# Toy program for testing pry_byebug initialization
 #
 
 new_str = 'string'.gsub!(/str/) do |_|
-  binding.pry
+  pry_byebug
 end
 
 _foo = new_str

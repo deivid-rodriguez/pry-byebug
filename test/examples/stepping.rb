@@ -1,4 +1,4 @@
-binding.pry
+pry_byebug
 
 #
 # Toy class for testing steps

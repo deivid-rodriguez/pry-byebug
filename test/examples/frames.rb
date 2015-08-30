@@ -7,7 +7,7 @@ class FramesExample
   end
 
   def method_b
-    binding.pry
+    pry_byebug
   end
 end
 

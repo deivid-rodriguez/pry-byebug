@@ -18,6 +18,6 @@ class Break1Example
   end
 end
 
-binding.pry
+pry_byebug
 
 Break1Example.new.a

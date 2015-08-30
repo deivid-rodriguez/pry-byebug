@@ -3,7 +3,7 @@
 #
 class Break2Example
   def a
-    binding.pry
+    pry_byebug
     z = 2
     z + b
   end

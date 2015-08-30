@@ -15,7 +15,7 @@ module Byebug
       Byebug.start
       Setting[:autolist] = false
       Context.processor = self
-      Byebug.current_context.step_out(3, true)
+      Byebug.current_context.step_out(2, true)
     end
 
     #
@@ -96,7 +96,7 @@ module Byebug
         if defined?(@pry) && @pry
           @pry.repl(new_binding)
         else
-          @pry = Pry.start_without_pry_byebug(new_binding)
+          @pry = Pry.start(new_binding)
         end
       end
     end

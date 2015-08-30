@@ -5,20 +5,18 @@
 [![Gittip][GittipBadge]][GittipURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
-_Fast execution control in Pry_
+_Enhanced debugging with Pry_
 
-Adds **step**, **next**, **finish** and **continue** commands and
-**breakpoints** to [Pry][pry] using [byebug][byebug].
-
-To use, invoke pry normally. No need to start your script or app differently.
-Execution will stop in the first statement after your `binding.pry`.
+To use, drop `pry_byebug` anywhere in your code and you'll get a [Pry][] REPL
+with **step**, **next**, **finish** and **continue** commands and
+**breakpoints** added to it.
 
 ```ruby
 def some_method
   puts 'Hello World' # Run 'step' in the console to move here
 end
 
-binding.pry
+pry_byebug
 some_method          # Execution will stop here.
 puts 'Goodbye World' # Run 'next' in the console to move here.
 ```

@@ -24,7 +24,7 @@ class ProcessorTest < Minitest::Spec
 
       after { clean_remove_const(:SteppingExample) }
 
-      it 'stops execution at the first line after binding.pry' do
+      it 'stops execution at the first line after pry_byebug' do
         output.string.must_match(/\=>  6:/)
       end
     end
@@ -36,7 +36,7 @@ class ProcessorTest < Minitest::Spec
         redirect_pry_io(input, output) { load source_file }
       end
 
-      it 'stops execution at the first line after binding.pry' do
+      it 'stops execution at the first line after pry_byebug' do
         output.string.must_match(/\=> 7:/)
       end
     end
