@@ -1,4 +1,5 @@
 require 'byebug/core'
+require 'pry-byebug/commands'
 
 module Byebug
   #

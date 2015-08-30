@@ -25,8 +25,6 @@ module PryByebug
     BANNER
 
     def process
-      PryByebug.check_file_context(target)
-
       breakpoints.add_file(current_file, args.first.to_i) if args.first
 
       breakout_navigation :continue

@@ -58,8 +58,6 @@ module PryByebug
     def process
       return if check_multiline_context
 
-      PryByebug.check_file_context(target)
-
       option, = opts.to_hash.find { |key, _value| opts.present?(key) }
       return send(option_to_method(option)) if option
 
@@ -107,9 +105,6 @@ module PryByebug
     def add_breakpoint(place, condition)
       case place
       when /^(\d+)$/
-        errmsg = 'Line number declaration valid only in a file context.'
-        PryByebug.check_file_context(target, errmsg)
-
         lineno = Regexp.last_match[1].to_i
         breakpoints.add_file(current_file, lineno, condition)
       when /^(.+):(\d+)$/
@@ -118,8 +113,6 @@ module PryByebug
         breakpoints.add_file(file, lineno, condition)
       when /^(.*)[.#].+$/ # Method or class name
         if Regexp.last_match[1].strip.empty?
-          errmsg = 'Method name declaration valid only in a file context.'
-          PryByebug.check_file_context(target, errmsg)
           place = target.eval('self.class.to_s') + place
         end
         breakpoints.add_method(place, condition)

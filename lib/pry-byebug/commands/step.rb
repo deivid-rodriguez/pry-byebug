@@ -22,8 +22,6 @@ module PryByebug
       BANNER
 
     def process
-      PryByebug.check_file_context(target)
-
       breakout_navigation :step, times: args.first
     end
   end

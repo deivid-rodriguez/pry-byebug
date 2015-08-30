@@ -27,8 +27,6 @@ module PryByebug
     def process
       return if check_multiline_context
 
-      PryByebug.check_file_context(target)
-
       breakout_navigation :next, lines: args.first
     end
   end
