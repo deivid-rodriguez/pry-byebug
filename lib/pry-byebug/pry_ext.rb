@@ -4,6 +4,7 @@ class << Pry
   alias_method :start_without_pry_byebug, :start
 
   def start_with_pry_byebug(target = TOPLEVEL_BINDING, options = {})
+    Pry.initial_session_setup
     if target.is_a?(Binding) && PryByebug.file_context?(target)
       Byebug::PryProcessor.start
     else

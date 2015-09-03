@@ -22,4 +22,14 @@ module PryByebug
 
   # Reference to currently running pry-remote server. Used by the processor.
   attr_accessor :current_remote_server
+
+  def binding_behavior
+    @binding_behavior ||= :byebug
+  end
+  module_function :binding_behavior
+
+  def binding_behavior=(style)
+    @binding_behavior = style
+  end
+  module_function :binding_behavior=
 end

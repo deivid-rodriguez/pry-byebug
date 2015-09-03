@@ -15,7 +15,11 @@ module Byebug
       Byebug.start
       Setting[:autolist] = false
       Context.processor = self
-      Byebug.current_context.step_out(3, true)
+      if PryByebug.binding_behavior == :pry
+        Byebug.current_context.step_out(0, true)
+      else
+        Byebug.current_context.step_out(3, true)
+      end
     end
 
     #
@@ -90,6 +94,10 @@ module Byebug
     # Resume an existing Pry REPL at the paused point.
     #
     def resume_pry
+      if PryByebug.binding_behavior == :pry
+        Byebug::UpCommand.new(self, "up 3").execute
+      end
+
       new_binding = frame._binding
 
       run do

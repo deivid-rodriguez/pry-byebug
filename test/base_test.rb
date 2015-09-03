@@ -16,3 +16,25 @@ class BaseTest < MiniTest::Spec
     end
   end
 end
+
+#
+# Tests binding.pry stops at that line with PryByebug.break_behavior = :pry
+#
+
+class TestStopsOnBinding < MiniTest::Spec
+  def setup
+    super
+    PryByebug.binding_behavior = :pry
+    @output = StringIO.new
+    @input = InputTester.new('')
+    redirect_pry_io(@input, @output) { load test_file('last_line') }
+  end
+
+  def test_stops_on_binding
+    assert_match(/\=> \s*2:/, @output.string)
+  end
+
+  def teardown
+    PryByebug.binding_behavior = :byebug
+  end
+end
