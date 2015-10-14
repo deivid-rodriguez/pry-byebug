@@ -30,6 +30,8 @@ module PryByebug
       breakpoints.add_file(current_file, args.first.to_i) if args.first
 
       breakout_navigation :continue
+    ensure
+      Byebug.stop if Byebug.stoppable?
     end
   end
 end
