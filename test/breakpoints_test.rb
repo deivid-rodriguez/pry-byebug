@@ -9,6 +9,7 @@ class BreakpointsTestGeneral < MiniTest::Spec
   #
   class Tester
     def self.class_method; end
+
     def instance_method; end
   end
 
