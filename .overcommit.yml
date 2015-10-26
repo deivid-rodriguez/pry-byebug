@@ -36,7 +36,6 @@ PreCommit:
 
   RuboCop:
     enabled: true
-    flags: ['--display-cop-names', '--force-exclusion']
 
   TrailingWhitespace:
     enabled: true
