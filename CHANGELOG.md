@@ -1,3 +1,12 @@
+## 3.3.0 (Unreleased)
+
+- Improvements:
+  * Up to date dependencies, including byebug 6.0 series.
+
+- Bugfixes:
+  * Fix encoding error in gemspec file (#70).
+
+
 ## 3.2.0 (2015-07-18)
 
 - Improvements:
