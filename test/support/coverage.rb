@@ -14,4 +14,7 @@ def start_coverage_tracking
   end
 end
 
-start_coverage_tracking
+#
+# Coverage tracking is incorrect in 2.0
+#
+start_coverage_tracking if RUBY_VERSION > '2.0.0'
