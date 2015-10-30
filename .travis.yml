@@ -1,11 +1,5 @@
 language: ruby
 
-rvm:
-- 2.0.0
-- 2.1
-- 2.2
-- ruby-head
-
 before_script:
   - git config --local user.email 'travis@travis.ci'
   - git config --local user.name 'Travis CI'
@@ -14,9 +8,15 @@ script:
   - bundle exec rake
   - bundle exec overcommit --run
 
+rvm:
+  - 2.0.0
+  - 2.1
+  - 2.2
+  - ruby-head
+
 matrix:
   allow_failures:
-  - rvm: ruby-head
+    - rvm: ruby-head
 
 addons:
   code_climate:
