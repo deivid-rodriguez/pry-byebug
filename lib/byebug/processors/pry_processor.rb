@@ -49,16 +49,24 @@ module Byebug
     # --- Callbacks from byebug C extension ---
 
     #
-    # Called when the wants to stop at a regular line
+    # Called when the debugger wants to stop at a regular line
     #
     def at_line
       resume_pry
     end
 
     #
-    # Called when the wants to stop right before a method return
+    # Called when the debugger wants to stop right before a method return
     #
     def at_return(_return_value)
+      resume_pry
+    end
+
+    #
+    # Called when the debugger wants to stop right before the end of a class
+    # definition
+    #
+    def at_end
       resume_pry
     end
 
