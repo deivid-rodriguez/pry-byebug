@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    pry-byebug (3.2.0)
+    pry-byebug (3.3.0)
       byebug (~> 8.0)
       pry (~> 0.10)
 
