@@ -15,7 +15,7 @@ module Byebug
       Byebug.start
       Setting[:autolist] = false
       Context.processor = self
-      Byebug.current_context.step_out(3, true)
+      Byebug.current_context.step_out(4, true)
     end
 
     #
@@ -58,7 +58,7 @@ module Byebug
     #
     # Called when the wants to stop right before a method return
     #
-    def at_return
+    def at_return(_return_value)
       resume_pry
     end
 
