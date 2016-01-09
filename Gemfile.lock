@@ -30,7 +30,7 @@ GEM
       parser (~> 2.2)
     backports (3.6.7)
     byebug (8.0.0)
-    childprocess (0.5.7)
+    childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     codeclimate-test-reporter (0.4.8)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -51,7 +51,7 @@ GEM
       net-http-persistent (>= 2.7)
       net-http-pipeline
     highline (1.7.8)
-    iniparse (1.4.1)
+    iniparse (1.4.2)
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -61,7 +61,7 @@ GEM
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
-    overcommit (0.28.0)
+    overcommit (0.30.0)
       childprocess (~> 0.5.6)
       iniparse (~> 1.4)
     parser (2.2.3.0)
@@ -99,7 +99,7 @@ PLATFORMS
 DEPENDENCIES
   codeclimate-test-reporter (= 0.4.8)
   minitest (~> 5.7)
-  overcommit (= 0.28.0)
+  overcommit (= 0.30.0)
   pry-byebug!
   rake (~> 10.4)
   rubocop (= 0.34.2)
