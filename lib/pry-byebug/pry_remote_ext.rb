@@ -22,7 +22,7 @@ module PryRemote
     #
     # Override to reset our saved global current server session.
     #
-    alias_method :teardown_without_pry_byebug, :teardown
+    alias teardown_without_pry_byebug teardown
     def teardown_with_pry_byebug
       return if @torn
 
@@ -30,7 +30,7 @@ module PryRemote
       PryByebug.current_remote_server = nil
       @torn = true
     end
-    alias_method :teardown, :teardown_with_pry_byebug
+    alias teardown teardown_with_pry_byebug
   end
 end
 

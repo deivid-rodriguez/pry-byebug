@@ -1,7 +1,7 @@
 require 'byebug/processors/pry_processor'
 
 class << Pry
-  alias_method :start_without_pry_byebug, :start
+  alias start_without_pry_byebug start
 
   def start_with_pry_byebug(target = TOPLEVEL_BINDING, options = {})
     if target.is_a?(Binding) && PryByebug.file_context?(target)
@@ -12,5 +12,5 @@ class << Pry
     end
   end
 
-  alias_method :start, :start_with_pry_byebug
+  alias start start_with_pry_byebug
 end
