@@ -16,8 +16,4 @@ Style/ModuleFunction:
 Style/ExtraSpacing:
   Enabled: true
 
-# https://github.com/bbatsov/rubocop/issues/2123
-Lint/FormatParameterMismatch:
-  Enabled: false
-
 inherit_from: .rubocop_todo.yml
