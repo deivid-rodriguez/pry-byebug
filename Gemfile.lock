@@ -24,7 +24,7 @@ GEM
     astrolabe (1.3.1)
       parser (~> 2.2)
     backports (3.6.7)
-    byebug (8.0.0)
+    byebug (8.2.1)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     codeclimate-test-reporter (0.4.8)
