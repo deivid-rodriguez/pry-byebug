@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bbatsov/rubocop.git
-  revision: 7f256430f752836dcb1898ff34c09464cba07982
+  revision: 22fb942bf2fe79df56408e64385d410a1f470f5e
   specs:
     rubocop (0.35.1)
       astrolabe (~> 1.3)
