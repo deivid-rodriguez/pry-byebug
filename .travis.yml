@@ -19,6 +19,7 @@ before_script:
 
 script:
   - bundle exec rake
+  - bundle exec overcommit --sign
   - bundle exec overcommit --run
 
 rvm:
