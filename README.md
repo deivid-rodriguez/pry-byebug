@@ -30,8 +30,9 @@ puts 'Goodbye World' # Run 'next' in the console to move here.
 [pry-debugger][].
 
 * Recommended:
-  - MRI 2.1.7 or higher.
-  - MRI 2.2.3 or higher.
+  - MRI 2.1.8 or higher.
+  - MRI 2.2.4 or higher.
+  - MRI 2.3.0 or higher.
 
 
 ## Installation
