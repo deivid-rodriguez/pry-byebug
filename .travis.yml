@@ -4,10 +4,6 @@ sudo: false
 
 language: ruby
 
-before_install:
-  - rvm reinstall $TRAVIS_RUBY_VERSION --patch
-      http://github.com/k0kubun/ruby/commit/6747055326e634899f0efb0ba7cf46.patch
-
 install:
   - gem update --system --no-document || test true
   - gem install bundler --no-document || test true
@@ -24,8 +20,9 @@ script:
 
 rvm:
   - 2.0.0
-  - 2.1.7
-  - 2.2.3
+  - 2.1.8
+  - 2.2.4
+  - 2.3.0
   - ruby-head
 
 matrix:
