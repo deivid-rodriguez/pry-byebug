@@ -16,4 +16,8 @@ Style/ModuleFunction:
 Style/ExtraSpacing:
   Enabled: true
 
+# bbatsov/rubocop#2616
+Performance/RedundantMatch:
+  Enabled: false
+
 inherit_from: .rubocop_todo.yml
