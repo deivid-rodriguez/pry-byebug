@@ -18,9 +18,7 @@ before_script:
   - git config --local user.name 'Travis CI'
 
 script:
-  - bundle exec rake
-  - bundle exec overcommit --sign
-  - bundle exec overcommit --run
+  - bundle exec rake test sign_hooks overcommit
 
 rvm:
   - 2.0.0
