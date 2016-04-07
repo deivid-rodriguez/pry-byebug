@@ -4,7 +4,7 @@ gemspec
 
 gem 'rake', '~> 11.0'
 
-gem 'rubocop', github: 'bbatsov/rubocop'
+gem 'rubocop', '0.39.0'
 gem 'overcommit', '0.33.0'
 gem 'minitest', '~> 5.7'
 gem 'simplecov', '0.11.1'

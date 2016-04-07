@@ -124,7 +124,7 @@ module PryByebug
         end
         breakpoints.add_method(place, condition)
       else
-        fail(ArgumentError, 'Cannot identify arguments as breakpoint')
+        raise(ArgumentError, 'Cannot identify arguments as breakpoint')
       end
     end
   end
