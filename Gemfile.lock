@@ -70,7 +70,7 @@ GEM
       json
       websocket (~> 1.0)
     rainbow (2.0.0)
-    rake (10.4.2)
+    rake (11.1.2)
     ruby-progressbar (1.7.5)
     simplecov (0.11.1)
       docile (~> 1.1.0)
@@ -99,7 +99,7 @@ DEPENDENCIES
   minitest (~> 5.7)
   overcommit (= 0.33.0)
   pry-byebug!
-  rake (~> 10.4)
+  rake (~> 11.0)
   rubocop!
   simplecov (= 0.11.1)
   travis (~> 1.8)
