@@ -56,8 +56,8 @@ GEM
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
-    overcommit (0.30.0)
-      childprocess (~> 0.5.6)
+    overcommit (0.33.0)
+      childprocess (~> 0.5.8)
       iniparse (~> 1.4)
     parser (2.3.0.pre.6)
       ast (~> 2.2)
@@ -97,7 +97,7 @@ PLATFORMS
 DEPENDENCIES
   codeclimate-test-reporter (= 0.5.0)
   minitest (~> 5.7)
-  overcommit (= 0.30.0)
+  overcommit (= 0.33.0)
   pry-byebug!
   rake (~> 10.4)
   rubocop!
