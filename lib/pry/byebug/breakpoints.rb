@@ -60,7 +60,7 @@ class Pry
       #
       def add_file(file, line, expression = nil)
         real_file = (file != Pry.eval_path)
-        fail(ArgumentError, 'Invalid file!') if real_file && !File.exist?(file)
+        raise(ArgumentError, 'Invalid file!') if real_file && !File.exist?(file)
         validate_expression expression
 
         path = (real_file ? File.expand_path(file) : file)
@@ -89,7 +89,7 @@ class Pry
           ::Byebug::Breakpoint.remove(id) &&
           breakpoints.delete(find_by_id(id))
 
-        fail(ArgumentError, "No breakpoint ##{id}") unless deleted
+        raise(ArgumentError, "No breakpoint ##{id}") unless deleted
       end
 
       #
@@ -141,7 +141,7 @@ class Pry
 
       def find_by_id(id)
         breakpoint = find { |b| b.id == id }
-        fail(ArgumentError, "No breakpoint ##{id}!") unless breakpoint
+        raise(ArgumentError, "No breakpoint ##{id}!") unless breakpoint
         breakpoint
       end
 
@@ -157,7 +157,7 @@ class Pry
         valid = exp && (exp.empty? || !Pry::Code.complete_expression?(exp))
         return unless valid
 
-        fail("Invalid breakpoint conditional: #{expression}")
+        raise("Invalid breakpoint conditional: #{expression}")
       end
     end
   end

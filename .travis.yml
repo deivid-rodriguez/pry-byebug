@@ -18,13 +18,11 @@ before_script:
   - git config --local user.name 'Travis CI'
 
 script:
-  - bundle exec rake
-  - bundle exec overcommit --sign
-  - bundle exec overcommit --run
+  - bundle exec rake test sign_hooks overcommit
 
 rvm:
   - 2.0.0
-  - 2.1.8
+  - 2.1.10
   - 2.2.4
   - 2.3.0
   - ruby-head
@@ -33,6 +31,13 @@ matrix:
   allow_failures:
     - rvm: ruby-head
 
+branches:
+  only:
+    - master
+
 addons:
+  apt:
+    packages:
+      - libgmp3-dev
   code_climate:
     repo_token: f06a22b27a507a3054eb69873c9e3bbc9ef97476d6ef22eec8cd24686494cb2b
