@@ -11,7 +11,7 @@ GEM
     addressable (2.4.0)
     ast (2.2.0)
     backports (3.6.7)
-    byebug (8.2.1)
+    byebug (8.2.2)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     codeclimate-test-reporter (0.5.0)
