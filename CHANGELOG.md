@@ -6,6 +6,10 @@
 
 * Byebug 9 compatibility.
 
+### Added
+
+* A new `backtrace` command.
+
 ## 3.3.0 (2015-11-05)
 
 ### Fixed

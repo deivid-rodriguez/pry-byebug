@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'stringio'
 
 #
 # Tests for pry-byebug frame commands.
@@ -57,6 +58,24 @@ class FramesTest < MiniTest::Spec
       it 'shows current line' do
         output.string.must_match(/=> \s*11: \s*end/)
       end
+    end
+  end
+
+  describe 'Backtrace command' do
+    let(:input) { InputTester.new('backtrace') }
+
+    before do
+      @stdout, @stderr = capture_subprocess_io do
+        redirect_pry_io(input) { load test_file('frames') }
+      end
+    end
+
+    it 'shows a backtrace' do
+      frames = @stdout.split("\n")
+
+      assert_match(/\A--> #0  FramesExample\.method_b at/, frames[0])
+      assert_match(/\A    #1  FramesExample\.method_a at/, frames[1])
+      assert_match(/\A    #2  <top \(required\)> at/, frames[2])
     end
   end
 end
