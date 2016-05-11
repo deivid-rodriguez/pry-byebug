@@ -52,6 +52,8 @@ to use it to debug your tests!
 
 ### Step-by-step debugging
 
+**break:** Manage breakpoints.
+
 **step:** Step execution into the next line or method. Takes an optional numeric
 argument to step multiple times.
 
