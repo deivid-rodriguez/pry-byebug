@@ -48,7 +48,9 @@ in your Gemfile and run
 Make sure you include the gem globally or inside the `:test` group if you plan
 to use it to debug your tests!
 
-## Execution Commands
+## Commands
+
+### Step-by-step debugging
 
 **step:** Step execution into the next line or method. Takes an optional numeric
 argument to step multiple times.
@@ -59,6 +61,8 @@ optional numeric argument to step multiple lines.
 **finish:** Execute until current stack frame returns.
 
 **continue:** Continue program execution and end the Pry session.
+
+### Callstack navigation
 
 **up:** Moves the stack frame up. Takes an optional numeric argument to move
 multiple frames.
