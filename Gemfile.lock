@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/mivok/markdownlint.git
+  revision: dfa943cbfd7472172461cf11d2b7f60af7e3abe3
+  specs:
+    mdl (0.3.1)
+      kramdown (~> 1.8, >= 1.8.0)
+      mixlib-cli (~> 1.5, >= 1.5.0)
+      mixlib-config (~> 2.1, >= 2.1.0)
+
 PATH
   remote: .
   specs:
@@ -35,11 +44,14 @@ GEM
     highline (1.7.8)
     iniparse (1.4.2)
     json (1.8.3)
+    kramdown (1.11.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     method_source (0.8.2)
     minitest (5.8.4)
-    multi_json (1.11.2)
+    mixlib-cli (1.6.0)
+    mixlib-config (2.2.1)
+    multi_json (1.12.0)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
@@ -90,6 +102,7 @@ PLATFORMS
 
 DEPENDENCIES
   codeclimate-test-reporter (= 0.5.0)
+  mdl!
   minitest (~> 5.7)
   overcommit (= 0.33.0)
   pry-byebug!
