@@ -98,7 +98,8 @@ class NextInsideMultilineInput < SteppingTest
       'next',
       'end',
       'break 1001 + i',
-      'end')
+      'end'
+    )
 
     redirect_pry_io(@input, @output) { load test_file('stepping') }
   end
