@@ -41,7 +41,15 @@ module Byebug
     # Set up a number of navigational commands to be performed by Byebug.
     #
     def perform(action, options = {})
-      return unless %i(next step finish up down frame).include?(action)
+      return unless %i(
+        backtrace
+        down
+        finish
+        frame
+        next
+        step
+        up
+      ).include?(action)
 
       send("perform_#{action}", options)
     end
@@ -107,6 +115,12 @@ module Byebug
           @pry = Pry.start_without_pry_byebug(new_binding)
         end
       end
+    end
+
+    def perform_backtrace(_options)
+      Byebug::WhereCommand.new(self, 'backtrace').execute
+
+      resume_pry
     end
 
     def perform_next(options)

@@ -1,3 +1,4 @@
+require 'pry-byebug/commands/backtrace'
 require 'pry-byebug/commands/next'
 require 'pry-byebug/commands/step'
 require 'pry-byebug/commands/continue'

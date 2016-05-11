@@ -66,6 +66,9 @@ optional numeric argument to step multiple lines.
 
 ### Callstack navigation
 
+**backtrace:** Shows the current stack. You can use the numbers on the left
+side with the `frame` command to navigate the stack.
+
 **up:** Moves the stack frame up. Takes an optional numeric argument to move
 multiple frames.
 
