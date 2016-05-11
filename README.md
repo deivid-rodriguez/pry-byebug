@@ -1,14 +1,13 @@
 # pry-byebug
+
 [![Version][VersionBadge]][VersionURL]
 [![Build][TravisBadge]][TravisURL]
 [![Inline docs][InchCIBadge]][InchCIURL]
 [![Gittip][GittipBadge]][GittipURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
-_Fast execution control in Pry_
-
-Adds **step**, **next**, **finish** and **continue** commands and
-**breakpoints** to [Pry][pry] using [byebug][byebug].
+Adds step-by-step debugging and stack navigation capabilities to [pry][] using
+[byebug][].
 
 To use, invoke pry normally. No need to start your script or app differently.
 Execution will stop in the first statement after your `binding.pry`.
@@ -27,13 +26,12 @@ puts 'Goodbye World' # Run 'next' in the console to move here.
 ## Requirements
 
 * Required: MRI 2.0.0 or higher. For debugging ruby 1.9.3 or older, use
-[pry-debugger][].
+  [pry-debugger][].
 
 * Recommended:
-  - MRI 2.1.8 or higher.
-  - MRI 2.2.4 or higher.
-  - MRI 2.3.0 or higher.
-
+  * MRI 2.1.8 or higher.
+  * MRI 2.2.4 or higher.
+  * MRI 2.3.0 or higher.
 
 ## Installation
 
@@ -47,9 +45,8 @@ in your Gemfile and run
 
     bundle install
 
-_Make sure you include the gem globally or inside the `:test` group if you plan
-to use it to debug your tests!_
-
+Make sure you include the gem globally or inside the `:test` group if you plan
+to use it to debug your tests!
 
 ## Execution Commands
 
@@ -134,8 +131,8 @@ Type `break --help` from a Pry session to see all available options.
 ## Credits
 
 * Gopal Patel (@nixme), creator of [pry-debugger][], and everybody who
-contributed to it. pry-byebug is a fork of pry-debugger so it wouldn't exist as
-it is without those contributions.
+  contributed to it. pry-byebug is a fork of pry-debugger so it wouldn't exist as
+  it is without those contributions.
 * John Mair (@banister), creator of [pry][].
 
 Patches and bug reports are welcome.
