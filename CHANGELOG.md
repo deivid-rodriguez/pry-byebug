@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+### Fixed
+
+* Byebug 9 compatibility.
+
 ## 3.3.0 (2015-11-05)
 
 ### Fixed
