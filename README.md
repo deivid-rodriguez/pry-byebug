@@ -1,14 +1,13 @@
 # pry-byebug
+
 [![Version][VersionBadge]][VersionURL]
 [![Build][TravisBadge]][TravisURL]
 [![Inline docs][InchCIBadge]][InchCIURL]
 [![Gittip][GittipBadge]][GittipURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
-_Fast execution control in Pry_
-
-Adds **step**, **next**, **finish** and **continue** commands and
-**breakpoints** to [Pry][pry] using [byebug][byebug].
+Adds step-by-step debugging and stack navigation capabilities to [Pry][pry] using
+[byebug][byebug].
 
 To use, invoke pry normally. No need to start your script or app differently.
 Execution will stop in the first statement after your `binding.pry`.
