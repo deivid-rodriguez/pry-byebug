@@ -6,8 +6,8 @@
 [![Gittip][GittipBadge]][GittipURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
-Adds step-by-step debugging and stack navigation capabilities to [Pry][pry] using
-[byebug][byebug].
+Adds step-by-step debugging and stack navigation capabilities to [pry][] using
+[byebug][].
 
 To use, invoke pry normally. No need to start your script or app differently.
 Execution will stop in the first statement after your `binding.pry`.
