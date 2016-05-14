@@ -1,5 +1,4 @@
 require 'bundler/gem_tasks'
-
 require 'rake/testtask'
 
 desc 'Run tests'
