@@ -1,6 +1,10 @@
 require 'bundler/gem_tasks'
-
 require 'rake/testtask'
+
+#
+# Add chandler as a prerequisite for `rake release`
+#
+task 'release:rubygem_push' => 'chandler:push'
 
 desc 'Run tests'
 Rake::TestTask.new(:test) do |t|
