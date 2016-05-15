@@ -1,4 +1,5 @@
 require 'bundler/gem_tasks'
+require 'chandler/tasks'
 require 'rake/testtask'
 
 #
