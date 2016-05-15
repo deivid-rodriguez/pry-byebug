@@ -3,5 +3,5 @@
 # Main container module for Pry-Byebug functionality
 #
 module PryByebug
-  VERSION = '3.3.0'.freeze
+  VERSION = '3.4.0'.freeze
 end
