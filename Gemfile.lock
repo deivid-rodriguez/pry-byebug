@@ -20,7 +20,7 @@ GEM
     addressable (2.4.0)
     ast (2.2.0)
     backports (3.6.8)
-    byebug (9.0.1)
+    byebug (9.0.3)
     chandler (0.3.1)
       netrc
       octokit (>= 2.2.0)
@@ -51,10 +51,10 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     method_source (0.8.2)
-    minitest (5.8.4)
+    minitest (5.9.0)
     mixlib-cli (1.6.0)
     mixlib-config (2.2.1)
-    multi_json (1.12.0)
+    multi_json (1.12.1)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
@@ -122,4 +122,4 @@ DEPENDENCIES
   travis (~> 1.8)
 
 BUNDLED WITH
-   1.12.3
+   1.12.4
