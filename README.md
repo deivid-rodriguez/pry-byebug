@@ -3,7 +3,7 @@
 [![Version][VersionBadge]][VersionURL]
 [![Build][TravisBadge]][TravisURL]
 [![Inline docs][InchCIBadge]][InchCIURL]
-[![Gittip][GittipBadge]][GittipURL]
+[![Gratipay][GratipayBadge]][GratipayURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
 Adds step-by-step debugging and stack navigation capabilities to [pry][] using
@@ -157,7 +157,7 @@ Patches and bug reports are welcome.
 [TravisURL]: http://travis-ci.org/deivid-rodriguez/pry-byebug
 [InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
-[GittipBadge]: http://img.shields.io/gittip/deivid-rodriguez.svg
-[GittipURL]: https://www.gittip.com/deivid-rodriguez
+[GratipayBadge]: http://img.shields.io/gratipay/deivid-rodriguez.svg
+[GratipayURL]: https://www.gratipay.com/deivid-rodriguez
 [CoverageBadge]: https://img.shields.io/codeclimate/coverage/github/deivid-rodriguez/pry-byebug.svg
 [CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug
