@@ -157,7 +157,7 @@ Patches and bug reports are welcome.
 [TravisURL]: http://travis-ci.org/deivid-rodriguez/pry-byebug
 [InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
-[GratipayBadge]: http://img.shields.io/gratipay/deivid-rodriguez.svg
-[GratipayURL]: https://www.gratipay.com/deivid-rodriguez
+[GratipayBadge]: http://img.shields.io/gratipay/pry-byebug.svg
+[GratipayURL]: https://www.gratipay.com/pry-byebug
 [CoverageBadge]: https://img.shields.io/codeclimate/coverage/github/deivid-rodriguez/pry-byebug.svg
 [CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug
