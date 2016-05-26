@@ -12,6 +12,9 @@ Adds step-by-step debugging and stack navigation capabilities to [pry][] using
 To use, invoke pry normally. No need to start your script or app differently.
 Execution will stop in the first statement after your `binding.pry`.
 
+Please note, pry-byebug is incompatible with pry-nav. If you have both gems
+installed, you will experience exceptions when using _binding.pry_ in your code.
+
 ```ruby
 def some_method
   puts 'Hello World' # Run 'step' in the console to move here
