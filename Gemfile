@@ -4,7 +4,7 @@ gemspec
 
 gem 'rake', '~> 11.0'
 
-gem 'rubocop', '0.40.0'
+gem 'rubocop', '0.45.0'
 gem 'overcommit', '0.37.0'
 gem 'mdl', '0.4.0'
 gem 'minitest', '~> 5.7'
