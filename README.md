@@ -22,7 +22,6 @@ some_method          # Execution will stop here.
 puts 'Goodbye World' # Run 'next' in the console to move here.
 ```
 
-
 ## Requirements
 
 * Required: MRI 2.0.0 or higher. For debugging ruby 1.9.3 or older, use
@@ -106,7 +105,6 @@ Pry::Commands.command /^$/, "repeat last command" do
 end
 ```
 
-
 ## Breakpoints
 
 You can set and adjust breakpoints directly from a Pry session using the
@@ -135,7 +133,6 @@ break --show 2                 # Show details about breakpoint #2.
 ```
 
 Type `break --help` from a Pry session to see all available options.
-
 
 ## Credits
 
