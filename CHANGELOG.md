@@ -2,6 +2,13 @@
 
 ## Master (Unreleased)
 
+## 3.4.1 (2016-11-22)
+
+### Fixed
+
+* control_d handler not being required properly when `pry-byebug` loaded
+  as a `pry` plugin and not through explicit require.
+
 ## 3.4.0 (2016-05-15)
 
 ### Fixed
