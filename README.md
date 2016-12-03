@@ -139,6 +139,10 @@ Type `break --help` from a Pry session to see all available options.
   rubies. If you're still using those and need a step-by-step debugger to help
   with the upgrade, pry-debugger can be handy.
 
+* [pry-stack_explorer]: Provides stack navigation capabilities for MRI 1.9.3 or
+  older rubies. If you're still using those and need to navigate your stack to
+  help with the upgrade, pry-stack_explorer can be handy.
+
 ## Credits
 
 * Gopal Patel (@nixme), creator of [pry-debugger], and everybody who contributed
