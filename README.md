@@ -24,8 +24,7 @@ puts 'Goodbye World' # Run 'next' in the console to move here.
 
 ## Requirements
 
-* Required: MRI 2.0.0 or higher. For debugging ruby 1.9.3 or older, use
-  [pry-debugger].
+* Required: MRI 2.0.0 or higher.
 
 * Recommended:
   * MRI 2.1.8 or higher.
@@ -133,6 +132,11 @@ break --show 2                 # Show details about breakpoint #2.
 ```
 
 Type `break --help` from a Pry session to see all available options.
+
+## Alternatives
+
+* [pry-debugger]: Provides step-by-step debugging for MRI 1.9.3 or older
+  rubies.
 
 ## Credits
 
