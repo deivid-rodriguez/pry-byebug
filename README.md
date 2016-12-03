@@ -143,6 +143,8 @@ Type `break --help` from a Pry session to see all available options.
   older rubies. If you're still using those and need to navigate your stack to
   help with the upgrade, pry-stack_explorer can be handy.
 
+* [pry-nav]: Provides step-by-step debugging for JRuby.
+
 ## Credits
 
 * Gopal Patel (@nixme), creator of [pry-debugger], and everybody who contributed
@@ -155,6 +157,7 @@ Patches and bug reports are welcome.
 [pry]: http://pry.github.com
 [byebug]: https://github.com/deivid-rodriguez/byebug
 [pry-debugger]: https://github.com/nixme/pry-debugger
+[pry-nav]: https://github.com/nixme/pry-nav
 [pry-stack_explorer]: https://github.com/pry/pry-stack_explorer
 
 [VersionBadge]: https://badge.fury.io/rb/pry-byebug.svg
