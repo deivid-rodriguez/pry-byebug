@@ -135,6 +135,10 @@ Type `break --help` from a Pry session to see all available options.
 
 ## Alternatives
 
+Note that all of the alternatives here are incompatible with pry-byebug. If
+your platform is supported by pry-byebug, you should remove any of the gems
+mentioned here if they are present in your Gemfile.
+
 * [pry-debugger]: Provides step-by-step debugging for MRI 1.9.3 or older
   rubies. If you're still using those and need a step-by-step debugger to help
   with the upgrade, pry-debugger can be handy.
