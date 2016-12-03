@@ -136,7 +136,8 @@ Type `break --help` from a Pry session to see all available options.
 ## Alternatives
 
 * [pry-debugger]: Provides step-by-step debugging for MRI 1.9.3 or older
-  rubies.
+  rubies. If you're still using those and need a step-by-step debugger to help
+  with the upgrade, pry-debugger can be handy.
 
 ## Credits
 
