@@ -4,6 +4,10 @@ require 'pry/test/helper'
 require 'minitest/autorun'
 require 'pry-byebug'
 
+Pry.color = false
+Pry.pager = false
+Pry.hooks = Pry::DEFAULT_HOOKS
+
 #
 # Set I/O streams. Out defaults to an anonymous StringIO.
 #

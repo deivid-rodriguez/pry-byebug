@@ -27,9 +27,6 @@ class BreakpointsTest < Minitest::Test
   def setup
     super
 
-    Pry.color = false
-    Pry.pager = false
-    Pry.hooks = Pry::DEFAULT_HOOKS
     @input = InputTester.new 'break --delete-all'
     @output = StringIO.new
   end
