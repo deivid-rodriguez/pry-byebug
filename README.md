@@ -6,8 +6,8 @@
 [![Gratipay][GratipayBadge]][GratipayURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
-Adds step-by-step debugging and stack navigation capabilities to [pry][] using
-[byebug][].
+Adds step-by-step debugging and stack navigation capabilities to [pry] using
+[byebug].
 
 To use, invoke pry normally. No need to start your script or app differently.
 Execution will stop in the first statement after your `binding.pry`.
@@ -25,7 +25,7 @@ puts 'Goodbye World' # Run 'next' in the console to move here.
 ## Requirements
 
 * Required: MRI 2.0.0 or higher. For debugging ruby 1.9.3 or older, use
-  [pry-debugger][].
+  [pry-debugger].
 
 * Recommended:
   * MRI 2.1.8 or higher.
@@ -136,10 +136,10 @@ Type `break --help` from a Pry session to see all available options.
 
 ## Credits
 
-* Gopal Patel (@nixme), creator of [pry-debugger][], and everybody who
-  contributed to it. pry-byebug is a fork of pry-debugger so it wouldn't exist as
-  it is without those contributions.
-* John Mair (@banister), creator of [pry][].
+* Gopal Patel (@nixme), creator of [pry-debugger], and everybody who contributed
+  to it. pry-byebug is a fork of pry-debugger so it wouldn't exist as it is
+  without those contributions.
+* John Mair (@banister), creator of [pry].
 
 Patches and bug reports are welcome.
 
