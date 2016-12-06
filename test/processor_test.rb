@@ -4,12 +4,6 @@ require 'test_helper'
 # Tests for pry-byebug's processor.
 #
 class ProcessorTest < Minitest::Spec
-  before do
-    Pry.color = false
-    Pry.pager = false
-    Pry.hooks = Pry::DEFAULT_HOOKS
-  end
-
   let(:output) { StringIO.new }
 
   describe 'Initialization' do

@@ -7,9 +7,6 @@ class SteppingTest < MiniTest::Test
   def setup
     super
 
-    Pry.color = false
-    Pry.pager = false
-    Pry.hooks = Pry::DEFAULT_HOOKS
     @output = StringIO.new
     @input = InputTester.new('break --delete-all')
   end
