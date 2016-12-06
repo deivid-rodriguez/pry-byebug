@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.4.2 (2016-12-06)
+
 ### Fixed
 
 * Byebug doesn't start after `disable-pry` command.
