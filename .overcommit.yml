@@ -11,6 +11,9 @@ gemfile: Gemfile
 # Hooks that are run against every commit message after a user has written it.
 #
 CommitMsg:
+  CapitalizedSubject:
+    enabled: false
+
   HardTabs:
     enabled: true
 
