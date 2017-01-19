@@ -33,13 +33,13 @@ puts 'Goodbye World' # Run 'next' in the console to move here.
 
 ## Installation
 
-Drop
+Add
 
 ```ruby
 gem 'pry-byebug'
 ```
 
-in your Gemfile and run
+to your Gemfile and run
 
     bundle install
 
