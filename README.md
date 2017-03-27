@@ -78,7 +78,7 @@ current frame.
 
 ## Matching Byebug Behaviour
 
-If you're coming from Byebug or from Pry-Byebug versions previous to 3.0, you
+If you're coming from Byebug or from Pry-Byebug versions previous to 2.0, you
 may be lacking the 'n', 's', 'c' and 'f' aliases for the stepping commands.
 These aliases were removed by default because they usually conflict with
 scratch variable names. But it's very easy to reenable them if you still want
