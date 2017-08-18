@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
     'continue' and 'break' commands to control execution."
 
   gem.files = Dir['lib/**/*.rb', 'LICENSE']
-  gem.extra_rdoc_files = %w(CHANGELOG.md README.md)
+  gem.extra_rdoc_files = %w[CHANGELOG.md README.md]
   gem.require_path = 'lib'
 
   # Dependencies
