@@ -25,4 +25,4 @@ task :sign_hooks do
   system('bundle exec overcommit --sign')
 end
 
-task default: %i(test overcommit)
+task default: %i[test overcommit]
