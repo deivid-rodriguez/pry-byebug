@@ -4,7 +4,7 @@
 
 ## 3.4.3 (2017-08-22)
 
-## Fixed
+### Fixed
 
 * Installation on old rubies after byebug dropping support for them.
 
