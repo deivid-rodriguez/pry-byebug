@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    pry-byebug (3.4.2)
-      byebug (~> 9.0)
+    pry-byebug (3.4.3)
+      byebug (>= 9.0, < 9.1)
       pry (~> 0.10)
 
 GEM

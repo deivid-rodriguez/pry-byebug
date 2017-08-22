@@ -2,6 +2,12 @@
 
 ## Master (Unreleased)
 
+## 3.4.3 (2017-08-22)
+
+## Fixed
+
+* Installation on old rubies after byebug dropping support for them.
+
 ## 3.4.2 (2016-12-06)
 
 ### Fixed
