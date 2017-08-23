@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    pry-byebug (3.4.3)
-      byebug (>= 9.0, < 9.1)
+    pry-byebug (3.5.0)
+      byebug (~> 9.1)
       pry (~> 0.10)
 
 GEM
@@ -10,7 +10,7 @@ GEM
   specs:
     addressable (2.4.0)
     ast (2.3.0)
-    byebug (9.0.6)
+    byebug (9.1.0)
     chandler (0.7.0)
       netrc
       octokit (>= 2.2.0)
