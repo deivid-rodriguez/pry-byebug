@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rake', '~> 12.0'
+gem 'rake', '~> 12.1'
 
 gem 'chandler', '0.7.0'
 gem 'codeclimate-test-reporter', '~> 1.0'
