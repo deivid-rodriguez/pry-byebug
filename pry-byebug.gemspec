@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require File.dirname(__FILE__) + '/lib/pry-byebug/version'
 
 Gem::Specification.new do |gem|
