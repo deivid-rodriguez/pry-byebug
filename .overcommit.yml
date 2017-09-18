@@ -25,6 +25,9 @@ CommitMsg:
 # editor is displayed.
 #
 PreCommit:
+  AuthorName:
+    enabled: false
+
   BundleCheck:
     enabled: true
 
