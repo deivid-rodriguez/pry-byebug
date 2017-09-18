@@ -2,20 +2,20 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
 
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.2
 
 Lint/Debugger:
   Exclude:
     - test/examples/*.rb
 
-Style/FileName:
+Naming/FileName:
   Exclude:
     - lib/pry-byebug.rb
 
 Style/ModuleFunction:
   Enabled: false
 
-Style/ExtraSpacing:
+Layout/ExtraSpacing:
   AllowForAlignment: false
 
 inherit_from: .rubocop_todo.yml

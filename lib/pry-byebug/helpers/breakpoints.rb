@@ -39,13 +39,13 @@ module PryByebug
         code = br.source_code.with_line_numbers.to_s
         condition = br.expr ? "#{text.bold('Condition:')} #{br.expr}\n" : ''
 
-        output.puts <<-EOP.gsub(/ {8}/, '')
+        output.puts <<-BREAKPOINT.gsub(/ {8}/, '')
 
           #{text.bold(header)} #{br} (#{status}) #{condition}
 
           #{code}
 
-        EOP
+        BREAKPOINT
       end
 
       #
@@ -65,12 +65,12 @@ module PryByebug
       def print_breakpoints_header
         header = "#{' ' * (max_width - 1)}# Enabled At "
 
-        output.puts <<-EOP.gsub(/ {8}/, '')
+        output.puts <<-BREAKPOINTS.gsub(/ {8}/, '')
 
           #{text.bold(header)}
           #{text.bold('-' * header.size)}
 
-        EOP
+        BREAKPOINTS
       end
 
       #
