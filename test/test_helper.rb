@@ -1,12 +1,11 @@
 require 'support/coverage'
 
-require 'pry/test/helper'
 require 'minitest/autorun'
 require 'pry-byebug'
 
-Pry.color = false
-Pry.pager = false
-Pry.hooks = Pry::DEFAULT_HOOKS
+Pry.config.color = false
+Pry.config.pager = false
+Pry.config.correct_indent = false
 
 #
 # Set I/O streams. Out defaults to an anonymous StringIO.
