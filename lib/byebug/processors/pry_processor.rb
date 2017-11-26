@@ -25,7 +25,7 @@ module Byebug
       return_value = nil
 
       command = catch(:breakout_nav) do # Throws from PryByebug::Commands
-        return_value = yield
+        return_value = allowing_other_threads { yield }
         {} # Nothing thrown == no navigational command
       end
 
