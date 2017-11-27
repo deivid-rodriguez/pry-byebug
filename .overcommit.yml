@@ -19,37 +19,3 @@ CommitMsg:
 
   SingleLineSubject:
     enabled: true
-
-#
-# Hooks that are run after `git commit` is executed, before the commit message
-# editor is displayed.
-#
-PreCommit:
-  AuthorName:
-    enabled: false
-
-  BundleCheck:
-    enabled: true
-
-  ExecutePermissions:
-    enabled: true
-
-  HardTabs:
-    enabled: true
-
-  LocalPathsInGemfile:
-    enabled: true
-
-  Mdl:
-    enabled: true
-    flags: ['-c', '.mdlrc']
-
-  RuboCop:
-    enabled: true
-
-  TrailingWhitespace:
-    enabled: true
-
-  YamlSyntax:
-    enabled: true
-    required_files: true
