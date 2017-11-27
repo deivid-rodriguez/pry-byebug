@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.5.1 (2017-11-27)
+
 ### Fixed
 
 * Allow other threads like Pry. (#142)
