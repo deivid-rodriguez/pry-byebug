@@ -13,12 +13,8 @@ install:
   - gem install bundler --no-document || test true
   - bundle install --jobs 3 --retry 3
 
-before_script:
-  - git config --local user.email 'travis@travis.ci'
-  - git config --local user.name 'Travis CI'
-
 script:
-  - bundle exec rake test sign_hooks overcommit
+  - bundle exec rake
   - bundle exec codeclimate-test-reporter || test true
 
 rvm:

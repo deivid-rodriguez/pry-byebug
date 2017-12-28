@@ -22,7 +22,6 @@ plugins:
           severity: minor
           categories: Style
           path_patterns:
-            - .overcommit.yml
             - .rubocop.yml
             - .rubocop_todo.yml
             - .travis.yml
@@ -33,7 +32,6 @@ plugins:
           severity: minor
           categories: Style
           path_patterns:
-            - .overcommit.yml
             - .rubocop.yml
             - .rubocop_todo.yml
             - .travis.yml
