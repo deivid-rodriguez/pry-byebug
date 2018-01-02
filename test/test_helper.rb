@@ -1,7 +1,7 @@
-require 'support/coverage'
+require "support/coverage"
 
-require 'minitest/autorun'
-require 'pry-byebug'
+require "minitest/autorun"
+require "pry-byebug"
 
 Pry.config.color = false
 Pry.config.pager = false

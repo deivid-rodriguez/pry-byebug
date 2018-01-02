@@ -1,4 +1,4 @@
-require 'pry-remote'
+require "pry-remote"
 
 module PryRemote
   #
@@ -10,7 +10,7 @@ module PryRemote
     # teardown the server right after Pry.start finishes.
     #
     def run
-      raise('Already running a pry-remote session!') if
+      raise("Already running a pry-remote session!") if
         PryByebug.current_remote_server
 
       PryByebug.current_remote_server = self

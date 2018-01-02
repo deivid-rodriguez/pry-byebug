@@ -1,4 +1,4 @@
-require 'pry-byebug/helpers/navigation'
+require "pry-byebug/helpers/navigation"
 
 module PryByebug
   #
@@ -7,10 +7,10 @@ module PryByebug
   class BacktraceCommand < Pry::ClassCommand
     include Helpers::Navigation
 
-    match 'backtrace'
-    group 'Byebug'
+    match "backtrace"
+    group "Byebug"
 
-    description 'Display the current stack.'
+    description "Display the current stack."
 
     banner <<-BANNER
       Usage: backtrace

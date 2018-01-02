@@ -1,5 +1,5 @@
-require 'pry-byebug/helpers/navigation'
-require 'pry-byebug/helpers/multiline'
+require "pry-byebug/helpers/navigation"
+require "pry-byebug/helpers/multiline"
 
 module PryByebug
   #
@@ -9,9 +9,9 @@ module PryByebug
     include Helpers::Navigation
     include Helpers::Multiline
 
-    match 'next'
-    group 'Byebug'
-    description 'Execute the next line within the current stack frame.'
+    match "next"
+    group "Byebug"
+    description "Execute the next line within the current stack frame."
 
     banner <<-BANNER
       Usage: next [LINES]

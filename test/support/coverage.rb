@@ -2,8 +2,8 @@
 # Starts code coverage tracking.
 #
 def start_coverage_tracking
-  require 'simplecov'
-  SimpleCov.add_filter 'test'
+  require "simplecov"
+  SimpleCov.add_filter "test"
   SimpleCov.start
 end
 

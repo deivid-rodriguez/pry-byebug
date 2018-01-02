@@ -1,4 +1,4 @@
-require 'pry-byebug/helpers/navigation'
+require "pry-byebug/helpers/navigation"
 
 module PryByebug
   #
@@ -7,9 +7,9 @@ module PryByebug
   class StepCommand < Pry::ClassCommand
     include Helpers::Navigation
 
-    match 'step'
-    group 'Byebug'
-    description 'Step execution into the next line or method.'
+    match "step"
+    group "Byebug"
+    description "Step execution into the next line or method."
 
     banner <<-BANNER
         Usage: step [TIMES]

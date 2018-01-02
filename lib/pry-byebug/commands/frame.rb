@@ -1,4 +1,4 @@
-require 'pry-byebug/helpers/navigation'
+require "pry-byebug/helpers/navigation"
 
 module PryByebug
   #
@@ -7,10 +7,10 @@ module PryByebug
   class FrameCommand < Pry::ClassCommand
     include Helpers::Navigation
 
-    match 'frame'
-    group 'Byebug'
+    match "frame"
+    group "Byebug"
 
-    description 'Move to specified frame #.'
+    description "Move to specified frame #."
 
     banner <<-BANNER
         Usage: frame [TIMES]
