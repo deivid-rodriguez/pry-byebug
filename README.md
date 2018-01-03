@@ -3,7 +3,6 @@
 [![Version][VersionBadge]][VersionURL]
 [![Build][TravisBadge]][TravisURL]
 [![Inline docs][InchCIBadge]][InchCIURL]
-[![Gratipay][GratipayBadge]][GratipayURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
 Adds step-by-step debugging and stack navigation capabilities to [pry] using
@@ -149,6 +148,19 @@ mentioned here if they are present in your Gemfile.
 
 * [pry-nav]: Provides step-by-step debugging for JRuby.
 
+## Contribute
+
+See [Getting Started with Development](CONTRIBUTING.md).
+
+You can also help `pry-byebug` by leaving a small (or big) tip through
+[Liberapay][liberapay.com].
+
+[![Support via Liberapay][liberapay-button]][liberapay-donate]
+
+[liberapay.com]: https://liberapay.com
+[liberapay-button]: https://liberapay.com/assets/widgets/donate.svg
+[liberapay-donate]: https://liberapay.com/pry-byebug/donate
+
 ## Credits
 
 * Gopal Patel (@nixme), creator of [pry-debugger], and everybody who contributed
@@ -170,7 +182,5 @@ Patches and bug reports are welcome.
 [TravisURL]: http://travis-ci.org/deivid-rodriguez/pry-byebug
 [InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
-[GratipayBadge]: http://img.shields.io/gratipay/pry-byebug.svg
-[GratipayURL]: https://www.gratipay.com/pry-byebug
 [CoverageBadge]: https://img.shields.io/codeclimate/coverage/github/deivid-rodriguez/pry-byebug.svg
 [CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug
