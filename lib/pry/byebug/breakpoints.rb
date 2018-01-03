@@ -60,7 +60,7 @@ class Pry
       #
       def add_file(file, line, expression = nil)
         real_file = (file != Pry.eval_path)
-        raise(ArgumentError, 'Invalid file!') if real_file && !File.exist?(file)
+        raise(ArgumentError, "Invalid file!") if real_file && !File.exist?(file)
         validate_expression expression
 
         path = (real_file ? File.expand_path(file) : file)

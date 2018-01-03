@@ -1,4 +1,4 @@
-require 'byebug/core'
+require "byebug/core"
 
 module Byebug
   #
@@ -91,7 +91,7 @@ module Byebug
       expr = breakpoint.expr
       return unless expr
 
-      output.puts bold('Condition: ') + expr
+      output.puts bold("Condition: ") + expr
     end
 
     private
@@ -99,7 +99,7 @@ module Byebug
     def n_hits(breakpoint)
       n_hits = breakpoint.hit_count
 
-      n_hits == 1 ? 'First hit' : "Hit #{n_hits} times."
+      n_hits == 1 ? "First hit" : "Hit #{n_hits} times."
     end
 
     #
@@ -118,7 +118,7 @@ module Byebug
     end
 
     def perform_backtrace(_options)
-      Byebug::WhereCommand.new(self, 'backtrace').execute
+      Byebug::WhereCommand.new(self, "backtrace").execute
 
       resume_pry
     end
@@ -154,7 +154,7 @@ module Byebug
     end
 
     def perform_frame(options)
-      index = options[:index] ? options[:index].to_i : ''
+      index = options[:index] ? options[:index].to_i : ""
 
       Byebug::FrameCommand.new(self, "frame #{index}").execute
 

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 #
 # Tests for pry-byebug's processor.
@@ -6,11 +6,11 @@ require 'test_helper'
 class ProcessorTest < Minitest::Spec
   let(:output) { StringIO.new }
 
-  describe 'Initialization' do
+  describe "Initialization" do
     let(:input) { InputTester.new }
 
-    describe 'normally' do
-      let(:source_file) { test_file('stepping') }
+    describe "normally" do
+      let(:source_file) { test_file("stepping") }
 
       before do
         redirect_pry_io(input, output) { load source_file }
@@ -18,19 +18,19 @@ class ProcessorTest < Minitest::Spec
 
       after { clean_remove_const(:SteppingExample) }
 
-      it 'stops execution at the first line after binding.pry' do
+      it "stops execution at the first line after binding.pry" do
         output.string.must_match(/\=>  6:/)
       end
     end
 
-    describe 'at the end of block/method call' do
-      let(:source_file) { test_file('deep_stepping') }
+    describe "at the end of block/method call" do
+      let(:source_file) { test_file("deep_stepping") }
 
       before do
         redirect_pry_io(input, output) { load source_file }
       end
 
-      it 'stops execution at the first line after binding.pry' do
+      it "stops execution at the first line after binding.pry" do
         output.string.must_match(/\=> 7:/)
       end
     end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 #
 # Some common specs for breakpoints
@@ -27,7 +27,7 @@ class BreakpointsTest < Minitest::Test
   def setup
     super
 
-    @input = InputTester.new 'break --delete-all'
+    @input = InputTester.new "break --delete-all"
     @output = StringIO.new
   end
 
@@ -50,8 +50,8 @@ class SettingBreakpointsTestByLineNumber < BreakpointsTest
   def setup
     super
 
-    @input.add('break 6')
-    redirect_pry_io(@input, @output) { load test_file('break1') }
+    @input.add("break 6")
+    redirect_pry_io(@input, @output) { load test_file("break1") }
     @line = 6
     @regexp = /  Breakpoint (?<id>\d+): #{test_file('break1')} @ 6 \(Enabled\)/
   end
@@ -66,8 +66,8 @@ class SettingBreakpointsTestByMethodId < BreakpointsTest
   def setup
     super
 
-    @input.add('break Break1Example#a')
-    redirect_pry_io(@input, @output) { load test_file('break1') }
+    @input.add("break Break1Example#a")
+    redirect_pry_io(@input, @output) { load test_file("break1") }
     @line = 5
     @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
   end
@@ -82,8 +82,8 @@ class SettingBreakpointsTestByMethodIdForBangMethods < BreakpointsTest
   def setup
     super
 
-    @input.add('break Break1Example#c!')
-    redirect_pry_io(@input, @output) { load test_file('break1') }
+    @input.add("break Break1Example#c!")
+    redirect_pry_io(@input, @output) { load test_file("break1") }
     @line = 15
     @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
   end
@@ -98,8 +98,8 @@ class SettingBreakpointsTestByMethodIdWithinContext < BreakpointsTest
   def setup
     super
 
-    @input.add('break #b')
-    redirect_pry_io(@input, @output) { load test_file('break2') }
+    @input.add("break #b")
+    redirect_pry_io(@input, @output) { load test_file("break2") }
     @line = 7
     @regexp = /  Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
   end
@@ -114,8 +114,8 @@ class ListingBreakpoints < BreakpointsTest
   def setup
     super
 
-    @input.add('break #b', 'break')
-    redirect_pry_io(@input, @output) { load test_file('break2') }
+    @input.add("break #b", "break")
+    redirect_pry_io(@input, @output) { load test_file("break2") }
   end
 
   def test_shows_all_breakpoints
@@ -135,8 +135,8 @@ class DisablingBreakpoints < BreakpointsTest
   def setup
     super
 
-    @input.add('break #b', 'break --disable-all')
-    redirect_pry_io(@input, @output) { load test_file('break2') }
+    @input.add("break #b", "break --disable-all")
+    redirect_pry_io(@input, @output) { load test_file("break2") }
   end
 
   def test_shows_breakpoints_as_disabled
@@ -152,9 +152,9 @@ class BreakInsideMultilineInput < BreakpointsTest
   def setup
     super
 
-    @input.add('2.times do |i|', 'break 16 if i > 0', 'end')
+    @input.add("2.times do |i|", "break 16 if i > 0", "end")
 
-    redirect_pry_io(@input, @output) { load test_file('break1') }
+    redirect_pry_io(@input, @output) { load test_file("break1") }
   end
 
   def test_it_is_ignored

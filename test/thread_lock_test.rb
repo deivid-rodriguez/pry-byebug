@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'timeout'
+require "test_helper"
+require "timeout"
 
 class ThreadLockTest < MiniTest::Spec
   let(:output) { StringIO.new }
@@ -8,9 +8,9 @@ class ThreadLockTest < MiniTest::Spec
   describe "when there's another thread" do
     before do
       input.add 'client.puts("Hello")'
-      input.add 'IO.select([client], [], [], 1) && client.readline'
+      input.add "IO.select([client], [], [], 1) && client.readline"
 
-      redirect_pry_io(input, output) { load test_file('echo_thread') }
+      redirect_pry_io(input, output) { load test_file("echo_thread") }
     end
 
     it "another thread isn't locked" do

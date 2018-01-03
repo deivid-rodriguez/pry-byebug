@@ -1,5 +1,5 @@
-require 'pry-byebug/helpers/navigation'
-require 'pry-byebug/helpers/breakpoints'
+require "pry-byebug/helpers/navigation"
+require "pry-byebug/helpers/breakpoints"
 
 module PryByebug
   #
@@ -9,9 +9,9 @@ module PryByebug
     include Helpers::Navigation
     include Helpers::Breakpoints
 
-    match 'continue'
-    group 'Byebug'
-    description 'Continue program execution and end the Pry session.'
+    match "continue"
+    group "Byebug"
+    description "Continue program execution and end the Pry session."
 
     banner <<-BANNER
       Usage: continue [LINE]

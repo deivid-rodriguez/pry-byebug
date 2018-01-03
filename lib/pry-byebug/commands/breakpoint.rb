@@ -1,6 +1,6 @@
-require 'pry/byebug/breakpoints'
-require 'pry-byebug/helpers/breakpoints'
-require 'pry-byebug/helpers/multiline'
+require "pry/byebug/breakpoints"
+require "pry-byebug/helpers/breakpoints"
+require "pry-byebug/helpers/multiline"
 
 module PryByebug
   #
@@ -10,9 +10,9 @@ module PryByebug
     include Helpers::Breakpoints
     include Helpers::Multiline
 
-    match 'break'
-    group 'Byebug'
-    description 'Set or edit a breakpoint.'
+    match "break"
+    group "Byebug"
+    description "Set or edit a breakpoint."
 
     banner <<-BANNER
       Usage:   break <METHOD | FILE:LINE | LINE> [if CONDITION]
@@ -46,13 +46,13 @@ module PryByebug
     def options(opt)
       defaults = { argument: true, as: Integer }
 
-      opt.on :c, :condition, 'Change condition of a breakpoint.', defaults
-      opt.on :s, :show, 'Show breakpoint details and source.', defaults
-      opt.on :D, :delete, 'Delete a breakpoint.', defaults
-      opt.on :d, :disable, 'Disable a breakpoint.', defaults
-      opt.on :e, :enable, 'Enable a disabled breakpoint.', defaults
-      opt.on :'disable-all', 'Disable all breakpoints.'
-      opt.on :'delete-all', 'Delete all breakpoints.'
+      opt.on :c, :condition, "Change condition of a breakpoint.", defaults
+      opt.on :s, :show, "Show breakpoint details and source.", defaults
+      opt.on :D, :delete, "Delete a breakpoint.", defaults
+      opt.on :d, :disable, "Disable a breakpoint.", defaults
+      opt.on :e, :enable, "Enable a disabled breakpoint.", defaults
+      opt.on :'disable-all', "Disable all breakpoints."
+      opt.on :'delete-all', "Delete all breakpoints."
     end
 
     def process
@@ -82,13 +82,13 @@ module PryByebug
     end
 
     def process_condition
-      expr = args.empty? ? nil : args.join(' ')
+      expr = args.empty? ? nil : args.join(" ")
       breakpoints.change(opts[:condition], expr)
     end
 
     def new_breakpoint
       place = args.shift
-      condition = args.join(' ') if args.shift == 'if'
+      condition = args.join(" ") if args.shift == "if"
 
       bp = add_breakpoint(place, condition)
 
@@ -107,7 +107,7 @@ module PryByebug
     def add_breakpoint(place, condition)
       case place
       when /^(\d+)$/
-        errmsg = 'Line number declaration valid only in a file context.'
+        errmsg = "Line number declaration valid only in a file context."
         PryByebug.check_file_context(target, errmsg)
 
         lineno = Regexp.last_match[1].to_i
@@ -118,13 +118,13 @@ module PryByebug
         breakpoints.add_file(file, lineno, condition)
       when /^(.*)[.#].+$/ # Method or class name
         if Regexp.last_match[1].strip.empty?
-          errmsg = 'Method name declaration valid only in a file context.'
+          errmsg = "Method name declaration valid only in a file context."
           PryByebug.check_file_context(target, errmsg)
-          place = target.eval('self.class.to_s') + place
+          place = target.eval("self.class.to_s") + place
         end
         breakpoints.add_method(place, condition)
       else
-        raise(ArgumentError, 'Cannot identify arguments as breakpoint')
+        raise(ArgumentError, "Cannot identify arguments as breakpoint")
       end
     end
   end

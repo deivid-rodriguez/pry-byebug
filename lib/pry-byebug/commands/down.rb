@@ -1,4 +1,4 @@
-require 'pry-byebug/helpers/navigation'
+require "pry-byebug/helpers/navigation"
 
 module PryByebug
   #
@@ -7,10 +7,10 @@ module PryByebug
   class DownCommand < Pry::ClassCommand
     include Helpers::Navigation
 
-    match 'down'
-    group 'Byebug'
+    match "down"
+    group "Byebug"
 
-    description 'Move current frame down.'
+    description "Move current frame down."
 
     banner <<-BANNER
       Usage: down [TIMES]

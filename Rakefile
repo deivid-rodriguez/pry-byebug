@@ -1,18 +1,18 @@
-require 'bundler/gem_tasks'
-require 'chandler/tasks'
-require 'rake/testtask'
+require "bundler/gem_tasks"
+require "chandler/tasks"
+require "rake/testtask"
 
 #
 # Add chandler as a prerequisite for `rake release`
 #
-task 'release:rubygem_push' => 'chandler:push'
+task "release:rubygem_push" => "chandler:push"
 
-desc 'Run tests'
+desc "Run tests"
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'test'
+  t.libs << "test"
   t.warning = false
   t.verbose = true
-  t.pattern = 'test/**/*_test.rb'
+  t.pattern = "test/**/*_test.rb"
 end
 
 task default: :test

@@ -1,4 +1,4 @@
-require 'pry-byebug/helpers/navigation'
+require "pry-byebug/helpers/navigation"
 
 module PryByebug
   #
@@ -7,9 +7,9 @@ module PryByebug
   class FinishCommand < Pry::ClassCommand
     include PryByebug::Helpers::Navigation
 
-    match 'finish'
-    group 'Byebug'
-    description 'Execute until current stack frame returns.'
+    match "finish"
+    group "Byebug"
+    description "Execute until current stack frame returns."
 
     banner <<-BANNER
       Usage: finish

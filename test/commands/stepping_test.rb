@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 #
 # Tests for pry-byebug stepping commands
@@ -8,7 +8,7 @@ class SteppingTest < MiniTest::Test
     super
 
     @output = StringIO.new
-    @input = InputTester.new('break --delete-all')
+    @input = InputTester.new("break --delete-all")
   end
 
   def teardown
@@ -25,8 +25,8 @@ class StepCommandSingleStepTest < SteppingTest
   def setup
     super
 
-    @input.add('step')
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    @input.add("step")
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_stops_at_the_next_statement
@@ -41,8 +41,8 @@ class StepCommandMultipleStepTest < SteppingTest
   def setup
     super
 
-    @input.add('step 2')
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    @input.add("step 2")
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_stops_a_correct_number_of_steps_after
@@ -57,8 +57,8 @@ class NextCommandSingleStepTest < SteppingTest
   def setup
     super
 
-    @input.add('next')
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    @input.add("next")
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_stops_at_the_next_line_in_the_current_frame
@@ -73,8 +73,8 @@ class NextCommandMultipleStepTest < SteppingTest
   def setup
     super
 
-    @input.add('next 2')
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    @input.add("next 2")
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_advances_the_correct_number_of_lines
@@ -90,15 +90,15 @@ class NextInsideMultilineInput < SteppingTest
     super
 
     @input.add(
-      '2.times do |i|',
-      'if i == 0',
-      'next',
-      'end',
-      'break 1001 + i',
-      'end'
+      "2.times do |i|",
+      "if i == 0",
+      "next",
+      "end",
+      "break 1001 + i",
+      "end"
     )
 
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_it_is_ignored
@@ -118,8 +118,8 @@ class FinishCommand < SteppingTest
   def setup
     super
 
-    @input.add('break 19', 'continue', 'finish')
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    @input.add("break 19", "continue", "finish")
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_advances_until_the_end_of_the_current_frame
@@ -134,8 +134,8 @@ class ContinueCommandWithoutArguments < SteppingTest
   def setup
     super
 
-    @input.add('break 14', 'continue')
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    @input.add("break 14", "continue")
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_advances_until_the_next_breakpoint
@@ -150,8 +150,8 @@ class ContinueCommandWithALineArgument < SteppingTest
   def setup
     super
 
-    @input.add('continue 14')
-    redirect_pry_io(@input, @output) { load test_file('stepping') }
+    @input.add("continue 14")
+    redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_advances_until_the_specified_line

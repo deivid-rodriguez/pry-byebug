@@ -1,4 +1,4 @@
-require 'byebug'
+require "byebug"
 
 module PryByebug
   module Helpers
@@ -18,7 +18,7 @@ module PryByebug
       # location.
       #
       def current_file
-        target.eval('__FILE__')
+        target.eval("__FILE__")
       end
 
       #
@@ -35,11 +35,11 @@ module PryByebug
       #
       def print_full_breakpoint(br)
         header = "Breakpoint #{br.id}:"
-        status = br.enabled? ? 'Enabled' : 'Disabled'
+        status = br.enabled? ? "Enabled" : "Disabled"
         code = br.source_code.with_line_numbers.to_s
-        condition = br.expr ? "#{text.bold('Condition:')} #{br.expr}\n" : ''
+        condition = br.expr ? "#{text.bold('Condition:')} #{br.expr}\n" : ""
 
-        output.puts <<-BREAKPOINT.gsub(/ {8}/, '')
+        output.puts <<-BREAKPOINT.gsub(/ {8}/, "")
 
           #{text.bold(header)} #{br} (#{status}) #{condition}
 
@@ -52,9 +52,9 @@ module PryByebug
       # Print out concise information about a breakpoint.
       #
       def print_short_breakpoint(breakpoint)
-        id = format('%*d', max_width, breakpoint.id)
-        status = breakpoint.enabled? ? 'Yes' : 'No '
-        expr = breakpoint.expr ? " #{breakpoint.expr} " : ''
+        id = format("%*d", max_width, breakpoint.id)
+        status = breakpoint.enabled? ? "Yes" : "No "
+        expr = breakpoint.expr ? " #{breakpoint.expr} " : ""
 
         output.puts("  #{id} #{status}     #{breakpoint}#{expr}")
       end
@@ -65,7 +65,7 @@ module PryByebug
       def print_breakpoints_header
         header = "#{' ' * (max_width - 1)}# Enabled At "
 
-        output.puts <<-BREAKPOINTS.gsub(/ {8}/, '')
+        output.puts <<-BREAKPOINTS.gsub(/ {8}/, "")
 
           #{text.bold(header)}
           #{text.bold('-' * header.size)}

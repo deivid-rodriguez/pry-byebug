@@ -15,6 +15,9 @@ Naming/FileName:
 Style/ModuleFunction:
   Enabled: false
 
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
 Layout/ExtraSpacing:
   AllowForAlignment: false
 
