@@ -8,6 +8,12 @@ Lint/Debugger:
   Exclude:
     - test/examples/*.rb
 
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
 Naming/FileName:
   Exclude:
     - lib/pry-byebug.rb
@@ -20,5 +26,3 @@ Style/StringLiterals:
 
 Layout/ExtraSpacing:
   AllowForAlignment: false
-
-inherit_from: .rubocop_todo.yml
