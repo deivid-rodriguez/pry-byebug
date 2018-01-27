@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+### Added
+
+* Byebug 10 compatibility, with ruby 2.5 support.
+
 ## 3.5.1 (2017-11-27)
 
 ### Fixed
