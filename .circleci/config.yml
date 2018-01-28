@@ -1,0 +1,135 @@
+---
+
+version: 2
+
+default: &default
+  # TODO: Remove when bundler 1.16.2 is released and deployed to the base images
+  environment:
+    LANG: C.UTF-8
+
+  steps:
+    - checkout
+
+    - restore_cache:
+        keys:
+          - dependencies-{{ checksum "Gemfile.lock" }}
+
+    - run:
+        name: Install dependencies
+        command: |
+          bundle install --jobs 3 --retry 3 --path .bundle
+
+    - run:
+        name: Run tests
+        command: |
+          bundle exec rake
+
+    - attach_workspace:
+        at: coverage
+
+    - attach_workspace:
+        at: /usr/local/bin
+
+    - run:
+        name: Save coverage
+        command: |
+          cc-test-reporter format-coverage --output coverage/codeclimate.$CIRCLE_JOB.json
+
+    - persist_to_workspace:
+        root: coverage
+        paths:
+          - codeclimate.*.json
+
+    - save_cache:
+        key: dependencies-{{ checksum "Gemfile.lock" }}
+        paths:
+          - .bundle
+
+jobs:
+  setup_coverage:
+    docker:
+      - image: ruby:2.5.0
+
+    working_directory: /usr/local/bin
+
+    steps:
+      - run:
+          name: Download test coverage reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter
+
+      - run:
+          name: Give test coverage reporter executable permissions
+          command: |
+            chmod +x cc-test-reporter
+
+      - persist_to_workspace:
+          root: /usr/local/bin
+          paths:
+            - cc-test-reporter
+
+  2.3.6:
+    docker:
+      - image: ruby:2.3.6
+
+    <<: *default
+
+  2.4.3:
+    docker:
+      - image: ruby:2.4.3
+
+    <<: *default
+
+  2.5.0:
+    docker:
+      - image: ruby:2.5.0
+
+    <<: *default
+
+  upload_coverage:
+    docker:
+      - image: ruby:2.5.0
+        environment:
+          - CC_TEST_REPORTER_ID: f06a22b27a507a3054eb69873c9e3bbc9ef97476d6ef22eec8cd24686494cb2b
+
+    steps:
+      - attach_workspace:
+          at: coverage
+
+      - attach_workspace:
+          at: /usr/local/bin
+
+      - run:
+          name: Aggregate coverage results
+          command: |
+            cc-test-reporter sum-coverage coverage/codeclimate.*.json
+
+      - run:
+          name: Upload coverage results to codeclimate
+          command: |
+            cc-test-reporter upload-coverage
+
+workflows:
+  version: 2
+
+  test:
+    jobs:
+      - setup_coverage
+
+      - 2.3.6:
+          requires:
+            - setup_coverage
+
+      - 2.4.3:
+          requires:
+            - setup_coverage
+
+      - 2.5.0:
+          requires:
+            - setup_coverage
+
+      - upload_coverage:
+          requires:
+            - 2.3.6
+            - 2.4.3
+            - 2.5.0
