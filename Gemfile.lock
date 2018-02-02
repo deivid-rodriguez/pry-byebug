@@ -14,8 +14,6 @@ GEM
     chandler (0.7.0)
       netrc
       octokit (>= 2.2.0)
-    codeclimate-test-reporter (1.0.8)
-      simplecov (<= 0.13)
     coderay (1.1.2)
     docile (1.1.5)
     faraday (0.13.1)
@@ -54,7 +52,7 @@ GEM
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
       faraday (~> 0.8, < 1.0)
-    simplecov (0.13.0)
+    simplecov (0.15.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
@@ -66,13 +64,12 @@ PLATFORMS
 
 DEPENDENCIES
   chandler (= 0.7.0)
-  codeclimate-test-reporter (~> 1.0)
   mdl (= 0.4.0)
   minitest (~> 5.11)
   pry-byebug!
   rake (~> 12.3)
   rubocop (= 0.52.1)
-  simplecov (= 0.13.0)
+  simplecov (= 0.15.1)
 
 BUNDLED WITH
    1.16.1
