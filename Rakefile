@@ -1,6 +1,7 @@
 require "bundler/gem_tasks"
 require "chandler/tasks"
 require "rake/testtask"
+require "rubocop/rake_task"
 
 #
 # Add chandler as a prerequisite for `rake release`
@@ -15,4 +16,6 @@ Rake::TestTask.new(:test) do |t|
   t.pattern = "test/**/*_test.rb"
 end
 
-task default: :test
+RuboCop::RakeTask.new
+
+task default: %i[test rubocop]

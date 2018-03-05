@@ -39,9 +39,6 @@ plugins:
   markdownlint:
     enabled: true
 
-  rubocop:
-    enabled: true
-
 exclude_patterns:
   - coverage/
   - .bundle/
