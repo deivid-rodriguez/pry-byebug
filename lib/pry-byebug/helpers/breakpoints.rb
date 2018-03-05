@@ -33,15 +33,19 @@ module PryByebug
       #
       # Includes surrounding code at that point.
       #
-      def print_full_breakpoint(br)
-        header = "Breakpoint #{br.id}:"
-        status = br.enabled? ? "Enabled" : "Disabled"
-        code = br.source_code.with_line_numbers.to_s
-        condition = br.expr ? "#{text.bold('Condition:')} #{br.expr}\n" : ""
+      def print_full_breakpoint(breakpoint)
+        header = "Breakpoint #{breakpoint.id}:"
+        status = breakpoint.enabled? ? "Enabled" : "Disabled"
+        code = breakpoint.source_code.with_line_numbers.to_s
+        condition = if breakpoint.expr
+                      "#{text.bold('Condition:')} #{breakpoint.expr}\n"
+                    else
+                      ""
+                    end
 
         output.puts <<-BREAKPOINT.gsub(/ {8}/, "")
 
-          #{text.bold(header)} #{br} (#{status}) #{condition}
+          #{text.bold(header)} #{breakpoint} (#{status}) #{condition}
 
           #{code}
 

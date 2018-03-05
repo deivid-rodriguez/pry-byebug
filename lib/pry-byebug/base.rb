@@ -14,9 +14,9 @@ module PryByebug
   #
   # Ensures that a command is executed in a local file context.
   #
-  def check_file_context(target, e = nil)
-    e ||= "Cannot find local context. Did you use `binding.pry`?"
-    raise(Pry::CommandError, e) unless file_context?(target)
+  def check_file_context(target, msg = nil)
+    msg ||= "Cannot find local context. Did you use `binding.pry`?"
+    raise(Pry::CommandError, msg) unless file_context?(target)
   end
   module_function :check_file_context
 
