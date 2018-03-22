@@ -10,7 +10,7 @@ GEM
   specs:
     addressable (2.4.0)
     ast (2.4.0)
-    byebug (10.0.0)
+    byebug (10.0.1)
     chandler (0.7.0)
       netrc
       octokit (>= 2.2.0)
