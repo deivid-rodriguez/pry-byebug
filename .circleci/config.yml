@@ -68,19 +68,19 @@ jobs:
           paths:
             - cc-test-reporter
 
-  2.3.6:
+  prior_to_prior_to_latest:
     docker:
       - image: ruby:2.3.6
 
     <<: *default
 
-  2.4.3:
+  prior_to_latest:
     docker:
       - image: ruby:2.4.3
 
     <<: *default
 
-  2.5.0:
+  latest:
     docker:
       - image: ruby:2.5.0
 
@@ -116,20 +116,20 @@ workflows:
     jobs:
       - setup_coverage
 
-      - 2.3.6:
+      - prior_to_prior_to_latest:
           requires:
             - setup_coverage
 
-      - 2.4.3:
+      - prior_to_latest:
           requires:
             - setup_coverage
 
-      - 2.5.0:
+      - latest:
           requires:
             - setup_coverage
 
       - upload_coverage:
           requires:
-            - 2.3.6
-            - 2.4.3
-            - 2.5.0
+            - prior_to_prior_to_latest
+            - prior_to_latest
+            - latest
