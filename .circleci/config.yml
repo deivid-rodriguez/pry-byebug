@@ -48,7 +48,7 @@ default: &default
 jobs:
   setup_coverage:
     docker:
-      - image: ruby:2.5.0
+      - image: ruby:2.5.1
 
     working_directory: /usr/local/bin
 
@@ -70,25 +70,25 @@ jobs:
 
   prior_to_prior_to_latest:
     docker:
-      - image: ruby:2.3.6
+      - image: ruby:2.3.7
 
     <<: *default
 
   prior_to_latest:
     docker:
-      - image: ruby:2.4.3
+      - image: ruby:2.4.4
 
     <<: *default
 
   latest:
     docker:
-      - image: ruby:2.5.0
+      - image: ruby:2.5.1
 
     <<: *default
 
   upload_coverage:
     docker:
-      - image: ruby:2.5.0
+      - image: ruby:2.5.1
         environment:
           - CC_TEST_REPORTER_ID: f06a22b27a507a3054eb69873c9e3bbc9ef97476d6ef22eec8cd24686494cb2b
 
