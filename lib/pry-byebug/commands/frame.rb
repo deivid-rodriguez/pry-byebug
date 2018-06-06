@@ -20,7 +20,7 @@ module PryByebug
         Examples:
           frame   #=> Show current frame #.
           frame 5 #=> Move to frame 5.
-      BANNER
+    BANNER
 
     def process
       PryByebug.check_file_context(target)

@@ -19,7 +19,7 @@ module PryByebug
         Examples:
           step   #=> Move a single step forward.
           step 5 #=> Execute the next 5 steps.
-      BANNER
+    BANNER
 
     def process
       PryByebug.check_file_context(target)
