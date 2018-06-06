@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.files = Dir["lib/**/*.rb", "LICENSE"]
   gem.extra_rdoc_files = %w[CHANGELOG.md README.md]
   gem.require_path = "lib"
+  gem.executables = []
 
   # Dependencies
   gem.required_ruby_version = ">= 2.2.0"

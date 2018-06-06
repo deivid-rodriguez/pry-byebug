@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "rubygems"
+
+m = Module.new do
+  extend self
+
+  def invoked_as_script?
+    File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
+  end
+
+  def cli_arg_version
+    return unless invoked_as_script? # don't want to hijack other binstubs
+    return unless "update".start_with?(ARGV.first || " ") # must be running `bundle update`
+    bundler_version = nil
+    update_index = nil
+    ARGV.each_with_index do |a, i|
+      bundler_version = a if update_index && update_index.succ == i && a =~ Gem::Version::ANCHORED_VERSION_PATTERN
+      next unless a =~ /\A--bundler(?:[= ](#{Gem::Version::VERSION_PATTERN}))?\z/
+      bundler_version = Regexp.last_match(1) || ">= 0.a"
+      update_index = i
+    end
+    bundler_version
+  end
+
+  def gemfile
+    File.expand_path("../Gemfile", __dir__)
+  end
+
+  def lockfile
+    "#{gemfile}.lock"
+  end
+
+  def lockfile_version
+    lockfile_contents = File.read(lockfile)
+
+    regexp = /\n\nBUNDLED WITH\n\s{2,}(#{Gem::Version::VERSION_PATTERN})\n/
+
+    regexp.match(lockfile_contents)[1]
+  end
+
+  def bundler_version
+    @bundler_version ||= cli_arg_version || lockfile_version
+  end
+
+  def load_bundler!
+    ENV["BUNDLE_GEMFILE"] ||= gemfile
+
+    activate_bundler(bundler_version)
+  end
+
+  def activate_bundler(bundler_version)
+    gem "bundler", bundler_version
+  end
+end
+
+m.load_bundler!
+
+load Gem.bin_path("bundler", "bundle") if m.invoked_as_script?
