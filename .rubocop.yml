@@ -8,10 +8,7 @@ Lint/Debugger:
   Exclude:
     - test/examples/*.rb
 
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/MethodLength:
+Metrics:
   Enabled: false
 
 Naming/FileName:
