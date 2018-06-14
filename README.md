@@ -4,6 +4,7 @@
 [![Build][TravisBadge]][TravisURL]
 [![Inline docs][InchCIBadge]][InchCIURL]
 [![Coverage][CoverageBadge]][CoverageURL]
+[![SemVer][SemVerBadge]][SemVerBadgeURL]
 
 Adds step-by-step debugging and stack navigation capabilities to [pry] using
 [byebug].
@@ -181,3 +182,5 @@ Patches and bug reports are welcome.
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
 [CoverageBadge]: https://img.shields.io/codeclimate/coverage/github/deivid-rodriguez/pry-byebug.svg
 [CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug
+[SemVerBadge]: https://api.dependabot.com/badges/compatibility_score?dependency-name=pry-byebug&package-manager=bundler&version-scheme=semver
+[SemVerBadgeURL]: https://dependabot.com/compatibility-score.html?dependency-name=pry-byebug&package-manager=bundler&version-scheme=semver
