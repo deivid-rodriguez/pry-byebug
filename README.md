@@ -37,7 +37,9 @@ gem 'pry-byebug'
 
 to your Gemfile and run
 
-    bundle install
+```console
+bundle install
+```
 
 Make sure you include the gem globally or inside the `:test` group if you plan
 to use it to debug your tests!
