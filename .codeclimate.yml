@@ -34,9 +34,6 @@ plugins:
             - .rubocop.yml
             - .travis.yml
 
-  markdownlint:
-    enabled: true
-
 exclude_patterns:
   - coverage/
   - .bundle/
