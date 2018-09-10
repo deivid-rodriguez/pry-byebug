@@ -14,6 +14,7 @@ Metrics:
 Naming/FileName:
   Exclude:
     - lib/pry-byebug.rb
+    - pry-byebug.gemspec
 
 Style/ModuleFunction:
   Enabled: false

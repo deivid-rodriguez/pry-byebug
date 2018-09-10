@@ -61,6 +61,7 @@ class Pry
       def add_file(file, line, expression = nil)
         real_file = (file != Pry.eval_path)
         raise(ArgumentError, "Invalid file!") if real_file && !File.exist?(file)
+
         validate_expression expression
 
         path = (real_file ? File.expand_path(file) : file)
@@ -142,6 +143,7 @@ class Pry
       def find_by_id(id)
         breakpoint = find { |b| b.id == id }
         raise(ArgumentError, "No breakpoint ##{id}!") unless breakpoint
+
         breakpoint
       end
 
