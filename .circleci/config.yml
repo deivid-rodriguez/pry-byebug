@@ -3,9 +3,8 @@
 version: 2
 
 default: &default
-  # TODO: Remove when bundler 1.16.2 is released and deployed to the base images
   environment:
-    LANG: C.UTF-8
+    LANG: UTF-8
 
   steps:
     - checkout
