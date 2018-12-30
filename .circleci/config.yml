@@ -48,7 +48,7 @@ default: &default
 jobs:
   setup_coverage:
     docker:
-      - image: ruby:2.5.1
+      - image: ruby:2.6.0
 
     working_directory: /usr/local/bin
 
@@ -88,7 +88,7 @@ jobs:
 
   upload_coverage:
     docker:
-      - image: ruby:2.5.1
+      - image: ruby:2.6.0
         environment:
           - CC_TEST_REPORTER_ID: f06a22b27a507a3054eb69873c9e3bbc9ef97476d6ef22eec8cd24686494cb2b
 
