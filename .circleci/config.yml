@@ -1,54 +1,65 @@
 ---
 
-version: 2
+version: 2.1
 
-default: &default
-  # TODO: Remove when bundler 1.16.2 is released and deployed to the base images
-  environment:
-    LANG: C.UTF-8
+executors:
+  test:
+    parameters:
+      version:
+        type: string
 
-  steps:
-    - checkout
-
-    - restore_cache:
-        keys:
-          - dependencies-{{ checksum "Gemfile.lock" }}
-
-    - run:
-        name: Install dependencies
-        command: |
-          bundle install --jobs 3 --retry 3 --path .bundle
-
-    - run:
-        name: Run tests
-        command: |
-          bundle exec rake
-
-    - attach_workspace:
-        at: coverage
-
-    - attach_workspace:
-        at: /usr/local/bin
-
-    - run:
-        name: Save coverage
-        command: |
-          cc-test-reporter format-coverage --output coverage/codeclimate.$CIRCLE_JOB.json
-
-    - persist_to_workspace:
-        root: coverage
-        paths:
-          - codeclimate.*.json
-
-    - save_cache:
-        key: dependencies-{{ checksum "Gemfile.lock" }}
-        paths:
-          - .bundle
+    docker:
+      - image: ruby:<< parameters.version >>
 
 jobs:
+  spec:
+    parameters:
+      executor:
+        type: executor
+
+    executor: << parameters.executor >>
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Install dependencies
+          command: |
+            bundle install --jobs 3 --retry 3 --path .bundle
+
+      - run:
+          name: Run tests
+          command: |
+            RUBYOPT="-E UTF-8" bundle exec rake
+
+      - attach_workspace:
+          at: coverage
+
+      - attach_workspace:
+          at: /usr/local/bin
+
+      - run:
+          name: Save coverage
+          command: |
+            cc-test-reporter format-coverage --output coverage/codeclimate.$CIRCLE_JOB.json
+
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
+
+      - save_cache:
+          key: dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - .bundle
+
   setup_coverage:
     docker:
-      - image: ruby:2.5.1
+      - image: ruby:2.6.0
 
     working_directory: /usr/local/bin
 
@@ -68,27 +79,9 @@ jobs:
           paths:
             - cc-test-reporter
 
-  prior_to_prior_to_latest:
-    docker:
-      - image: ruby:2.3.7
-
-    <<: *default
-
-  prior_to_latest:
-    docker:
-      - image: ruby:2.4.4
-
-    <<: *default
-
-  latest:
-    docker:
-      - image: ruby:2.5.1
-
-    <<: *default
-
   upload_coverage:
     docker:
-      - image: ruby:2.5.1
+      - image: ruby:2.6.0
         environment:
           - CC_TEST_REPORTER_ID: f06a22b27a507a3054eb69873c9e3bbc9ef97476d6ef22eec8cd24686494cb2b
 
@@ -116,20 +109,49 @@ workflows:
     jobs:
       - setup_coverage
 
-      - prior_to_prior_to_latest:
+      - spec:
+          name: "2.3"
+
+          executor:
+            name: test
+            version: 2.3.8
+
           requires:
             - setup_coverage
 
-      - prior_to_latest:
+      - spec:
+          name: "2.4"
+
+          executor:
+            name: test
+            version: 2.4.5
+
           requires:
             - setup_coverage
 
-      - latest:
+      - spec:
+          name: "2.5"
+
+          executor:
+            name: test
+            version: 2.5.3
+
+          requires:
+            - setup_coverage
+
+      - spec:
+          name: "2.6"
+
+          executor:
+            name: test
+            version: 2.6.0
+
           requires:
             - setup_coverage
 
       - upload_coverage:
           requires:
-            - prior_to_prior_to_latest
-            - prior_to_latest
-            - latest
+            - "2.3"
+            - "2.4"
+            - "2.5"
+            - "2.6"
