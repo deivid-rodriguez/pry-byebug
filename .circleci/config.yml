@@ -113,7 +113,7 @@ workflows:
       - setup_coverage
 
       - spec:
-          name: prior_to_prior_to_latest
+          name: "2.3"
 
           executor:
             name: test
@@ -123,7 +123,7 @@ workflows:
             - setup_coverage
 
       - spec:
-          name: prior_to_latest
+          name: "2.4"
 
           executor:
             name: test
@@ -133,7 +133,7 @@ workflows:
             - setup_coverage
 
       - spec:
-          name: latest
+          name: "2.5"
 
           executor:
             name: test
@@ -144,6 +144,6 @@ workflows:
 
       - upload_coverage:
           requires:
-            - prior_to_prior_to_latest
-            - prior_to_latest
-            - latest
+            - "2.3"
+            - "2.4"
+            - "2.5"
