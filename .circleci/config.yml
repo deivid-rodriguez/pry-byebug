@@ -1,50 +1,65 @@
 ---
 
-version: 2
+version: 2.1
 
-default: &default
-  environment:
-    LANG: UTF-8
+executors:
+  test:
+    parameters:
+      version:
+        type: string
 
-  steps:
-    - checkout
-
-    - restore_cache:
-        keys:
-          - dependencies-{{ checksum "Gemfile.lock" }}
-
-    - run:
-        name: Install dependencies
-        command: |
-          bundle install --jobs 3 --retry 3 --path .bundle
-
-    - run:
-        name: Run tests
-        command: |
-          bundle exec rake
-
-    - attach_workspace:
-        at: coverage
-
-    - attach_workspace:
-        at: /usr/local/bin
-
-    - run:
-        name: Save coverage
-        command: |
-          cc-test-reporter format-coverage --output coverage/codeclimate.$CIRCLE_JOB.json
-
-    - persist_to_workspace:
-        root: coverage
-        paths:
-          - codeclimate.*.json
-
-    - save_cache:
-        key: dependencies-{{ checksum "Gemfile.lock" }}
-        paths:
-          - .bundle
+    docker:
+      - image: ruby:<< parameters.version >>
 
 jobs:
+  spec:
+    parameters:
+      executor:
+        type: executor
+
+    executor: << parameters.executor >>
+
+    environment:
+      LANG: UTF-8
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Install dependencies
+          command: |
+            bundle install --jobs 3 --retry 3 --path .bundle
+
+      - run:
+          name: Run tests
+          command: |
+            bundle exec rake
+
+      - attach_workspace:
+          at: coverage
+
+      - attach_workspace:
+          at: /usr/local/bin
+
+      - run:
+          name: Save coverage
+          command: |
+            cc-test-reporter format-coverage --output coverage/codeclimate.$CIRCLE_JOB.json
+
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
+
+      - save_cache:
+          key: dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - .bundle
+
   setup_coverage:
     docker:
       - image: ruby:2.6.0
@@ -66,24 +81,6 @@ jobs:
           root: /usr/local/bin
           paths:
             - cc-test-reporter
-
-  prior_to_prior_to_latest:
-    docker:
-      - image: ruby:2.3.8
-
-    <<: *default
-
-  prior_to_latest:
-    docker:
-      - image: ruby:2.4.5
-
-    <<: *default
-
-  latest:
-    docker:
-      - image: ruby:2.5.3
-
-    <<: *default
 
   upload_coverage:
     docker:
@@ -115,15 +112,33 @@ workflows:
     jobs:
       - setup_coverage
 
-      - prior_to_prior_to_latest:
+      - spec:
+          name: prior_to_prior_to_latest
+
+          executor:
+            name: test
+            version: 2.3.8
+
           requires:
             - setup_coverage
 
-      - prior_to_latest:
+      - spec:
+          name: prior_to_latest
+
+          executor:
+            name: test
+            version: 2.4.5
+
           requires:
             - setup_coverage
 
-      - latest:
+      - spec:
+          name: latest
+
+          executor:
+            name: test
+            version: 2.5.3
+
           requires:
             - setup_coverage
 
