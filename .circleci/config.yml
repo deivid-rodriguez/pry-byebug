@@ -69,19 +69,19 @@ jobs:
 
   prior_to_prior_to_latest:
     docker:
-      - image: ruby:2.3.7
+      - image: ruby:2.3.8
 
     <<: *default
 
   prior_to_latest:
     docker:
-      - image: ruby:2.4.4
+      - image: ruby:2.4.5
 
     <<: *default
 
   latest:
     docker:
-      - image: ruby:2.5.1
+      - image: ruby:2.5.3
 
     <<: *default
 
