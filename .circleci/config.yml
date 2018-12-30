@@ -19,9 +19,6 @@ jobs:
 
     executor: << parameters.executor >>
 
-    environment:
-      LANG: UTF-8
-
     steps:
       - checkout
 
@@ -37,7 +34,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            bundle exec rake
+            RUBYOPT="-E UTF-8" bundle exec rake
 
       - attach_workspace:
           at: coverage
