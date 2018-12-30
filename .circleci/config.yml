@@ -142,8 +142,19 @@ workflows:
           requires:
             - setup_coverage
 
+      - spec:
+          name: "2.6"
+
+          executor:
+            name: test
+            version: 2.6.0
+
+          requires:
+            - setup_coverage
+
       - upload_coverage:
           requires:
             - "2.3"
             - "2.4"
             - "2.5"
+            - "2.6"
