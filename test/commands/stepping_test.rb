@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 #
@@ -30,7 +32,7 @@ class StepCommandSingleStepTest < SteppingTest
   end
 
   def test_stops_at_the_next_statement
-    assert_match(/\=> \s*7:/, @output.string)
+    assert_match(/\=> \s*9:/, @output.string)
   end
 end
 
@@ -46,7 +48,7 @@ class StepCommandMultipleStepTest < SteppingTest
   end
 
   def test_stops_a_correct_number_of_steps_after
-    assert_match(/\=> \s*12:/, @output.string)
+    assert_match(/\=> \s*14:/, @output.string)
   end
 end
 
@@ -62,7 +64,7 @@ class NextCommandSingleStepTest < SteppingTest
   end
 
   def test_stops_at_the_next_line_in_the_current_frame
-    assert_match(/\=> \s*24:/, @output.string)
+    assert_match(/\=> \s*26:/, @output.string)
   end
 end
 
@@ -78,7 +80,7 @@ class NextCommandMultipleStepTest < SteppingTest
   end
 
   def test_advances_the_correct_number_of_lines
-    assert_match(/\=> \s*25:/, @output.string)
+    assert_match(/\=> \s*27:/, @output.string)
   end
 end
 
@@ -102,8 +104,8 @@ class NextInsideMultilineInput < SteppingTest
   end
 
   def test_it_is_ignored
-    assert_match(/\=> \s*6:/, @output.string)
-    refute_match(/\=> \s*24:/, @output.string)
+    assert_match(/\=> \s*8:/, @output.string)
+    refute_match(/\=> \s*26:/, @output.string)
   end
 
   def test_lets_input_be_properly_evaluated
@@ -118,12 +120,12 @@ class FinishCommand < SteppingTest
   def setup
     super
 
-    @input.add("break 19", "continue", "finish")
+    @input.add("break 21", "continue", "finish")
     redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_advances_until_the_end_of_the_current_frame
-    assert_match(/\=> \s*15:/, @output.string)
+    assert_match(/\=> \s*17:/, @output.string)
   end
 end
 
@@ -134,12 +136,12 @@ class ContinueCommandWithoutArguments < SteppingTest
   def setup
     super
 
-    @input.add("break 14", "continue")
+    @input.add("break 16", "continue")
     redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_advances_until_the_next_breakpoint
-    assert_match(/\=> \s*14:/, @output.string)
+    assert_match(/\=> \s*16:/, @output.string)
   end
 end
 
@@ -150,11 +152,11 @@ class ContinueCommandWithALineArgument < SteppingTest
   def setup
     super
 
-    @input.add("continue 14")
+    @input.add("continue 16")
     redirect_pry_io(@input, @output) { load test_file("stepping") }
   end
 
   def test_advances_until_the_specified_line
-    assert_match(/\=> \s*14:/, @output.string)
+    assert_match(/\=> \s*16:/, @output.string)
   end
 end

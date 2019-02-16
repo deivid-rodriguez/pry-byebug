@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 #
@@ -19,7 +21,7 @@ class ProcessorTest < Minitest::Spec
       after { clean_remove_const(:SteppingExample) }
 
       it "stops execution at the first line after binding.pry" do
-        output.string.must_match(/\=>  6:/)
+        output.string.must_match(/\=>  8:/)
       end
     end
 
@@ -31,7 +33,7 @@ class ProcessorTest < Minitest::Spec
       end
 
       it "stops execution at the first line after binding.pry" do
-        output.string.must_match(/\=> 7:/)
+        output.string.must_match(/\=>  9:/)
       end
     end
   end

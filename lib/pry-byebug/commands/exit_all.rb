@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PryByebug
   #
   # Exit pry REPL with Byebug.stop

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 #
@@ -50,10 +52,10 @@ class SettingBreakpointsTestByLineNumber < BreakpointsTest
   def setup
     super
 
-    @input.add("break 6")
+    @input.add("break 8")
     redirect_pry_io(@input, @output) { load test_file("break1") }
-    @line = 6
-    @regexp = /  Breakpoint (?<id>\d+): #{test_file('break1')} @ 6 \(Enabled\)/
+    @line = 8
+    @regexp = /  Breakpoint (?<id>\d+): #{test_file('break1')} @ 8 \(Enabled\)/
   end
 
   include BreakpointSpecs
@@ -68,7 +70,7 @@ class SettingBreakpointsTestByMethodId < BreakpointsTest
 
     @input.add("break Break1Example#a")
     redirect_pry_io(@input, @output) { load test_file("break1") }
-    @line = RUBY_VERSION >= "2.5.0" ? 6 : 5
+    @line = RUBY_VERSION >= "2.5.0" ? 8 : 7
     @regexp = /  Breakpoint (?<id>\d+): Break1Example#a \(Enabled\)/
   end
 
@@ -84,7 +86,7 @@ class SettingBreakpointsTestByMethodIdForBangMethods < BreakpointsTest
 
     @input.add("break Break1Example#c!")
     redirect_pry_io(@input, @output) { load test_file("break1") }
-    @line = RUBY_VERSION >= "2.5.0" ? 16 : 15
+    @line = RUBY_VERSION >= "2.5.0" ? 18 : 17
     @regexp = /  Breakpoint (?<id>\d+): Break1Example#c! \(Enabled\)/
   end
 
@@ -100,7 +102,7 @@ class SettingBreakpointsTestByMethodIdWithinContext < BreakpointsTest
 
     @input.add("break #b")
     redirect_pry_io(@input, @output) { load test_file("break2") }
-    @line = 7
+    @line = 9
     @regexp = /  Breakpoint (?<id>\d+): Break2Example#b \(Enabled\)/
   end
 
@@ -152,7 +154,7 @@ class BreakInsideMultilineInput < BreakpointsTest
   def setup
     super
 
-    @input.add("2.times do |i|", "break 16 if i > 0", "end")
+    @input.add("2.times do |i|", "break 18 if i > 0", "end")
 
     redirect_pry_io(@input, @output) { load test_file("break1") }
   end
@@ -162,6 +164,6 @@ class BreakInsideMultilineInput < BreakpointsTest
   end
 
   def test_lets_input_be_properly_evaluated
-    assert_match(/=> 16/, @output.string)
+    assert_match(/=> 18/, @output.string)
   end
 end

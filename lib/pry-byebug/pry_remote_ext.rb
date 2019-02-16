@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pry-remote"
 
 module PryRemote
@@ -38,5 +40,5 @@ end
 # 'next' on the last line of a program won't hit Byebug::PryProcessor#run,
 # which normally handles cleanup.
 at_exit do
-  PryByebug.current_remote_server.teardown if PryByebug.current_remote_server
+  PryByebug.current_remote_server&.teardown
 end

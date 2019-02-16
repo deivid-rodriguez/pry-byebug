@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "socket"
 
 client, server = Socket.pair(Socket::AF_UNIX, Socket::SOCK_STREAM)

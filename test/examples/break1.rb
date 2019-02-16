@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # A toy example for testing break commands.
 #

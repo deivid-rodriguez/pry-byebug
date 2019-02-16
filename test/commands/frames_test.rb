@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "stringio"
 
@@ -17,7 +19,7 @@ class FramesTest < MiniTest::Spec
     end
 
     it "shows current line" do
-      output.string.must_match(/=> \s*6: \s*method_b/)
+      output.string.must_match(/=> \s*8: \s*method_b/)
     end
   end
 
@@ -29,7 +31,7 @@ class FramesTest < MiniTest::Spec
     end
 
     it "shows current line" do
-      output.string.must_match(/=> \s*11: \s*end/)
+      output.string.must_match(/=> \s*13: \s*end/)
     end
   end
 
@@ -42,7 +44,7 @@ class FramesTest < MiniTest::Spec
       let(:input) { InputTester.new("frame 1", "frame 0") }
 
       it "shows current line" do
-        output.string.must_match(/=> \s*6: \s*method_b/)
+        output.string.must_match(/=> \s*8: \s*method_b/)
       end
     end
 
@@ -50,7 +52,7 @@ class FramesTest < MiniTest::Spec
       let(:input) { InputTester.new("frame 0") }
 
       it "shows current line" do
-        output.string.must_match(/=> \s*11: \s*end/)
+        output.string.must_match(/=> \s*13: \s*end/)
       end
     end
   end

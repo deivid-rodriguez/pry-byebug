@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.dirname(__FILE__) + "/lib/pry-byebug/version"
 
 Gem::Specification.new do |gem|
@@ -17,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.executables = []
 
   # Dependencies
-  gem.required_ruby_version = ">= 2.2.0"
+  gem.required_ruby_version = ">= 2.3.0"
 
   gem.add_runtime_dependency "byebug", "~> 10.0"
   gem.add_runtime_dependency "pry", "~> 0.10"

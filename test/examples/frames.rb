@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Toy class for testing frame commands
 #

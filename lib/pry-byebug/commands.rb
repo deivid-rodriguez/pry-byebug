@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pry-byebug/commands/backtrace"
 require "pry-byebug/commands/next"
 require "pry-byebug/commands/step"
