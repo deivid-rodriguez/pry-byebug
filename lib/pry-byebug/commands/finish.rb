@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pry-byebug/helpers/navigation"
 
 module PryByebug

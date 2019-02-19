@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pry/byebug/breakpoints"
 require "pry-byebug/helpers/breakpoints"
 require "pry-byebug/helpers/multiline"

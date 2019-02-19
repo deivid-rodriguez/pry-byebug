@@ -23,9 +23,7 @@ puts 'Goodbye World' # Run 'next' in the console to move here.
 
 ## Requirements
 
-* Required: MRI 2.2.0 or higher.
-
-* Recommended: MRI 2.3.0 or higher.
+MRI 2.3.0 or higher.
 
 ## Installation
 

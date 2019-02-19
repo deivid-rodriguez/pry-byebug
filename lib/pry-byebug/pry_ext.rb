@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "byebug/processors/pry_processor"
 
 class << Pry
