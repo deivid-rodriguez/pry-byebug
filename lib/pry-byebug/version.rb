@@ -4,5 +4,5 @@
 # Main container module for Pry-Byebug functionality
 #
 module PryByebug
-  VERSION = "3.6.0"
+  VERSION = "3.7.0"
 end

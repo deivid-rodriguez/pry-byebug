@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+## 3.7.0 (2019-02-20)
+
+* Byebug 11 compatibility, with ruby 2.6 support.
+
 ## 3.6.0 (2018-02-07)
 
 ### Added
