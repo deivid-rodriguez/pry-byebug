@@ -149,8 +149,15 @@ mentioned here if they are present in your Gemfile.
 
 See [Getting Started with Development](CONTRIBUTING.md).
 
+## Funding
+
+Subscribe to [Tidelift] to ensure pry-byebug stays actively maintained, and at
+the same time get licensing assurances and timely security notifications for
+your open source dependencies.
+
 You can also help `pry-byebug` by leaving a small (or big) tip through [Liberapay].
 
+[Tidelift]: https://tidelift.com/subscription/pkg/rubygems-pry-byebug?utm_source=rubygems-pry-byebug&utm_medium=referral&utm_campaign=readme
 [Liberapay]: https://liberapay.com/pry-byebug/donate
 
 ## Credits
