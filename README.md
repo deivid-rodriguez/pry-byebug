@@ -179,5 +179,5 @@ Patches and bug reports are welcome.
 [CircleCIURL]: https://circleci.com/gh/deivid-rodriguez/pry-byebug/tree/master
 [InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
-[CoverageBadge]: https://img.shields.io/codeclimate/coverage/github/deivid-rodriguez/pry-byebug.svg
-[CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug
+[CoverageBadge]: https://api.codeclimate.com/v1/badges/a88e27809329c03af017/test_coverage
+[CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug/test_coverage
