@@ -149,14 +149,9 @@ mentioned here if they are present in your Gemfile.
 
 See [Getting Started with Development](CONTRIBUTING.md).
 
-You can also help `pry-byebug` by leaving a small (or big) tip through
-[Liberapay][liberapay.com].
+You can also help `pry-byebug` by leaving a small (or big) tip through [Liberapay].
 
-[![Support via Liberapay][liberapay-button]][liberapay-donate]
-
-[liberapay.com]: https://liberapay.com
-[liberapay-button]: https://liberapay.com/assets/widgets/donate.svg
-[liberapay-donate]: https://liberapay.com/pry-byebug/donate
+[Liberapay]: https://liberapay.com/pry-byebug/donate
 
 ## Credits
 
