@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Download test coverage reporter
           command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.4-linux-amd64 > cc-test-reporter
 
       - run:
           name: Give test coverage reporter executable permissions
