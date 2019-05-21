@@ -44,7 +44,7 @@ GEM
     public_suffix (3.0.3)
     rainbow (3.0.0)
     rake (12.3.2)
-    rubocop (0.69.0)
+    rubocop (0.70.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -72,7 +72,7 @@ DEPENDENCIES
   minitest (~> 5.11)
   pry-byebug!
   rake (~> 12.3)
-  rubocop (= 0.69.0)
+  rubocop (= 0.70.0)
   simplecov (= 0.16.1)
 
 BUNDLED WITH
