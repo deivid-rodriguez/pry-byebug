@@ -160,6 +160,13 @@ You can also help `pry-byebug` by leaving a small (or big) tip through [Liberapa
 [Tidelift]: https://tidelift.com/subscription/pkg/rubygems-pry-byebug?utm_source=rubygems-pry-byebug&utm_medium=referral&utm_campaign=readme
 [Liberapay]: https://liberapay.com/pry-byebug/donate
 
+## Security contact information
+
+Please use the Tidelift security contact to [report a security vulnerability].
+Tidelift will coordinate the fix and disclosure.
+
+[report a security vulnerability]: https://tidelift.com/security
+
 ## Credits
 
 * Gopal Patel (@nixme), creator of [pry-debugger], and everybody who contributed
