@@ -55,7 +55,7 @@ GEM
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
       faraday (~> 0.8, < 1.0)
-    simplecov (0.17.0)
+    simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
@@ -73,7 +73,7 @@ DEPENDENCIES
   pry-byebug!
   rake (~> 12.3)
   rubocop (= 0.74.0)
-  simplecov (= 0.17.0)
+  simplecov (= 0.17.1)
 
 BUNDLED WITH
    2.0.1
