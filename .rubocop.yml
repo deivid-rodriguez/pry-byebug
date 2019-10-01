@@ -16,6 +16,9 @@ Naming/FileName:
     - lib/pry-byebug.rb
     - pry-byebug.gemspec
 
+Style/FormatStringToken:
+  EnforcedStyle: unannotated
+
 Style/ModuleFunction:
   Enabled: false
 
