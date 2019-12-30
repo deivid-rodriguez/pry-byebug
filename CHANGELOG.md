@@ -2,6 +2,11 @@
 
 ## Master (Unreleased)
 
+### Fixed
+
+* use Binding#source_location instead of evaluating __FILE__ to avoid warnings
+  for Ruby >= 2.6 (#221).
+
 ## 3.7.0 (2019-02-21)
 
 * Byebug 11 compatibility, with ruby 2.6 support.

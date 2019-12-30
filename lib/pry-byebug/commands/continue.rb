@@ -2,6 +2,7 @@
 
 require "pry-byebug/helpers/navigation"
 require "pry-byebug/helpers/breakpoints"
+require "pry-byebug/helpers/location"
 
 module PryByebug
   #
@@ -10,6 +11,7 @@ module PryByebug
   class ContinueCommand < Pry::ClassCommand
     include Helpers::Navigation
     include Helpers::Breakpoints
+    include Helpers::Location
 
     match "continue"
     group "Byebug"

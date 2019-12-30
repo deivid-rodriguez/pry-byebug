@@ -2,6 +2,7 @@
 
 require "pry/byebug/breakpoints"
 require "pry-byebug/helpers/breakpoints"
+require "pry-byebug/helpers/location"
 require "pry-byebug/helpers/multiline"
 
 module PryByebug
@@ -10,6 +11,7 @@ module PryByebug
   #
   class BreakCommand < Pry::ClassCommand
     include Helpers::Breakpoints
+    include Helpers::Location
     include Helpers::Multiline
 
     match "break"
