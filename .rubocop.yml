@@ -27,3 +27,6 @@ Style/StringLiterals:
 
 Layout/ExtraSpacing:
   AllowForAlignment: false
+
+Layout/LineLength:
+  Enabled: false
