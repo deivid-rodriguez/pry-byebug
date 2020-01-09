@@ -82,7 +82,7 @@ jobs:
 
   upload_coverage:
     docker:
-      - image: ruby:2.6.0
+      - image: ruby:2.7.0
         environment:
           - CC_TEST_REPORTER_ID: f06a22b27a507a3054eb69873c9e3bbc9ef97476d6ef22eec8cd24686494cb2b
 
@@ -150,9 +150,20 @@ workflows:
           requires:
             - setup_coverage
 
+      - spec:
+          name: "2.7"
+
+          executor:
+            name: test
+            version: 2.7.0
+
+          requires:
+            - setup_coverage
+
       - upload_coverage:
           requires:
             - "2.3"
             - "2.4"
             - "2.5"
             - "2.6"
+            - "2.7"
