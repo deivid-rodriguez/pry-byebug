@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "pry-byebug/helpers/location"
+
 #
 # Main container module for Pry-Byebug functionality
 #
@@ -13,7 +15,7 @@ module PryByebug
   # Checks that a target binding is in a local file context.
   #
   def file_context?(target)
-    file = target.eval("__FILE__")
+    file = Helpers::Location.current_file(target)
     file == Pry.eval_path || !Pry::Helpers::BaseHelpers.not_a_real_file?(file)
   end
 
