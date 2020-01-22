@@ -5,7 +5,7 @@
 ### Fixed
 
 * use Binding#source_location instead of evaluating __FILE__ to avoid warnings
-  for Ruby >= 2.6 (#221).
+  for Ruby 2.7 (#221).
 
 ## 3.7.0 (2019-02-21)
 
