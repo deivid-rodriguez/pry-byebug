@@ -4,8 +4,8 @@
 
 ### Fixed
 
-* use Binding#source_location instead of evaluating __FILE__ to avoid warnings
-  for Ruby 2.7 (#221).
+* Use `Binding#source_location` instead of evaluating `__FILE__` to avoid
+  warnings for Ruby 2.7 (#221).
 
 ## 3.7.0 (2019-02-21)
 
@@ -21,7 +21,7 @@
 
 ### Fixed
 
-* Allow other threads like Pry. (#142)
+* Allow other threads like Pry (#142).
 
 ## 3.5.0 (2017-08-23)
 
