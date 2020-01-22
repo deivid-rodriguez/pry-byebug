@@ -88,7 +88,6 @@ class Pry
       #
       def delete(id)
         deleted =
-          ::Byebug.started? &&
           ::Byebug::Breakpoint.remove(id) &&
           breakpoints.delete(find_by_id(id))
 
@@ -100,7 +99,7 @@ class Pry
       #
       def delete_all
         @breakpoints = []
-        ::Byebug.breakpoints.clear if ::Byebug.started?
+        ::Byebug.breakpoints.clear
       end
 
       #

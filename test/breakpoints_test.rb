@@ -31,6 +31,8 @@ class BreakpointsTestGeneral < MiniTest::Spec
 
     assert_equal "BreakpointsTest::Tester", bp.source
     assert_equal "instance_method", bp.pos
+
+    breakpoints_class.delete_all
   end
 
   def test_add_method_adds_class_method_breakpoint
@@ -39,5 +41,7 @@ class BreakpointsTestGeneral < MiniTest::Spec
 
     assert_equal "BreakpointsTest::Tester", bp.source
     assert_equal "class_method", bp.pos
+
+    breakpoints_class.delete_all
   end
 end
