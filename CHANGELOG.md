@@ -2,10 +2,12 @@
 
 ## Master (Unreleased)
 
+## 3.8.0 (2020-01-22)
+
 ### Fixed
 
 * Use `Binding#source_location` instead of evaluating `__FILE__` to avoid
-  warnings for Ruby 2.7 (#221).
+  warnings on Ruby 2.7 and on Ruby 2.6 in verbose mode (#221).
 
 ### Removed
 
