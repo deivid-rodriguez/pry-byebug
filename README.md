@@ -1,7 +1,7 @@
 # pry-byebug
 
 [![Version][VersionBadge]][VersionURL]
-[![Build][CircleCIBadge]][CircleCIURL]
+[![Build][CIBadge]][CIURL]
 [![Inline docs][InchCIBadge]][InchCIURL]
 [![Coverage][CoverageBadge]][CoverageURL]
 
@@ -184,8 +184,8 @@ Patches and bug reports are welcome.
 
 [VersionBadge]: https://badge.fury.io/rb/pry-byebug.svg
 [VersionURL]: http://badge.fury.io/rb/pry-byebug
-[CircleCIBadge]: https://circleci.com/gh/deivid-rodriguez/pry-byebug/tree/master.svg?style=shield
-[CircleCIURL]: https://circleci.com/gh/deivid-rodriguez/pry-byebug/tree/master
+[CIBadge]: https://github.com/deivid-rodriguez/pry-byebug/workflows/ubuntu/badge.svg?branch=master
+[CIURL]: https://github.com/deivid-rodriguez/pry-byebug/actions?query=workflow%3Aubuntu
 [InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
 [CoverageBadge]: https://api.codeclimate.com/v1/badges/a88e27809329c03af017/test_coverage
