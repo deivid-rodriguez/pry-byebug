@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby: [2.4.5, 2.5.3, 2.6.0, 2.7.0]
+        ruby: [2.4.9, 2.5.7, 2.6.5, 2.7.0]
 
     steps:
       - uses: actions/checkout@v2
@@ -84,17 +84,17 @@ jobs:
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.4.5
+          name: coverage-2.4.9
           path: coverage
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.5.3
+          name: coverage-2.5.7
           path: coverage
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.6.0
+          name: coverage-2.6.5
           path: coverage
 
       - uses: actions/download-artifact@v1
