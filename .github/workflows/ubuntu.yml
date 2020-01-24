@@ -60,8 +60,7 @@ jobs:
         run: chmod +x cc-test-reporter
 
       - name: Save coverage
-        run: |
-          ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}.json
+        run: ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}.json
 
       - uses: actions/upload-artifact@v1
         with:
