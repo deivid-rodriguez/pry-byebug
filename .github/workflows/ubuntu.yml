@@ -1,0 +1,109 @@
+name: ubuntu
+
+on:
+  pull_request:
+
+  push:
+    branches:
+      - master
+
+env:
+  CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.4-linux-amd64
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        ruby: [2.4.5, 2.5.3, 2.6.0, 2.7.0]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup ruby
+        uses: eregon/use-ruby-action@master
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - uses: actions/cache@v1
+        with:
+          path: .bundle
+          key: dependencies-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: dependencies-
+
+      - name: Install dependencies
+        run: |
+          gem install bundler -v 2.1.4
+          bundle install --jobs 3 --retry 3 --path .bundle
+
+      - name: Run tests
+        run: RUBYOPT="-E UTF-8" bundle exec rake
+
+      - name: Set ENV for codeclimate (pull_request)
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF
+          echo "::set-env name=GIT_BRANCH::$GITHUB_HEAD_REF"
+          echo "::set-env name=GIT_COMMIT_SHA::$(git rev-parse origin/$GITHUB_HEAD_REF)"
+        if: github.event_name == 'pull_request'
+
+      - name: Set ENV for codeclimate (push)
+        run: |
+          echo "::set-env name=GIT_BRANCH::$GITHUB_REF"
+          echo "::set-env name=GIT_COMMIT_SHA::$GITHUB_SHA"
+        if: github.event_name == 'push'
+
+      - name: Download test coverage reporter
+        run: curl -L $CC_TEST_REPORTER_URL > cc-test-reporter
+
+      - name: Give test coverage reporter executable permissions
+        run: chmod +x cc-test-reporter
+
+      - name: Save coverage
+        run: |
+          ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}.json
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: coverage-${{ matrix.ruby }}
+          path: coverage/codeclimate.${{ matrix.ruby }}.json
+
+  upload_coverage:
+    runs-on: ubuntu-18.04
+
+    env:
+      CC_TEST_REPORTER_ID: f06a22b27a507a3054eb69873c9e3bbc9ef97476d6ef22eec8cd24686494cb2b
+
+    needs: test
+
+    steps:
+      - name: Download test coverage reporter
+        run: curl -L $CC_TEST_REPORTER_URL > cc-test-reporter
+
+      - name: Give test coverage reporter executable permissions
+        run: chmod +x cc-test-reporter
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.4.5
+          path: coverage
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.5.3
+          path: coverage
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.6.0
+          path: coverage
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.7.0
+          path: coverage
+
+      - name: Aggregate & upload results to Code Climate
+        run: |
+          ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
+          ./cc-test-reporter upload-coverage
