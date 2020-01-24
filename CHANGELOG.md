@@ -2,10 +2,16 @@
 
 ## Master (Unreleased)
 
+## 3.8.0 (2020-01-22)
+
 ### Fixed
 
-* use Binding#source_location instead of evaluating __FILE__ to avoid warnings
-  for Ruby >= 2.6 (#221).
+* Use `Binding#source_location` instead of evaluating `__FILE__` to avoid
+  warnings on Ruby 2.7 and on Ruby 2.6 in verbose mode (#221).
+
+### Removed
+
+* Support for Ruby 2.3. Pry-byebug no longer installs on this platform.
 
 ## 3.7.0 (2019-02-21)
 
@@ -21,7 +27,7 @@
 
 ### Fixed
 
-* Allow other threads like Pry. (#142)
+* Allow other threads like Pry (#142).
 
 ## 3.5.0 (2017-08-23)
 
