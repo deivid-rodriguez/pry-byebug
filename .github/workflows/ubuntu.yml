@@ -18,6 +18,9 @@ jobs:
       matrix:
         ruby: [2.4.9, 2.5.7, 2.6.5, 2.7.0]
 
+    env:
+      BUNDLE_PATH: .bundle
+
     steps:
       - uses: actions/checkout@v2
 
@@ -28,14 +31,14 @@ jobs:
 
       - uses: actions/cache@v1
         with:
-          path: .bundle
+          path: ${{ env.BUNDLE_PATH }}
           key: dependencies-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: dependencies-
 
       - name: Install dependencies
         run: |
           gem install bundler -v 2.1.4
-          bundle install --jobs 3 --retry 3 --path .bundle
+          bundle install --jobs 3 --retry 3
 
       - name: Run tests
         run: RUBYOPT="-E UTF-8" bundle exec rake
