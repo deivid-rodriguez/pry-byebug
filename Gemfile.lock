@@ -20,7 +20,6 @@ GEM
     faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
     jaro_winkler (1.5.4)
-    json (2.3.0)
     kramdown (2.1.0)
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
@@ -65,11 +64,10 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
-    simplecov (0.17.1)
+    simplecov (0.18.1)
       docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
+      simplecov-html (~> 0.11.0)
+    simplecov-html (0.11.0)
     tomlrb (1.2.9)
     unicode-display_width (1.6.0)
 
@@ -84,7 +82,7 @@ DEPENDENCIES
   pry-byebug!
   rake (~> 13.0)
   rubocop (= 0.79.0)
-  simplecov (= 0.17.1)
+  simplecov (= 0.18.1)
 
 BUNDLED WITH
    2.1.4
