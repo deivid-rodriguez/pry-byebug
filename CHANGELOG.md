@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+### Added
+
+* Support for pry master as of [pry/pry@62c8951374aeed5a7423609a108848b0bcf81685](https://github.com/pry/pry/commit/62c8951374aeed5a7423609a108848b0bcf81685) (#266).
+
 ## 3.8.0 (2020-01-22)
 
 ### Fixed

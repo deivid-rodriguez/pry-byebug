@@ -19,7 +19,7 @@ module PryByebug
       # Prints a message with bold font.
       #
       def bold_puts(msg)
-        output.puts(text.bold(msg))
+        output.puts(bold(msg))
       end
 
       #
@@ -32,14 +32,14 @@ module PryByebug
         status = breakpoint.enabled? ? "Enabled" : "Disabled"
         code = breakpoint.source_code.with_line_numbers.to_s
         condition = if breakpoint.expr
-                      "#{text.bold('Condition:')} #{breakpoint.expr}\n"
+                      "#{bold('Condition:')} #{breakpoint.expr}\n"
                     else
                       ""
                     end
 
         output.puts <<-BREAKPOINT.gsub(/ {8}/, "")
 
-          #{text.bold(header)} #{breakpoint} (#{status}) #{condition}
+          #{bold(header)} #{breakpoint} (#{status}) #{condition}
 
           #{code}
 
@@ -65,8 +65,8 @@ module PryByebug
 
         output.puts <<-BREAKPOINTS.gsub(/ {8}/, "")
 
-          #{text.bold(header)}
-          #{text.bold('-' * header.size)}
+          #{bold(header)}
+          #{bold('-' * header.size)}
 
         BREAKPOINTS
       end

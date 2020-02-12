@@ -17,8 +17,11 @@ jobs:
     strategy:
       matrix:
         ruby: [2.4.9, 2.5.7, 2.6.5, 2.7.0]
+        gemfile: [Gemfile, gemfiles/pry_master.gemfile]
 
     env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      BUNDLE_LOCKFILE: ${{ matrix.gemfile }}.lock
       BUNDLE_PATH: .bundle
 
     steps:
@@ -32,7 +35,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ${{ env.BUNDLE_PATH }}
-          key: dependencies-${{ hashFiles('**/Gemfile.lock') }}
+          key: dependencies-${{ hashFiles(env.BUNDLE_LOCKFILE) }}
           restore-keys: dependencies-
 
       - name: Install dependencies
@@ -62,13 +65,16 @@ jobs:
       - name: Give test coverage reporter executable permissions
         run: chmod +x cc-test-reporter
 
+      - name: Set test report output file
+        run: echo "::set-env name=BUNDLE_GEMFILE_BASENAME::$(basename $BUNDLE_GEMFILE)"
+
       - name: Save coverage
-        run: ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}.json
+        run: ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}-${{ env.BUNDLE_GEMFILE_BASENAME }}.json
 
       - uses: actions/upload-artifact@v1
         with:
-          name: coverage-${{ matrix.ruby }}
-          path: coverage/codeclimate.${{ matrix.ruby }}.json
+          name: coverage-${{ matrix.ruby }}-${{ env.BUNDLE_GEMFILE_BASENAME }}
+          path: coverage/codeclimate.${{ matrix.ruby }}-${{ env.BUNDLE_GEMFILE_BASENAME }}.json
 
   upload_coverage:
     runs-on: ubuntu-18.04
@@ -87,22 +93,42 @@ jobs:
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.4.9
+          name: coverage-2.4.9-Gemfile
           path: coverage
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.5.7
+          name: coverage-2.4.9-pry_master.gemfile
           path: coverage
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.6.5
+          name: coverage-2.5.7-Gemfile
           path: coverage
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.7.0
+          name: coverage-2.5.7-pry_master.gemfile
+          path: coverage
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.6.5-Gemfile
+          path: coverage
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.6.5-pry_master.gemfile
+          path: coverage
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.7.0-Gemfile
+          path: coverage
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-2.7.0-pry_master.gemfile
           path: coverage
 
       - name: Aggregate & upload results to Code Climate

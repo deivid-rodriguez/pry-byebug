@@ -10,9 +10,15 @@ module PryByebug
       # Breaks out of the REPL loop and signals tracer
       #
       def breakout_navigation(action, options = {})
-        _pry_.binding_stack.clear
+        preferred_pry_instance = if respond_to?(:pry_instance)
+                                   pry_instance
+                                 else
+                                   _pry_
+                                 end
 
-        throw :breakout_nav, action: action, options: options, pry: _pry_
+        preferred_pry_instance.binding_stack.clear
+
+        throw :breakout_nav, action: action, options: options, pry: preferred_pry_instance
       end
     end
   end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "pry/commands/exit_all"
+
 module PryByebug
   #
   # Exit pry REPL with Byebug.stop
