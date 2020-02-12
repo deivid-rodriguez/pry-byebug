@@ -14,7 +14,7 @@ update_configs:
           update_type: all
 
   - package_manager: ruby:bundler
-    directory: /gemfiles/
+    directory: /gemfiles/pry_master
     update_schedule: live
     version_requirement_updates: increase_versions_if_necessary
 
