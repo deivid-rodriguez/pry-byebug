@@ -12,5 +12,5 @@ group :development do
   gem "minitest", "~> 5.14"
   gem "minitest-bisect", "~> 1.5"
   gem "rubocop", "0.79.0"
-  gem "simplecov", "0.17.1"
+  gem "simplecov", "0.18.2"
 end
