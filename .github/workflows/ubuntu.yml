@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         ruby: [2.4.9, 2.5.7, 2.6.5, 2.7.0]
-        gemfile: [Gemfile, gemfiles/pry_master.gemfile]
+        gemfile: [Gemfile, gemfiles/pry_master/Gemfile]
 
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
@@ -66,7 +66,7 @@ jobs:
         run: chmod +x cc-test-reporter
 
       - name: Set test report output file
-        run: echo "::set-env name=BUNDLE_GEMFILE_BASENAME::$(basename $BUNDLE_GEMFILE)"
+        run: echo "::set-env name=BUNDLE_GEMFILE_BASENAME::$(echo $BUNDLE_GEMFILE | cut -d/ -f2)"
 
       - name: Save coverage
         run: ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}-${{ env.BUNDLE_GEMFILE_BASENAME }}.json
@@ -98,7 +98,7 @@ jobs:
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.4.9-pry_master.gemfile
+          name: coverage-2.4.9-pry_master
           path: coverage
 
       - uses: actions/download-artifact@v1
@@ -108,7 +108,7 @@ jobs:
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.5.7-pry_master.gemfile
+          name: coverage-2.5.7-pry_master
           path: coverage
 
       - uses: actions/download-artifact@v1
@@ -118,7 +118,7 @@ jobs:
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.6.5-pry_master.gemfile
+          name: coverage-2.6.5-pry_master
           path: coverage
 
       - uses: actions/download-artifact@v1
@@ -128,7 +128,7 @@ jobs:
 
       - uses: actions/download-artifact@v1
         with:
-          name: coverage-2.7.0-pry_master.gemfile
+          name: coverage-2.7.0-pry_master
           path: coverage
 
       - name: Aggregate & upload results to Code Climate
