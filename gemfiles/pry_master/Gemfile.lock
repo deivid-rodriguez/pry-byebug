@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/pry/pry.git
-  revision: ae42014a915a04c6d6503908219ca1ebb95f65e0
+  revision: 62dbbdb23eb4e2d84d95ebd1261cdf23facacaed
   specs:
     pry (0.12.2)
       coderay (~> 1.1)
-      method_source (~> 0.9.0)
+      method_source (~> 1.0)
 
 PATH
   remote: ../..
@@ -37,7 +37,7 @@ GEM
       kramdown-parser-gfm (~> 1.0)
       mixlib-cli (~> 2.1, >= 2.1.1)
       mixlib-config (>= 2.2.1, < 4)
-    method_source (0.9.2)
+    method_source (1.0.0)
     minitest (5.14.0)
     minitest-bisect (1.5.1)
       minitest-server (~> 1.0)
