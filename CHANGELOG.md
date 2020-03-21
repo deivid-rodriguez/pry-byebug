@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.9.0 (2020-03-21)
+
 ### Fixed
 
 * Dependency on pry being too loose. Now breaking minor releases of pry won't affect pry-byebug users (#288).
