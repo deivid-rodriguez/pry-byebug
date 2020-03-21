@@ -2,9 +2,17 @@
 
 ## Master (Unreleased)
 
+### Fixed
+
+* Dependency on pry being too loose. Now breaking minor releases of pry won't affect pry-byebug users (#288).
+
 ### Added
 
-* Support for pry master as of [pry/pry@62c8951374aeed5a7423609a108848b0bcf81685](https://github.com/pry/pry/commit/62c8951374aeed5a7423609a108848b0bcf81685) (#266).
+* Support for pry 0.13.0 (#266).
+
+### Removed
+
+* Support for pry older than 0.13.0 (#288).
 
 ## 3.8.0 (2020-01-22)
 
