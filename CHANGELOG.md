@@ -6,7 +6,7 @@
 
 ### Fixed
 
-* Dependency on pry being too loose. Now breaking minor releases of pry won't affect pry-byebug users (#288).
+* Dependency on pry being too loose. Now breaking minor releases of pry won't affect pry-byebug users (#289).
 
 ### Added
 
@@ -14,7 +14,7 @@
 
 ### Removed
 
-* Support for pry older than 0.13.0 (#288).
+* Support for pry older than 0.13.0 (#289).
 
 ## 3.8.0 (2020-01-22)
 
