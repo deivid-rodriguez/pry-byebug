@@ -29,7 +29,7 @@ GEM
       mixlib-cli (~> 2.1, >= 2.1.1)
       mixlib-config (>= 2.2.1, < 4)
     method_source (1.0.0)
-    minitest (5.14.0)
+    minitest (5.14.1)
     minitest-bisect (1.5.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.1)
