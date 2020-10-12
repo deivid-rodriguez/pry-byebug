@@ -58,9 +58,9 @@ GEM
     public_suffix (4.0.3)
     rainbow (3.0.0)
     rake (13.0.1)
-    regexp_parser (1.8.1)
+    regexp_parser (1.8.2)
     rexml (3.2.4)
-    rubocop (0.93.0)
+    rubocop (0.93.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
       rainbow (>= 2.2.2, < 4.0)
@@ -93,7 +93,7 @@ DEPENDENCIES
   minitest-bisect (~> 1.5)
   pry-byebug!
   rake (~> 13.0)
-  rubocop (= 0.93.0)
+  rubocop (= 0.93.1)
   simplecov (= 0.17.1)
 
 BUNDLED WITH
