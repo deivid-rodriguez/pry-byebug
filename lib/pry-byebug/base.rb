@@ -7,7 +7,9 @@ require "pry-byebug/helpers/location"
 #
 module PryByebug
   # Reference to currently running pry-remote server. Used by the processor.
-  attr_accessor :current_remote_server
+  class << self
+    attr_accessor :current_remote_server
+  end
 
   module_function
 
