@@ -7,26 +7,10 @@ module Byebug
   # Extends the PryProcessor to make it work with Pry-Remote
   #
   class PryRemoteProcessor < PryProcessor
-    class PryRemoteInterface
-      attr_reader :output, :input
-
-      def initialize(input, output)
-        @input = input
-        @output = output
-      end
-    end
-
-    def self.start(input:, output:, **)
-      super()
-
-      Context.interface = PryRemoteInterface.new(input, output)
-      Byebug.current_context.step_out(5, true)
-    end
-
-    def initialize(context, *)
-      @interface = Context.interface
-
+    def self.start
       super
+
+      Byebug.current_context.step_out(5, true)
     end
 
     def resume_pry
@@ -36,9 +20,23 @@ module Byebug
         if defined?(@pry) && @pry
           @pry.repl(new_binding)
         else
-          @pry = Pry.start_without_pry_byebug(new_binding, input: @interface.input, output: @interface.output)
+          @pry = Pry.start_without_pry_byebug(new_binding, input: input, output: output)
         end
       end
+    end
+
+    private
+
+    def input
+      server.client.input_proxy
+    end
+
+    def output
+      server.client.output
+    end
+
+    def server
+      PryByebug.current_remote_server
     end
   end
 end

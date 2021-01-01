@@ -8,11 +8,15 @@ class << Pry
 
   def start_with_pry_byebug(target = TOPLEVEL_BINDING, options = {})
     if target.is_a?(Binding) && PryByebug.file_context?(target) && !ENV["DISABLE_PRY"]
-      PryByebug.current_remote_server ? Byebug::PryRemoteProcessor.start(options) : Byebug::PryProcessor.start
+      run_remote? ? Byebug::PryRemoteProcessor.start : Byebug::PryProcessor.start
     else
       # No need for the tracer unless we have a file context to step through
       start_without_pry_byebug(target, options)
     end
+  end
+
+  def run_remote?
+    PryByebug.current_remote_server
   end
 
   alias start start_with_pry_byebug
