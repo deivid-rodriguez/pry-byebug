@@ -7,9 +7,6 @@ on:
     branches:
       - master
 
-env:
-  CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-0.7.0-linux-amd64
-
 jobs:
   test:
     runs-on: ubuntu-18.04
@@ -43,27 +40,8 @@ jobs:
       - name: Run tests
         run: RUBYOPT="-E UTF-8" bundle exec rake
 
-      - name: Set ENV for codeclimate (pull_request)
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF
-          echo "GIT_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
-          echo "GIT_COMMIT_SHA=$(git rev-parse origin/$GITHUB_HEAD_REF)" >> $GITHUB_ENV
-        if: github.event_name == 'pull_request'
-
-      - name: Set ENV for codeclimate (push)
-        run: |
-          echo "GIT_BRANCH=$GITHUB_REF" >> $GITHUB_ENV
-          echo "GIT_COMMIT_SHA=$GITHUB_SHA" >> $GITHUB_ENV
-        if: github.event_name == 'push'
-
-      - name: Download test coverage reporter
-        run: curl -L $CC_TEST_REPORTER_URL > cc-test-reporter
-
-      - name: Give test coverage reporter executable permissions
-        run: chmod +x cc-test-reporter
-
       - name: Save coverage
-        run: ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}.json
+        run: mv coverage/.resultset.json coverage/codeclimate.${{ matrix.ruby }}.json
 
       - uses: actions/upload-artifact@v1
         with:
@@ -79,11 +57,7 @@ jobs:
     needs: test
 
     steps:
-      - name: Download test coverage reporter
-        run: curl -L $CC_TEST_REPORTER_URL > cc-test-reporter
-
-      - name: Give test coverage reporter executable permissions
-        run: chmod +x cc-test-reporter
+      - uses: actions/checkout@v2
 
       - uses: actions/download-artifact@v1
         with:
@@ -126,6 +100,7 @@ jobs:
           path: coverage
 
       - name: Aggregate & upload results to Code Climate
-        run: |
-          ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
-          ./cc-test-reporter upload-coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        with:
+          debug: true
+          coverageLocations: coverage/codeclimate.*.json:simplecov
