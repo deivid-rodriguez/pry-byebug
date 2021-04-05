@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+### Added
+
+* Support for pry 0.14.0 (#346).
+
 ## 3.9.0 (2020-03-21)
 
 ### Fixed
