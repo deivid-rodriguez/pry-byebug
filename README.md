@@ -175,7 +175,7 @@ Tidelift will coordinate the fix and disclosure.
 
 Patches and bug reports are welcome.
 
-[pry]: http://pry.github.com
+[pry]: https://pry.github.io
 [byebug]: https://github.com/deivid-rodriguez/byebug
 [pry-debugger]: https://github.com/nixme/pry-debugger
 [pry-nav]: https://github.com/nixme/pry-nav
