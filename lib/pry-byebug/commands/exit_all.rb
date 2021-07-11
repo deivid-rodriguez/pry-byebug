@@ -10,6 +10,7 @@ module PryByebug
     def process
       super
     ensure
+      PryByebug.current_remote_server&.teardown
       Byebug.stop if Byebug.stoppable?
     end
   end

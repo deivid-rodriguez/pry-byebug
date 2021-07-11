@@ -18,6 +18,7 @@ module PryByebug
     BANNER
 
     def process
+      PryByebug.current_remote_server&.teardown
       PryByebug.check_file_context(target)
 
       breakout_navigation :finish
