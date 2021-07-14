@@ -13,11 +13,41 @@ module Byebug
     def_delegators :@pry, :output
     def_delegators Pry::Helpers::Text, :bold
 
-    def self.start
+    def self.start(target=nil, options={})
       Byebug.start
       Setting[:autolist] = false
-      Context.processor = self
+
+      # hack because byebug instantiates our class, so this lets us hang onto
+      # the binding until we have an instance to use it on
+      initializer = lambda do |*args, &b|
+        processor = new(*args, &b)
+        processor.enqueue_args([target, options])
+        processor
+      end
+      class << initializer
+        alias new call
+      end
+      Context.processor = initializer
+
       Byebug.current_context.step_out(4, true)
+    end
+
+    def enqueue_args(args)
+      enqueued_args << args
+    end
+
+    private def enqueued_args
+      @enqueued_args ||= []
+    end
+
+    private def new_pry_args
+      if enqueued_args.any?
+        arg_binding, arg_options = enqueued_args.shift
+        arg_binding = frame._binding unless arg_binding.is_a? ::Binding
+        [arg_binding, arg_options]
+      else
+        [frame._binding, {}]
+      end
     end
 
     #
@@ -108,13 +138,13 @@ module Byebug
     # Resume an existing Pry REPL at the paused point.
     #
     def resume_pry
-      new_binding = frame._binding
 
       run do
         if defined?(@pry) && @pry
+          new_binding = frame._binding
           @pry.repl(new_binding)
         else
-          @pry = Pry.start_without_pry_byebug(new_binding)
+          @pry = Pry.start_without_pry_byebug(*new_pry_args)
         end
       end
     end
