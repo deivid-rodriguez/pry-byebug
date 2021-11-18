@@ -16,3 +16,16 @@ class << Pry
 
   alias start start_with_pry_byebug
 end
+
+class Pry
+  alias eval_without_pry_byebug eval
+
+  def eval_with_pry_byebug(line, options = {})
+    eval_without_pry_byebug(line, options)
+  rescue Exception
+    ::Byebug.stop if ::Byebug.stoppable?
+    raise
+  end
+
+  alias eval eval_with_pry_byebug
+end
