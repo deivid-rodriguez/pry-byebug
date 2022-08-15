@@ -500,7 +500,7 @@ Layout/IndentationWidth:
   Enabled: true
   VersionAdded: '0.49'
   Width: 2
-  IgnoredPatterns: []
+  AllowedPatterns: []
 
 # Supports --auto-correct
 Layout/InitialIndentation:
@@ -929,7 +929,6 @@ Lint/BinaryOperatorWithIdenticalOperands:
 Lint/BooleanSymbol:
   Description: Check for `:true` and `:false` symbols.
   Enabled: true
-  Safe: false
   VersionAdded: '0.50'
   VersionChanged: '0.83'
 
@@ -1528,7 +1527,6 @@ Lint/UselessMethodDefinition:
   Enabled: true
   VersionAdded: '0.90'
   Safe: false
-  AllowComments: true
 
 Lint/UselessSetterCall:
   Description: Checks for useless setter call to a local variable.
@@ -1697,7 +1695,7 @@ Naming/MethodName:
   SupportedStyles:
   - snake_case
   - camelCase
-  IgnoredPatterns: []
+  AllowedPatterns: []
 
 Naming/MethodParameterName:
   Description: Checks for method parameter names that contain capital letters, end in
@@ -1943,7 +1941,7 @@ Style/BlockDelimiters:
   - let!
   - subject
   - watch
-  IgnoredMethods:
+  AllowedMethods:
   - lambda
   - proc
   - it
@@ -2005,7 +2003,7 @@ Style/ClassEqualityComparison:
   StyleGuide: "#instance-of-vs-class-comparison"
   Enabled: true
   VersionAdded: '0.93'
-  IgnoredMethods:
+  AllowedMethods:
   - "=="
   - equal?
   - eql?
@@ -2433,7 +2431,6 @@ Style/InfiniteLoop:
   Enabled: true
   VersionAdded: '0.26'
   VersionChanged: '0.61'
-  SafeAutoCorrect: true
 
 # Supports --auto-correct
 Style/InverseMethods:
@@ -2499,7 +2496,7 @@ Style/MethodCallWithoutArgsParentheses:
   Description: Do not use parentheses for method calls with no arguments.
   StyleGuide: "#method-invocation-parens"
   Enabled: true
-  IgnoredMethods: []
+  AllowedMethods: []
   VersionAdded: '0.47'
   VersionChanged: '0.55'
 
@@ -2759,7 +2756,7 @@ Style/NumericPredicate:
   SupportedStyles:
   - predicate
   - comparison
-  IgnoredMethods: []
+  AllowedMethods: []
   Exclude:
   - "spec/**/*"
 
@@ -3214,7 +3211,7 @@ Style/SymbolProc:
   Safe: false
   VersionAdded: '0.26'
   VersionChanged: '0.64'
-  IgnoredMethods:
+  AllowedMethods:
   - respond_to
   - define_method
 
