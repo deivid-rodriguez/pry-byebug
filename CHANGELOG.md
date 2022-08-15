@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.10.0 (2022-08-15)
+
 ### Added
 
 * Support for pry 0.14 (#346, #386). NOTE: pry-byebug now needs to be explicitly required from `~/.pryrc` since plugin autoloading has been removed from Pry.
