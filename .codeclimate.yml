@@ -23,7 +23,6 @@ plugins:
           categories: Style
           path_patterns:
             - .rubocop.yml
-            - .travis.yml
 
         no-tabs:
           pattern: "	"
@@ -32,7 +31,6 @@ plugins:
           categories: Style
           path_patterns:
             - .rubocop.yml
-            - .travis.yml
 
 exclude_patterns:
   - .bundle/
