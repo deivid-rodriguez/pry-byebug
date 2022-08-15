@@ -4,7 +4,7 @@
 
 ### Added
 
-* Support for pry 0.14.0 (#346).
+* Support for pry 0.14 (#346, #386). NOTE: pry-byebug now needs to be explicitly required from `~/.pryrc` since plugin autoloading has been removed from Pry.
 
 ### Removed
 
