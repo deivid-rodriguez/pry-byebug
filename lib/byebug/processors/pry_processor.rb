@@ -73,14 +73,6 @@ module Byebug
     end
 
     #
-    # Called when the debugger wants to stop right before the end of a class
-    # definition
-    #
-    def at_end
-      resume_pry
-    end
-
-    #
     # Called when a breakpoint is hit. Note that `at_line`` is called
     # inmediately after with the context's `stop_reason == :breakpoint`, so we
     # must not resume the pry instance here

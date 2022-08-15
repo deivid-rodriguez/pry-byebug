@@ -6,6 +6,10 @@
 
 * Support for pry 0.14.0 (#346).
 
+### Removed
+
+* Support for Ruby 2.4, 2.5, and 2.6. Pry-byebug no longer installs on these platforms (#380).
+
 ## 3.9.0 (2020-03-21)
 
 ### Fixed
