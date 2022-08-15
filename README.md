@@ -3,7 +3,6 @@
 [![Version][VersionBadge]][VersionURL]
 [![Build][CIBadge]][CIURL]
 [![Inline docs][InchCIBadge]][InchCIURL]
-[![Coverage][CoverageBadge]][CoverageURL]
 
 Adds step-by-step debugging and stack navigation capabilities to [pry] using
 [byebug].
@@ -188,5 +187,3 @@ Patches and bug reports are welcome.
 [CIURL]: https://github.com/deivid-rodriguez/pry-byebug/actions?query=workflow%3Aubuntu
 [InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
-[CoverageBadge]: https://api.codeclimate.com/v1/badges/a88e27809329c03af017/test_coverage
-[CoverageURL]: https://codeclimate.com/github/deivid-rodriguez/pry-byebug/test_coverage

@@ -35,5 +35,4 @@ plugins:
             - .travis.yml
 
 exclude_patterns:
-  - coverage/
   - .bundle/

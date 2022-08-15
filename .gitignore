@@ -4,7 +4,6 @@
 tmp
 pkg
 doc
-coverage
 
 .bundle
 

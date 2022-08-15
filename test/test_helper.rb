@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "support/coverage"
-
 require "minitest/autorun"
 require "pry-byebug"
 
