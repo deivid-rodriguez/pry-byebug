@@ -1427,11 +1427,6 @@ Lint/SuppressedException:
   VersionAdded: '0.9'
   VersionChanged: '0.81'
 
-Lint/Syntax:
-  Description: Checks syntax error.
-  Enabled: true
-  VersionAdded: '0.9'
-
 # Supports --auto-correct
 Lint/ToJSON:
   Description: 'Ensure #to_json includes an optional argument.'
