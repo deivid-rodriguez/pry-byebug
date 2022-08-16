@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.10.1 (2022-08-16)
+
 ### Fixed
 
 * Rails console loading a debugger REPL instead of the standard Pry REPL (#392)
