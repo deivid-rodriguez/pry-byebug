@@ -8,7 +8,7 @@ class << Pry::REPL
   def start_with_pry_byebug(options = {})
     target = options[:target]
 
-    if target.is_a?(Binding) && PryByebug.file_context?(target)
+    if target.is_a?(Binding) && PryByebug.file_context?(target) && !options[:hooks]&.hook_exists?(:before_session, :save_captured_exception)
       Byebug::PryProcessor.start unless ENV["DISABLE_PRY"]
     else
       # No need for the tracer unless we have a file context to step through
