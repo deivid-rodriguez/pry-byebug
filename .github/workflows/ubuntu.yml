@@ -26,12 +26,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - uses: actions/cache@v1
-        with:
-          path: ${{ env.BUNDLE_PATH }}
-          key: dependencies-${{ hashFiles('Gemfile.lock') }}
-          restore-keys: dependencies-
-
       - name: Install dependencies
         run: |
           bundle install --jobs 3 --retry 3
