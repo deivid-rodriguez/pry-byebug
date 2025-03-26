@@ -23,7 +23,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    json (2.6.2)
+    json (2.10.2)
     kramdown (2.3.1)
       rexml
     kramdown-parser-gfm (1.1.0)
