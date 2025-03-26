@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+### Removed
+
+* Support for Ruby 2.7, and 3.0. Pry-byebug no longer installs on these platforms (#433).
+
 ## 3.10.1 (2022-08-16)
 
 ### Fixed

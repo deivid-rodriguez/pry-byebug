@@ -4,7 +4,7 @@ AllCops:
   DisplayStyleGuide: true
   SuggestExtensions: false
 
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.1
 
 # Department 'Bundler' (4):
 Bundler/DuplicatedGem:
