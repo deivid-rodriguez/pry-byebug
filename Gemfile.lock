@@ -56,7 +56,7 @@ GEM
       method_source (~> 1.0)
     public_suffix (4.0.7)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.2.1)
     regexp_parser (2.5.0)
     rexml (3.2.5)
     rubocop (1.35.1)
