@@ -37,7 +37,7 @@ GEM
       mixlib-cli (~> 2.1, >= 2.1.1)
       mixlib-config (>= 2.2.1, < 4)
       mixlib-shellout
-    method_source (1.0.0)
+    method_source (1.1.0)
     minitest (5.25.5)
     minitest-bisect (1.6.0)
       minitest-server (~> 1.0)
@@ -61,7 +61,7 @@ GEM
       racc
     path_expander (1.1.1)
     prism (1.4.0)
-    pry (0.14.1)
+    pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (6.0.1)
