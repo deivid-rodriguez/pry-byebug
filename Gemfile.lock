@@ -3,7 +3,7 @@ PATH
   specs:
     pry-byebug (3.10.1)
       byebug (~> 11.0)
-      pry (>= 0.13, < 0.15)
+      pry (>= 0.13, < 0.16)
 
 GEM
   remote: https://rubygems.org/
