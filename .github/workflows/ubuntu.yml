@@ -9,11 +9,11 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-24.04
 
     strategy:
       matrix:
-        ruby: [3.1.6, 3.2.7, 3.3.7, 3.4.2]
+        ruby: [3.1.6, 3.2.7, 3.3.7]
 
     env:
       BUNDLE_PATH: .bundle
@@ -22,19 +22,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup ruby
-        uses: eregon/use-ruby-action@master
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - uses: actions/cache@v1
-        with:
-          path: ${{ env.BUNDLE_PATH }}
-          key: dependencies-${{ hashFiles('Gemfile.lock') }}
-          restore-keys: dependencies-
-
       - name: Install dependencies
         run: |
-          gem install bundler -v 2.3.20
           bundle install --jobs 3 --retry 3
 
       - name: Run tests

@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PryExtTest < MiniTest::Spec
+class PryExtTest < Minitest::Spec
   let(:output) { StringIO.new }
   let(:input) { InputTester.new }
 

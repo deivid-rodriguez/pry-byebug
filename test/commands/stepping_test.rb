@@ -5,7 +5,7 @@ require "test_helper"
 #
 # Tests for pry-byebug stepping commands
 #
-class SteppingTest < MiniTest::Test
+class SteppingTest < Minitest::Test
   def setup
     super
 

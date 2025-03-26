@@ -5,7 +5,7 @@ require "test_helper"
 #
 # Tests for pry-byebug breakpoints.
 #
-class BreakpointsTestGeneral < MiniTest::Spec
+class BreakpointsTestGeneral < Minitest::Spec
   #
   # Minimal dummy example class.
   #
