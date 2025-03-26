@@ -3,7 +3,7 @@
 require "test_helper"
 require "timeout"
 
-class ThreadLockTest < MiniTest::Spec
+class ThreadLockTest < Minitest::Spec
   let(:output) { StringIO.new }
   let(:input) { InputTester.new }
 

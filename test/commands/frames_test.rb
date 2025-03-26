@@ -6,7 +6,7 @@ require "stringio"
 #
 # Tests for pry-byebug frame commands.
 #
-class FramesTest < MiniTest::Spec
+class FramesTest < Minitest::Spec
   let(:output) { StringIO.new }
 
   after { clean_remove_const(:FramesExample) }
