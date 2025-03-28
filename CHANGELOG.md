@@ -2,9 +2,12 @@
 
 ## Master (Unreleased)
 
+## 3.11.0 (2025-03-28)
+
 ### Added
 
 * Byebug 12 compatibility, with Ruby 3.1, 3.2, and 3.3 support (#434).
+* Support for pry 0.15 (#428).
 
 ### Removed
 
