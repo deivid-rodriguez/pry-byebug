@@ -18,6 +18,13 @@ Gem::Specification.new do |gem|
   gem.require_path = "lib"
   gem.executables = []
 
+  gem.metadata = {
+    "bug_tracker_uri" => "https://github.com/deivid-rodriguez/pry-byebug/issues",
+    "changelog_uri" => "https://github.com/deivid-rodriguez/pry-byebug/blob/HEAD/CHANGELOG.md",
+    "source_code_uri" => "https://github.com/deivid-rodriguez/pry-byebug",
+    "funding_uri" => "https://liberapay.com/pry-byebug"
+  }
+
   # Dependencies
   gem.required_ruby_version = ">= 3.1.0"
 
