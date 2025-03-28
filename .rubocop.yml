@@ -1129,7 +1129,6 @@ Lint/InheritException:
 Lint/InterpolationCheck:
   Description: Raise warning for interpolation in single q strs.
   Enabled: true
-  Safe: false
   VersionAdded: '0.50'
   VersionChanged: '0.87'
 
@@ -2749,7 +2748,6 @@ Style/NumericPredicate:
   Description: Checks for the use of predicate- or comparison methods for numeric comparisons.
   StyleGuide: "#predicate-methods"
   Safe: false
-  SafeAutoCorrect: false
   Enabled: true
   VersionAdded: '0.42'
   VersionChanged: '0.59'
