@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          bundle install --jobs 3 --retry 3
+          bundle install
 
       - name: Run tests
         run: RUBYOPT="-E UTF-8" bundle exec rake
