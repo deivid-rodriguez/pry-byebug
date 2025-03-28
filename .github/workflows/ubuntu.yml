@@ -9,11 +9,15 @@ on:
 
 jobs:
   test:
+    name: Ruby ${{ matrix.ruby.name }}
     runs-on: ubuntu-24.04
 
     strategy:
       matrix:
-        ruby: [3.1.7, 3.2.8, 3.3.7]
+        ruby:
+          - { name: 3.1, value: 3.1.7 }
+          - { name: 3.2, value: 3.2.8 }
+          - { name: 3.3, value: 3.3.7 }
 
     env:
       BUNDLE_PATH: .bundle
@@ -24,7 +28,7 @@ jobs:
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby }}
+          ruby-version: ${{ matrix.ruby.value }}
 
       - name: Install dependencies
         run: |
