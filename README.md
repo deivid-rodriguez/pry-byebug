@@ -80,6 +80,8 @@ scratch variable names. But it's very easy to reenable them if you still want
 them, just add the following shortcuts to your `~/.pryrc` file:
 
 ```ruby
+require 'pry-byebug'
+
 if defined?(PryByebug)
   Pry.commands.alias_command 'c', 'continue'
   Pry.commands.alias_command 's', 'step'
@@ -87,6 +89,9 @@ if defined?(PryByebug)
   Pry.commands.alias_command 'f', 'finish'
 end
 ```
+
+As [mentioned in the changelog](https://github.com/deivid-rodriguez/pry-byebug/releases/tag/v3.10.0), adding
+`require 'pry-byebug'` in your `~/.pryrc` file is now required, as Pry `0.14` removed autoloading of plugins.
 
 Also, you might find useful as well the repeat the last command by just hitting
 the `Enter` key (e.g., with `step` or `next`). To achieve that, add this to
