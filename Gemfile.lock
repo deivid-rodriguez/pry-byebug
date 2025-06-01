@@ -73,7 +73,7 @@ GEM
     public_suffix (6.0.1)
     racc (1.8.1)
     rainbow (3.1.1)
-    rake (13.2.1)
+    rake (13.3.0)
     regexp_parser (2.10.0)
     rexml (3.4.1)
     rubocop (1.75.1)
