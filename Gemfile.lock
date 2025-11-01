@@ -43,7 +43,7 @@ GEM
       mixlib-config (>= 2.2.1, < 4)
       mixlib-shellout
     method_source (1.1.0)
-    minitest (5.25.5)
+    minitest (5.26.0)
     minitest-bisect (1.7.0)
       minitest-server (~> 1.0)
       path_expander (~> 1.1)
