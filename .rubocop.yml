@@ -1720,7 +1720,7 @@ Naming/MethodParameterName:
   - to
   ForbiddenNames: []
 
-Naming/PredicateName:
+Naming/PredicatePrefix:
   Description: Check the names of predicate methods.
   StyleGuide: "#bool-methods-qmark"
   Enabled: true
