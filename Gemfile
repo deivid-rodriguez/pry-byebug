@@ -13,7 +13,7 @@ group :development do
   # https://github.com/octokit/octokit.rb/pull/1706 is released
   gem "faraday-retry"
 
-  gem "mdl", "0.13.0"
+  gem "mdl", "0.14.0"
   gem "minitest", "~> 5.14"
   gem "minitest-bisect", "~> 1.5"
   gem "rubocop", "~> 1.0"
