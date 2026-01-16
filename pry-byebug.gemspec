@@ -29,5 +29,5 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = ">= 3.1.0"
 
   gem.add_runtime_dependency "byebug", "~> 12.0"
-  gem.add_runtime_dependency "pry", ">= 0.13", "< 0.16"
+  gem.add_runtime_dependency "pry", ">= 0.13", "< 0.17"
 end
