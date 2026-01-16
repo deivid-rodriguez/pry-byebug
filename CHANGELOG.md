@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+### Added
+
+* Allow usage with Byebug 13 (#466).
+
 ### Removed
 
 * Support for Ruby 3.1. Pry-byebug no longer installs on these platforms (#467).
