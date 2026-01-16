@@ -2,9 +2,12 @@
 
 ## Master (Unreleased)
 
+## 3.12.0 (2026-01-16)
+
 ### Added
 
 * Allow usage with Byebug 13 (#466).
+* Allow pry 0.16 (#462).
 
 ### Removed
 
