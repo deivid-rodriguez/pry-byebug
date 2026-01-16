@@ -45,7 +45,7 @@ GEM
       mixlib-config (>= 2.2.1, < 4)
       mixlib-shellout
     method_source (1.1.0)
-    minitest (5.26.0)
+    minitest (5.27.0)
     minitest-bisect (1.8.0)
       minitest-server (~> 1.0)
       path_expander (~> 2.0)
@@ -102,7 +102,7 @@ GEM
     tomlrb (2.0.4)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
-    unicode-emoji (4.1.0)
+    unicode-emoji (4.2.0)
     uri (1.1.1)
 
 PLATFORMS
