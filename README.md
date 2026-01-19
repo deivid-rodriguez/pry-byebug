@@ -183,7 +183,7 @@ Patches and bug reports are welcome.
 
 [VersionBadge]: https://badge.fury.io/rb/pry-byebug.svg
 [VersionURL]: http://badge.fury.io/rb/pry-byebug
-[CIBadge]: https://github.com/deivid-rodriguez/pry-byebug/workflows/ubuntu/badge.svg?branch=master
-[CIURL]: https://github.com/deivid-rodriguez/pry-byebug/actions?query=workflow%3Aubuntu
+[CIBadge]: https://github.com/deivid-rodriguez/pry-byebug/actions/workflows/ubuntu.yml/badge.svg?branch=master
+[CIURL]: https://github.com/deivid-rodriguez/pry-byebug/actions/workflows/ubuntu.yml
 [InchCIBadge]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug.svg?branch=master
 [InchCIURL]: http://inch-ci.org/github/deivid-rodriguez/pry-byebug
