@@ -45,31 +45,21 @@ to use it to debug your tests!
 
 ### Step-by-step debugging
 
-**break:** Manage breakpoints.
-
-**step:** Step execution into the next line or method. Takes an optional numeric
-argument to step multiple times.
-
-**next:** Step over to the next line within the same frame. Also takes an
-optional numeric argument to step multiple lines.
-
-**finish:** Execute until current stack frame returns.
-
-**continue:** Continue program execution and end the Pry session.
+| **Command** | **Description**                                                                                                   |
+|-------------|-------------------------------------------------------------------------------------------------------------------|
+| `break`     | Manage breakpoints.                                                                                               |
+| `step`      | Step execution into the next line or method. Takes an optional numeric argument to step multiple times.           |
+| `next`      | Step over to the next line within the same frame. Also takes an optional numeric argument to step multiple lines. |
+| `finish`    | Execute until current stack frame returns.                                                                        |
+| `continue`  | Continue program execution and end the Pry session.                                                               |
 
 ### Callstack navigation
-
-**backtrace:** Shows the current stack. You can use the numbers on the left
-side with the `frame` command to navigate the stack.
-
-**up:** Moves the stack frame up. Takes an optional numeric argument to move
-multiple frames.
-
-**down:** Moves the stack frame down. Takes an optional numeric argument to move
-multiple frames.
-
-**frame:** Moves to a specific frame. Called without arguments will show the
-current frame.
+| **Command** | **Description**                                                                                                   |
+|--------------|-------------------------------------------------------------------------------------------------------------------|
+| `backtrace`  | Shows the current stack. You can use the numbers on the left side with the `frame` command to navigate the stack. |
+| `up`         | Moves the stack frame up. Takes an optional numeric argument to move multiple frames.                             |
+| `down`       | Moves the stack frame down. Takes an optional numeric argument to move multiple frames.                           |
+| `frame`      | Moves to a specific frame. Called without arguments will show the current frame.                                  |
 
 ## Matching Byebug Behaviour
 
