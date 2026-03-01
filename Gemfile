@@ -14,7 +14,7 @@ group :development do
   gem "faraday-retry"
 
   gem "mdl", "0.15.0"
-  gem "minitest", "~> 5.14"
+  gem "minitest", "~> 6.0"
   gem "minitest-bisect", "~> 1.5"
   gem "rubocop", "~> 1.0"
 end
