@@ -160,7 +160,9 @@ class Pry
         valid = exp && (exp.empty? || !Pry::Code.complete_expression?(exp))
         return unless valid
 
-        raise("Invalid breakpoint conditional: #{expression}")
+        raise("Invalid breakpoint conditional: #{exp}")
+      rescue SyntaxError
+        raise("Invalid breakpoint conditional: #{exp}")
       end
     end
   end
