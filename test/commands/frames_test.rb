@@ -69,8 +69,8 @@ class FramesTest < Minitest::Spec
     it "shows a backtrace" do
       frames = @stdout.split("\n")
 
-      assert_match(/\A--> #0  FramesExample\.method_b at/, frames[0])
-      assert_match(/\A    #1  FramesExample\.method_a at/, frames[1])
+      assert_match(/\A--> #0  FramesExample[.#]method_b at/, frames[0])
+      assert_match(/\A    #1  FramesExample[.#]method_a at/, frames[1])
       assert_match(/\A    #2  <top \(required\)> at/, frames[2])
     end
   end
